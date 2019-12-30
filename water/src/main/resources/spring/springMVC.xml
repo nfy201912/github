@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/mvc 
+http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<!-- 组件扫描：可以扫描controller、service、...这里让扫描controller，指定controller的包 -->
+	<context:component-scan base-package="com.java.controller"></context:component-scan>
+
+	<!-- 注解驱动 -->
+ <mvc:annotation-driven></mvc:annotation-driven> 
+	<!-- <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+        <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes"  value="application/json;charset=UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven> -->
+
+	<!-- 视图解析器：配制前缀与后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/> -->
+		<!-- 配置jsp路径的前缀 -->
+		<property name="prefix" value="/" />
+		<!-- 配置jsp路径的后缀 -->
+		<property name="suffix" value=".jsp" />
+		<!-- url-pattern有5种配置模式： （1）/xxx:完全匹配/xxx的路径 （2）/xxx/*:匹配以/xxx开头的路径，请求中必须包含xxx。 
+			（3）/*：匹配/下的所有路径,请求可以进入到action或controller，但是转发jsp时再次被拦截，不能访问jsp界面。 （4）.xx:匹配以xx结尾的路径，所有请求必须以.xx结尾，但不会影响访问静态文件。 
+			（5）/:默认模式，未被匹配的路径都将映射到刺servlet，对jpg，js，css等静态文件也将被拦截，不能访问。 -->
+
+
+		<!-- 静态资源访问 :js css images 资源可以防止my_sour文件夹下才能访问到 -->
+
+	</bean>
+	<!-- <mvc:resources location="/my_sour/" mapping="/my_sour/**"> -->
+	<mvc:default-servlet-handler />
+	<!-- 处理静态文件 -->
+	<!-- <mvc:resources mapping="/resources/**" location="/resources/" cache-period="31536000"/> -->
+
+</beans>

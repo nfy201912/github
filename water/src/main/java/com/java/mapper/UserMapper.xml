@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java.mapper.UserMapper">
+
+<select id="find" parameterType="user" resultType="user">
+	select * from user where u_username = #{u_username} 
+	<if test="u_password">
+		and
+	 	   u_password = #{u_password}
+	</if>
+	
+	
+</select>
+<select id="activeFind" resultType="user">
+	select * from user where u_activeCode=#{u_activeCode}
+</select>
+	
+	<update id="statusUpdate" parameterType="user">
+		update user set  u_status=#{u_status} where u_username=#{u_username}
+	</update>
+	
+<insert id="register" parameterType="user">
+
+	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime) values(#{u_username},#{u_password},#{u_name},#{u_email},#{u_phone},#{u_activeCode},#{u_createTime})
+
+</insert>
+<select id="findAll" resultType="user">
+	select * from user
+</select>
+
+<delete id="delete" parameterType="int">
+	delete  from user where u_id in (
+		
+		<foreach collection="array" item="tagId" index="index"  separator=",">
+			#{tagId}
+		</foreach> 
+		
+		) 
+</delete>
+
+
+</mapper>

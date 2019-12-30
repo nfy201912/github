@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java.mapper.AdminMapper">
+	<!-- 管理员登入 -->
+	<select id="login" parameterType="admin" resultType="admin">
+		select * from admin where adm_name=#{adm_name} 
+		<if test="adm_password">
+		and adm_password=#{adm_password}
+		</if>
+	</select>
+	
+	<insert id="insert" parameterType="admin">
+		<if test="adm_name!=''and adm_password!=''">
+		insert into admin(adm_name,adm_password,adm_status) values(#{adm_name},#{adm_password},#{adm_status})
+		</if>
+	</insert>
+	
+	<select id="findUsers" parameterType="int" resultType="admin">
+		select * from admin 
+		
+	
+	</select>
+	
+	<select id="unique" parameterType="admin" resultType="admin">
+		select * from admin where adm_id!=#{adm_id} and adm_name=#{adm_name}
+	</select>
+	<update id="update" parameterType="admin">
+		update admin set adm_name=#{adm_name},adm_password=#{adm_password},adm_status=#{adm_status}  where adm_id=#{adm_id}
+	</update>
+	
+	<select id="loadById" parameterType="int" resultType="admin">
+		select * from admin where adm_id=#{aid}
+	</select>
+	<delete id="delete" parameterType="int">
+		delete  from admin where adm_id in (
+		
+		<foreach collection="array" item="tagId" index="index"  separator=",">
+			#{tagId}
+		</foreach> 
+		
+		) 
+		
+	</delete>
+
+</mapper>

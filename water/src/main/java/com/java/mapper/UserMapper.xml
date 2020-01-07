@@ -20,8 +20,12 @@
 	</update>
 	
 <insert id="register" parameterType="user">
+<if test="u_username !=null and u_password!=null and u_name!=null and u_email!=null and u_phone!=null">
+	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime)
+	 values(#{u_username},#{u_password},#{u_name},#{u_email},#{u_phone},#{u_activeCode},#{u_createTime})
+	
+</if>
 
-	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime) values(#{u_username},#{u_password},#{u_name},#{u_email},#{u_phone},#{u_activeCode},#{u_createTime})
 
 </insert>
 <select id="findAll" resultType="user">

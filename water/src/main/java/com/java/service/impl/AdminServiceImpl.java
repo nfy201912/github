@@ -52,6 +52,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public boolean insert(Admin admin) {
 		
+			
 			try {
 				adminMapper.insert(admin);
 				return true;

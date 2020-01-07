@@ -68,6 +68,14 @@ public class User {
 	public void setU_createTime(Timestamp u_createTime) {
 		this.u_createTime = u_createTime;
 	}
+	@Override
+	public String toString() {
+		return "User [u_id=" + u_id + ", u_username=" + u_username
+				+ ", u_password=" + u_password + ", u_name=" + u_name
+				+ ", u_email=" + u_email + ", u_phone=" + u_phone
+				+ ", u_activeCode=" + u_activeCode + ", u_status=" + u_status
+				+ ", u_createTime=" + u_createTime + "]";
+	}
 	
 	
 }

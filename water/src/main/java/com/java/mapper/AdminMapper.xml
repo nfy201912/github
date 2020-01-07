@@ -4,15 +4,17 @@
 	<!-- 管理员登入 -->
 	<select id="login" parameterType="admin" resultType="admin">
 		select * from admin where adm_name=#{adm_name} 
-		<if test="adm_password">
+		<if test="adm_password!=null">
 		and adm_password=#{adm_password}
 		</if>
 	</select>
 	
 	<insert id="insert" parameterType="admin">
-		<if test="adm_name!=''and adm_password!=''">
-		insert into admin(adm_name,adm_password,adm_status) values(#{adm_name},#{adm_password},#{adm_status})
+		<if test="adm_name!=null and adm_password!=null">
+			insert into admin(adm_name,adm_password,adm_status) values(#{adm_name},#{adm_password},#{adm_status})
 		</if>
+		
+		
 	</insert>
 	
 	<select id="findUsers" parameterType="int" resultType="admin">

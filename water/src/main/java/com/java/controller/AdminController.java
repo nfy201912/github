@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.po.Admin;
@@ -50,14 +51,15 @@ public class AdminController {
 		
 		return info;
 	}
-	@RequestMapping(value={"/checkName"})
+	@RequestMapping(value={"/checkName"},produces="text/html;charset=utf-8")
 	@ResponseBody
-	public boolean checkName(Admin admin){
-			
+	public String checkName(@RequestParam("adm_name") String name){
+		Admin admin = new Admin();
+		admin.setAdm_name(name);
 			try {
 				if(adminService.login(admin,(int)2)!=null){
 				
-					return false;
+					return "用户已存在";
 				}
 			} catch (Exception e) {
 				
@@ -65,7 +67,7 @@ public class AdminController {
 			}
 		
 		
-		return true;
+		return "";
 	}
 	
 	@RequestMapping("/add")
@@ -159,11 +161,13 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/exit")
-	public String exit(HttpSession session){
+	public String exit(HttpSession session,SessionStatus sessionStatus){
 	
 		session.removeAttribute("admin");
+		session.invalidate();
+		sessionStatus.setComplete();
 		
-		return "adminLogin";
+		return "/login";
 	}
 }
 

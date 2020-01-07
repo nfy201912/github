@@ -15,7 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="${path }/css/animate.css"/>
 		<script src="${path }/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${path }/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-		<script src="${path }/js/my.js" type="text/javascript" charset="utf-8"></script>
+	 <script src="${path }/js/my.js" type="text/javascript" charset="utf-8"></script> 
 		<script src="${path }/js/jquery.singlePageNav.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${path }/js/wow.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
@@ -25,8 +25,17 @@
 <body>
 		<div class="container" >
 		<div class="row" style="float: right;margin-top:20px; padding: 0" >
-		
-			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="padding: 0" align="right"><a  href="${path }/Login.jsp">用户登入</a>|<a  href="${path}/adminLogin.jsp">管理员登入</a>|<a  href="${path }/Register.jsp">注册</a></div>
+			
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="padding: 0" align="right">
+			<c:if test="${user==null}">
+				<a  href="${path }/login.jsp">登入</a>|<a  href="${path }/Register.jsp">注册</a>
+			</c:if>
+			<c:if test="${user!=null}">
+				<span>欢 迎 您 ！[${user.u_username}]</span><a  href="${path }/login.jsp">切换账号</a>&nbsp|&nbsp<a  href="${path }/Register.jsp">注册</a>&nbsp|&nbsp<a href="${path}/user/exit">退出</a>
+			</c:if>
+			
+			
+			</div>
 		</div>
 		
 			<div class="row" id="rowheader" style="height: 50px;">

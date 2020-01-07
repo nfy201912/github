@@ -16,16 +16,9 @@
 <script type="text/javascript">
 $(function(){
 	$("#adm").blur(function(){
-		if($(this).val()!=""){
-		
-			$.post("${path}/admin/checkName",{adm_name:$(this).val()},function(data){
-				
-				if(!data){
-					data ="用户已存在";
-				}else{
-					data="";
-				}
-				
+		if($(this).val()!=""&&$(this).val()!=null){
+			
+			$.post("${path}/admin/checkName",{"adm_name":$(this).val()},function(data){
 				$("#sp_adname").html(data).css("color","#ff0000");
 			});
 		}else{
@@ -82,16 +75,7 @@ function refreshParent() {
 					                     未锁定：<input name="adm_status" class="text"  value="1"   type="radio"  />
 					    </td>
 					  </tr>
-					  <!-- <tr>
-					    <td nowrap align="right" height="120px">备注:</td>
-					    <td colspan="3"><textarea id="textarea" name="remark" rows="5" cols="80"></textarea>
-					    </td>
-					    </tr>
-					    <tr>
-					    <td  align="center" colspan="2" >
-					      <font color="red"></font>
-					    </td>
-					    </tr> -->
+					 
 					  </table>
 			 <br />
 				</fieldset>			
@@ -102,7 +86,7 @@ function refreshParent() {
      </tr>
 		<TR>
 		   <TD colspan="2" align="center" height="50px">
-			<input type="submit" name="Submit" onclick="window.close()" value="保存" class="button"/>　
+			<input type="submit" name="Submit"  value="保存" class="button"/>　
 			<input type="reset" name="Submit2" value="重置" class="button"/>
 			<input type="button" id="btn1" class="btn" value="关闭" class="button" onclick="refreshParent()" />
 		   </TD>

@@ -26,13 +26,12 @@
 	$(function(){
 		
 		$("#u_username").blur(function(){
-			
 			//参一：url地址
 			//{username:$(this).val(),mark:"checkName"}   
 			// username:$(this).val()：自定义一个变量，变量名为：username  变量值：$(this).val() :获取当前文本框中的内容
 			//mark:"checkName"    mark是一个变量名     "checkName":是mark的值   类似于  String mark="checkName";
 			//function(data)：回调函数
-			$.post("${path}/user/checkName",{u_username:$(this).val()},function(data){
+			$.post("${path}/user/checkName",{"u_username":$("#u_username").val()},function(data){
 				if(!data){
 					data ="用户已存在";
 				}else{
@@ -45,7 +44,7 @@
 		//确认密码
 		$("#u_password2").blur(function(){
 			if($(this).val()!=$("#u_password").val()){
-				var data = "密码不一致！";
+				var data = "密码不一致";
 				
 			}else{
 				var data="";
@@ -56,12 +55,12 @@
 		$("#u_email").blur(function(){
 			var mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
 			if($.isEmptyObject($(this).val())){
-				data="邮箱不能为空！";
+				data="邮箱不能为空";
 			}
 			else if (mailReg.test($(this).val())){
 				var data = "";
 			}else{
-				var data = "邮箱格式错误！";
+				var data = "邮箱格式错误";
 			}
 			$("#sp_email").html(data).css("color","#ff0000");
 		})
@@ -70,11 +69,11 @@
 			
 			var phoneReg=/^1[3,4,5,8][0-9]{9}$/;
 			if($.isEmptyObject($(this).val())){
-				var data = "电话号码不能为空！";
+				var data = "请输入电话号码";
 			}else if(phoneReg.test($(this).val())){
 				var data = "";
 			}else{
-				var data="电话有误！";
+				var data="电话有误";
 			}
 			
 			
@@ -88,6 +87,10 @@
 		});
 		
 	});
+	 
+ function exit(){
+	 location.href="${path}/index.jsp";
+ }
 </script>
 		<div id="register" class="container">
 		<div class="row">
@@ -101,8 +104,8 @@
 							<tr>
 									<th>账 号：</th>
 										<td>
-										<input type="text" id="u_username" name="u_username" value="${user.u_username }"/><span id="sp_username"></span>
-										</td>
+										<input type="text" id="u_username" name="u_username" value=""/></td><td><span id="sp_username"></span></td>
+										
 								</tr>
 									<tr>
 									<th>密 码：</th>
@@ -113,7 +116,7 @@
 									 <tr>
 									<th>确认密 码：</th>
 									<td>
-									<input type="password" name="u_password2" id="u_password2"/><span id="sp_password"></span>
+									<input type="password" name="u_password2" id="u_password2"/></td><td><span id="sp_password"></span>
 									</td>
 									</tr>  
 									 <tr>
@@ -126,13 +129,13 @@
 								<tr>
 									<th>邮 箱：</th>
 									<td>
-										<input type="text" name="u_email" id="u_email"/><span id="sp_email"></span>
+										<input type="text" name="u_email" id="u_email"/></td><td><span id="sp_email"></span>
 										</td>
 										</tr>	
 									<tr>
 										<th>电 话：</th>
 										<td>
-											<input type="text" name="u_phone" id="u_phone"/><span id="sp_phone"></span>
+											<input type="text" name="u_phone" id="u_phone"/></td><td><span id="sp_phone"></span>
 											</td>
 											</tr>
 								 <tr>
@@ -147,13 +150,16 @@
 										
 									</tr> 
 								
-								<tr>
-									<td><input type="submit"  value="注册" /></td>
-								</tr>
+								
 								</tbody>		
 								
-							
-			
+							<tr height="70">
+									<td></td><td align="center"><input type="submit"  value="注 册" style="width: 180px;height: 36px;line-height: 34px"  /></td>
+								</tr>
+								<tr height="30">
+									<td></td><td align="center"><input type="button"  value="退 出" style="width: 180px;height: 36px;line-height: 34px;margin-top: -20px"  onclick="exit()" /></td>
+								</tr>
+								
 				</table>
 				
 				</form></div>

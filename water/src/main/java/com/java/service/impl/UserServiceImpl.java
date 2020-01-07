@@ -16,19 +16,29 @@ public class UserServiceImpl implements UserService{
 	private UserMapper userMapper;
 	
 	public User find(User user) throws Exception {
-
+		User u = new User();
 		//加密
+		
 	if(user.getU_password()!=null){
 		user.setU_password(MD5Util.md5Password(user.getU_password()));
 		
 	}
-			User u = new User();
-			u = userMapper.find(user);
-		if(u!=null){
+		u.setU_username(user.getU_username());
+		
+		if(userMapper.find(u)==null){
 			
+			u.setU_username("账号错误");
 			return u;
 		}
-		return null;
+			u.setU_password(user.getU_password());
+		if(userMapper.find(u)==null){
+			u.setU_username("密码错误");
+			return u;
+		}
+			
+			u = userMapper.find(user);
+		
+		return u;
 	
 	}
 

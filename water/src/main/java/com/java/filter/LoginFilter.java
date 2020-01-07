@@ -34,7 +34,7 @@ public class LoginFilter implements Filter {
 		String url = request.getRequestURI();
 		
 		if(url!=null){
-			if(url.indexOf("Login.jsp")>=0||url.indexOf("index.jsp")>=0||url.indexOf("Register.jsp")>=0){//登入、注册、首页放行
+			if(url.indexOf("login.jsp")>=0||url.indexOf("index.jsp")>=0||url.indexOf("Register.jsp")>=0){//登入、注册、首页放行
 				chain.doFilter(req, res);
 			}else if(user!=null&& admin!=null){
 				chain.doFilter(req, res);
@@ -45,16 +45,16 @@ public class LoginFilter implements Filter {
 					if(url.contains("normal")){//访问用户部分
 						chain.doFilter(req,res);
 					}else{
-						response.sendRedirect(request.getContextPath()+"/adminLogin.jsp");
+						response.sendRedirect(request.getContextPath()+"/login.jsp");
 					}
 				}else{//用户为空
 					if(admin!=null&&url.contains("admin")){//管理员不为空且访问管理员部分
 						chain.doFilter(req, res);
 					}else{
 						if(url.contains("normal")){//访问用户部分
-							response.sendRedirect(request.getContextPath()+"/Login.jsp");
+							response.sendRedirect(request.getContextPath()+"/login.jsp");
 						}else{
-							response.sendRedirect(request.getContextPath()+"/adminLogin.jsp");
+							response.sendRedirect(request.getContextPath()+"/login.jsp");
 						}
 					}
 				}

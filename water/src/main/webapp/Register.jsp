@@ -22,7 +22,84 @@
 </head>
 
 <body>
-<script type="text/javascript">
+
+		<div id="register" class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12" align="center">
+		<form method="post">
+			<table>
+			<h1>用户注册</h1>
+			<br />
+							
+						<tbody>
+							<tr height="36">
+									<th>账 号：</th>
+										<td>
+										<input type="text" id="u_username" name="u_username" value=""/><span id="sp_username"></span></td>
+										
+								</tr>
+									<tr height="36">
+									<th>密 码：</th>
+									<td>
+									<input type="password" name="u_password" id="u_password"/>
+									</td>
+									</tr>
+									 <tr height="36">
+									<th>确认密 码：</th>
+									<td>
+									<input type="password" name="u_password2" id="u_password2"/><span id="sp_password"></span>
+									</td>
+									</tr>  
+									 <tr height="36">
+										 <th>姓 名：</th>
+										 <td>
+											 <input type="text" name="u_name"/>
+											 </td>
+											 
+											 </tr>
+								<tr height="36">
+									<th>邮 箱：</th>
+									<td>
+										<input type="text" name="u_email" id="u_email"/><span id="sp_email"></span>
+										</td>
+										</tr>	
+									<tr height="36">
+										<th>电 话：</th>
+										<td>
+											<input type="text" name="u_phone" id="u_phone"/><span id="sp_phone"></span>
+											</td>
+											</tr>
+								 <tr height="36">
+										<th>
+											验证码：
+										</th>
+										<td>
+												<input type="text" name="validateCode"  id="validateCode" class="text" >
+											</td>
+												<td><img id="code" src="${path }/user/doValidateCode" alt="验证码图片"></td>
+												<span class="redFont">&nbsp;&nbsp;&nbsp;&nbsp;${validateCodeMessage }</span>
+										
+									</tr> 
+								
+								
+								</tbody>		
+								
+							<tr height="70">
+									<td></td><td align="center"><input type="button"  value="注 册" style="width: 180px;height: 36px;line-height: 34px" onclick="commit(this,false)" /></td>
+								</tr>
+								<tr height="30">
+									<td></td><td align="center"><input type="button"  value="退 出" style="width: 180px;height: 36px;line-height: 34px;margin-top: -20px"  onclick="exit()" /></td>
+								</tr>
+								
+				</table>
+				
+				</form></div>
+		</div>
+		
+				
+		</div>
+		
+		<script type="text/javascript">
 	$(function(){
 		
 		$("#u_username").blur(function(){
@@ -88,86 +165,25 @@
 		
 	});
 	 
+	
+	function commit(object,flag){
+		var regu = "^[ ]+$";//空格
+		var re = new RegExp(regu);
+		$('input[type="text"]').each(function(i,v){
+			if($(this).val()==null||$(this).val()==""||re.test($(this).val())){
+			$(this).siblings().html("不能为空").css("color","#ff0000");
+			alert($(this).siblings().val())
+			}
+		});
+		if(flag){
+			$('form').location.href="${path }/user/register";
+		}
+		
+		
+	}	
  function exit(){
 	 location.href="${path}/index.jsp";
  }
 </script>
-		<div id="register" class="container">
-		<div class="row">
-			<div class="col-md-12 col-sm-12 col-xs-12" align="center">
-		<form action="${path }/user/register" method="post">
-			<table>
-			<h1>用户注册</h1>
-			<br />
-							
-						<tbody>
-							<tr>
-									<th>账 号：</th>
-										<td>
-										<input type="text" id="u_username" name="u_username" value=""/></td><td><span id="sp_username"></span></td>
-										
-								</tr>
-									<tr>
-									<th>密 码：</th>
-									<td>
-									<input type="password" name="u_password" id="u_password"/>
-									</td>
-									</tr>
-									 <tr>
-									<th>确认密 码：</th>
-									<td>
-									<input type="password" name="u_password2" id="u_password2"/></td><td><span id="sp_password"></span>
-									</td>
-									</tr>  
-									 <tr>
-										 <th>姓 名：</th>
-										 <td>
-											 <input type="text" name="u_name"/>
-											 </td>
-											 
-											 </tr>
-								<tr>
-									<th>邮 箱：</th>
-									<td>
-										<input type="text" name="u_email" id="u_email"/></td><td><span id="sp_email"></span>
-										</td>
-										</tr>	
-									<tr>
-										<th>电 话：</th>
-										<td>
-											<input type="text" name="u_phone" id="u_phone"/></td><td><span id="sp_phone"></span>
-											</td>
-											</tr>
-								 <tr>
-										<th>
-											验证码：
-										</th>
-										<td>
-												<input type="text" name="validateCode"  id="validateCode" class="text" >
-											</td>
-												<td><img id="code" src="${path }/user/doValidateCode" alt="验证码图片"></td>
-												<span class="redFont">&nbsp;&nbsp;&nbsp;&nbsp;${validateCodeMessage }</span>
-										
-									</tr> 
-								
-								
-								</tbody>		
-								
-							<tr height="70">
-									<td></td><td align="center"><input type="submit"  value="注 册" style="width: 180px;height: 36px;line-height: 34px"  /></td>
-								</tr>
-								<tr height="30">
-									<td></td><td align="center"><input type="button"  value="退 出" style="width: 180px;height: 36px;line-height: 34px;margin-top: -20px"  onclick="exit()" /></td>
-								</tr>
-								
-				</table>
-				
-				</form></div>
-		</div>
-		
-				
-		</div>
-		
-		
 	</body>
 </html>

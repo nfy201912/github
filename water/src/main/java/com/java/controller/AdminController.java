@@ -1,18 +1,16 @@
 package com.java.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.java.po.Admin;
 import com.java.service.AdminService;
 
@@ -98,6 +97,20 @@ public class AdminController {
 		mv.setViewName("/admin/user/listuser");
 		return mv; 
 	}
+	
+	@RequestMapping("/findAll")
+	@ResponseBody
+	public Object findAll() throws Exception{
+		Map<String,Object> jsonMap = new HashMap<String,Object>();
+			List<Admin> admins = adminService.findUsers();
+			jsonMap.put("rows", admins);
+			jsonMap.put("total",admins.size());
+			Object	jsonObject = JSONObject.toJSON(jsonMap);
+			return jsonObject;
+		
+	}
+	
+	
 	@RequestMapping("/loadById")
 	public ModelAndView loadById(@RequestParam("aid") int aid,ModelAndView mv){
 		mv.setViewName("/admin/user/edituser");

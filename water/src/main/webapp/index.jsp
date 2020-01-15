@@ -39,7 +39,7 @@
 		</div>
 		
 			<div class="row" id="rowheader" style="height: 50px;">
-				<div class="col-md-3 col-lg-3 col-sm-4 " style="margin-bottom: 50px"><a class="navbar-brand"  href="index.jsp"><h2>校园送水</h2></a></div>
+				<div class="col-md-3 col-lg-3 col-sm-4 " style="margin-bottom: 50px"><a class="navbar-brand"  href="index.jsp"><h2>校园送水${admin }</h2></a></div>
 				<div class="col-md-3 col-lg-3 col-sm-3" style="margin-top: 33px" ><div class="dropdown" >
 	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     选择校区

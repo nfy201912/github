@@ -70,19 +70,22 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/add")
+	@ResponseBody
 	public String register(Admin admin){
-		
-		try {
-			if(adminService.insert(admin)){
-				return "/admin/index";
+		if(admin!=null){
+			try {
+				if(adminService.insert(admin)){
+					return "success";
+				}
+				
+				
+			} catch (Exception e) {
+				
+				e.printStackTrace();
 			}
-			
-			
-		} catch (Exception e) {
-			
-			e.printStackTrace();
 		}
-		return "/admin/user/adduser";
+		
+		return "error";
 	}
 	
 	@RequestMapping("/findUsers")
@@ -156,7 +159,7 @@ public class AdminController {
 	public boolean delete(@RequestParam("array[]") int[] array,@RequestParam("id") int id){
 		
 		for(int ids:array){
-			System.out.println(ids+"-------------"+id);
+			
 			if(id==ids){
 				
 				return false;

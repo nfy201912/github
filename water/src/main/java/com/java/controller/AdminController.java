@@ -34,7 +34,7 @@ public class AdminController {
 		String info = "";
 		try {
 			Admin adm = new Admin();
-			adm = adminService.login(admin,(int)1);
+			adm = adminService.login(admin);
 			
 			if(adm.getAdm_name().equals(admin.getAdm_name())){//如果名称不变则成功
 				m.addAttribute("admin",adm);
@@ -56,7 +56,7 @@ public class AdminController {
 		Admin admin = new Admin();
 		admin.setAdm_name(name);
 			try {
-				if(adminService.login(admin,(int)2)!=null){
+				if(adminService.insert(admin)){
 				
 					return "用户已存在";
 				}
@@ -71,11 +71,15 @@ public class AdminController {
 	
 	@RequestMapping("/add")
 	@ResponseBody
-	public String register(Admin admin){
+	public String add(Admin admin){
+		System.out.println(admin);
 		if(admin!=null){
 			try {
+				
 				if(adminService.insert(admin)){
 					return "success";
+				}else{
+					return "账号已存在";
 				}
 				
 				
@@ -130,6 +134,12 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping(value={"/load"})
+	@ResponseBody
+	public Admin load(@RequestParam("adm_id")int id) throws Exception{
+		
+		return adminService.loadById(id);
+	}
 	@RequestMapping(value={"/edit"},produces="text/html;charset=utf-8")
 	@ResponseBody
 	public String edit(Admin admin,HttpServletResponse res) throws IOException{

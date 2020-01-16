@@ -14,6 +14,8 @@
 <link rel="stylesheet" href="${path }/js/jquery-easyui-1.8.8/themes/icon.css" type="text/css">
 <script type="text/javascript" src="${path }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${path }/js/jquery-easyui-1.8.8/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+<script type="text/javascript" src="${path}/js/jquery-easyui-1.8.8/plugins/jquery.validatebox.js"></script>
+<script type="text/javascript" src="${path }/js/jquery-easyui-1.8.8/plugins/jquery.form.js"></script>
 </head>
 <body class="easyui-layout">
 	
@@ -27,24 +29,24 @@
 		<div data-options="region:'west',split:true" title="目录" style="width:200px;">
 			<div class="easyui-accordion" data-options="fit:true,border:false">
 				<div title="管理员" style="padding:10px;">
-				<ul >
-					<li><a href="#" ><span id="spa" onclick="add(this,$('#spa').html())">>>>管理员列表</span></a></li>
+				<ul style="padding: 0" >
+					<li style="list-style-type:none">>>>&nbsp;<a href="#" style="text-decoration: none"><span id="spa" onclick="add(this,$('#spa').html())">管理员列表</span></a></li>
 				</ul>
 					
 				</div>
 				<div title="用户管理"  style="padding:10px;">
-					<ul >
-					<li><a href="#" ><span  id="spa2" onclick="add(this,$('#spa2').html())">>>>用户</span></a></li>
+					<ul style="padding: 0">
+					<li>>>>&nbsp;<a href="#" style="text-decoration: none"><span  id="spa2" onclick="add(this,$('#spa2').html())">用户</span></a></li>
 				</ul>
 				</div>
 				<div title="订单管理" style="padding:10px">
-					<ul >
-					<li><a href="#" ><span id="spa3" onclick="add(this,$('#spa3').html())">>>>订单</span></a></li>
+					<ul style="padding: 0">
+					<li>>>>&nbsp;<a href="#" style="text-decoration: none"><span id="spa3" onclick="add(this,$('#spa3').html())">订单</span></a></li>
 				</ul>
 				</div>
 				<div title="商品管理" style="padding:10px">
-					<ul >
-					<li><a href="#" ><span id="spa4"  onclick="add(this,$('#spa4').html())">>>>商品</span></a></li>
+					<ul style="padding: 0">
+					<li>>>>&nbsp;<a href="#"  style="text-decoration: none"><span id="spa4"  onclick="add(this,$('#spa4').html())">商品</span></a></li>
 				</ul>
 				</div>
 			</div>

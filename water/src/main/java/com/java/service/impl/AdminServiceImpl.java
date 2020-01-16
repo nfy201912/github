@@ -14,10 +14,8 @@ public class AdminServiceImpl implements AdminService {
 	private AdminMapper adminMapper;
 	
 	@Override
-	public Admin login(Admin admin,int flag) throws Exception {
-		if(2==flag){//flag=2 为检验
-			return adminMapper.login(admin);
-		}
+	public Admin login(Admin admin) throws Exception {
+		
 		Admin adm = new Admin();
 		try {
 			
@@ -50,9 +48,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public boolean insert(Admin admin) {
+	public boolean insert(Admin admin) throws Exception {
 		
-			
+			if(adminMapper.login(admin)!=null){
+				return false;
+			}
+			 
+	
 			try {
 				adminMapper.insert(admin);
 				return true;

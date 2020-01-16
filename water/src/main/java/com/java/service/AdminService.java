@@ -6,7 +6,7 @@ import com.java.po.Admin;
 
 public interface AdminService {
 	//管理员登入
-	public Admin login(Admin admin,int flag) throws Exception;
+	public Admin login(Admin admin) throws Exception;
 	//添加管理员
 	public boolean insert(Admin admin) throws Exception;
 	//查询所有管理员

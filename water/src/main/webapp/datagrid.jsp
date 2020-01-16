@@ -48,12 +48,13 @@
 				text:'增加',
 				iconCls:'icon-add',
 				handler:function(){
+					$('#add').dialog('center');
 					$('#add').dialog({
 						closed:false,
 						 buttons:[{
 						    	text:'保存',
 						    	handler:function(){
-						    		var adm =  $('#formAdd').serialize();
+						    		/* var adm =  $('#formAdd').serialize();
 						    		console.info(adm);
 						    		$.post("${path}/admin/add",adm,function(data){
 						    			if("success"==data){
@@ -69,13 +70,46 @@
 						    				$.messager.alert('Warning','添加失败');
 						    			}
 						    				
+						    		}); */
+						    		$.messager.progress();
+						    		$('#formAdd').form('submit',{
+						    			url:'${path}/admin/add',
+						    			onSubmit:function(){
+						    				var isValid =$(this).form('validate');
+						    				console.info(isValid);
+						    				
+						    				if(!isValid){
+						    					$.messager.progress('close');
+						    				}
+						    				return isValid;
+						    			},
+						    			success:function(data){
+						    				if("success"==data){
+						    					$.messager.progress('close');
+						    					$.messager.show({
+								    				title:'My Title',
+								    				msg:'添加成功!',
+								    				timeout:1000,
+								    				showType:'slide'
+								    			});
+						    				}else{
+						    					$.messager.progress('close');
+						    					console.info(data)
+						    					$.messager.alert('Warning','添加失败');
+						    				}
+						    				
+						    				
+						    			}
+						    			
 						    		});
 						    		
 						    	}
 						    },{
 						    	text:'退出',
 						    	handler:function(){
-						    		$('#add').dialog('close')
+						    		$("#formAdd").form('reset');
+						    		$('#add').dialog('close');
+						    		
 						    	}
 						    }]
 					});
@@ -93,7 +127,7 @@
 								var arry = new Array();
 								for(i=0;i<arr.length;i++){
 									var adm = arr[i];
-									console.info(adm)
+									//console.info(adm)
 									arry.push(adm.adm_id);
 									//var index = $('#datagrid').datagrid('getRowIndex',arr[i]);
 									//console.info(index);
@@ -115,10 +149,35 @@
 					
 				}
 			},{
-				text:'修改',
+				text:'编辑',
 				iconCls:'icon-edit',
 				handler:function(){
-					
+					var arr = $('#datagrid').datagrid('getSelections');
+					if(arr.length==0){
+						$.messager.alert('提示','请选择要编辑的数据');
+					}else if(arr.length>1){
+						$.messager.alert('提示','编辑不能多选');
+					}else{
+						var adm_id =arr[0].adm_id;
+						$('#formEdit').form('load','${path}/admin/load?&adm_id='+adm_id);
+						console.info(arr[0].adm_id);
+						$('#edit').dialog({
+							closed:false,
+							buttons:[{
+								text:'保存',
+								handler:function(){
+									
+								}
+							},{
+								text:'退出',
+								handler:function(){
+									$("#datagrid").datagrid('clearChecked');
+									$('#edit').dialog('close');
+								}
+							}]
+						});
+						
+					}
 				}
 			},{
 				text:'查询',
@@ -165,7 +224,7 @@
 	    data.rows = (data.originalRows.slice(start, end));  
 	    return data;  
 	}    
-alert($('#admin').val())
+
 </script>
 <input type="hidden" id="admin" value="${admin }"/>
 <div align="center" id="add" class="easyui-dialog" title="管理员新增" style="width:500px;height:220px;"
@@ -174,13 +233,33 @@ alert($('#admin').val())
     <form id="formAdd" action="${path}/admin/add" method="post">
     	<table style="margin-top: 20px">
     <tr height="30" >
-    	<td>账号：</td><td><input type="text" name="adm_name" /></td>
+    	<td>账号：</td><td><input name="adm_name" class="easyui-textbox"   data-options="required:true,iconCls:'icon-man'" /></td>
     </tr>
     <tr height="30">
-    	<td>密码：</td><td><input type="password" name="adm_password" /></td>
+    	<td>密码：</td><td><input  name="adm_password" class="easyui-passwordbox"  data-options="required:true" /></td>
     </tr>
  	<tr height="50">
     	<td><input type="radio" name="adm_status" value="1"  checked="checked"/>启用</td><td><input type="radio" name="adm_status" value="0" />禁用 </td>
+    </tr>
+  	
+    </table>
+    </form>
+    
+
+</div>
+<div align="center" id="edit" class="easyui-dialog" title="管理员编辑" style="width:500px;height:220px;"
+    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true" >
+   
+    <form id="formEdit" action="${path}/admin/load" method="post">
+    	<table style="margin-top: 20px">
+    <tr height="30" >
+    	<td>账号：</td><td><input name="adm_name" class="easyui-textbox"   data-options="required:true,iconCls:'icon-man'" /></td>
+    </tr>
+    <tr height="30">
+    	<td>密码：</td><td><input  name="adm_password" class="easyui-passwordbox"  data-options="required:true" /></td>
+    </tr>
+ 	<tr height="50">
+    	<td><input type="radio" name="adm_status" value="1" />启用</td><td><input type="radio" name="adm_status" value="0" />禁用 </td>
     </tr>
   	
     </table>

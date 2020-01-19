@@ -90,7 +90,7 @@ public class AdminServiceImpl implements AdminService {
 	public String unique(Admin admin) throws Exception {
 		String flag = "";
 		if(adminMapper.unique(admin)==null||adminMapper.unique(admin).size()==0){
-			
+			this.unique(admin);
 			flag = "更新成功";
 		}else{
 			flag="用户名不能相同";

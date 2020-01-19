@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.java.po.Admin;
 import com.java.service.AdminService;
@@ -137,30 +138,14 @@ public class AdminController {
 	@RequestMapping(value={"/load"})
 	@ResponseBody
 	public Admin load(@RequestParam("adm_id")int id) throws Exception{
-		
+		//Object	jsonObject = JSONObject.toJSON(adminService.loadById(id));
 		return adminService.loadById(id);
 	}
-	@RequestMapping(value={"/edit"},produces="text/html;charset=utf-8")
+	@RequestMapping(value={"/edit"})
 	@ResponseBody
-	public String edit(Admin admin,HttpServletResponse res) throws IOException{
+	public String edit(Admin admin) throws Exception{
 		
-		String info = "";
-		try {
-			info = adminService.unique(admin);
-			if(info.equals("更新成功")){
-				adminService.update(admin);
-				System.out.println(info);
-				
-			}else{
-				System.out.println(info);
-				
-			}
-		} catch (Exception e1) {
-			
-			e1.printStackTrace();
-		}
-		
-		return info;
+		return adminService.unique(admin);
 		
 	}
 	

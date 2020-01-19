@@ -50,6 +50,8 @@
 				handler:function(){
 					$('#add').dialog('center');
 					$('#add').dialog({
+						width:400,
+						height:260,
 						closed:false,
 						 buttons:[{
 						    	text:'保存',
@@ -129,11 +131,9 @@
 								var arry = new Array();
 								for(i=0;i<arr.length;i++){
 									var adm = arr[i];
-									//console.info(adm)
+							
 									arry.push(adm.adm_id);
-									//var index = $('#datagrid').datagrid('getRowIndex',arr[i]);
-									//console.info(index);
-									//$('#datagrid').datagrid('deleteRow',index);
+									
 								}
 								$("#datagrid").datagrid('clearSelections');
 								$.post("${path}/admin/delete",{"array[]":arry,"id":2},function(data){
@@ -161,14 +161,38 @@
 						$.messager.alert('提示','编辑不能多选');
 					}else{
 						var adm_id =arr[0].adm_id;
-						$('#formEdit').form('load','${path}/admin/load?&adm_id='+adm_id);
+						
 						console.info(arr[0].adm_id);
-						$('#edit').dialog({
+											
+						/* $.post("${path}/admin/load",{"adm_id":adm_id},function(data){
+							console.info(data);
+							for(ob in data){
+								console.info(data.adm_id);
+							}
+							$('#ename').attr("value",data.adm_name);
+							console.info($('#ename').value);
+							$('#epwd').value = data.adm_password;
+							if(data.adm_status){
+								$('#raA').prop("checked",true);
+							}else{
+								$('#raB').prop("checked",true);
+							}
+						}); */
+						
+						//$('#edit').dialog('open');
+						 $('#edit').dialog({
+							width:400,
+							height:260,
 							closed:false,
 							buttons:[{
 								text:'保存',
 								handler:function(){
-									
+									$('#formEdit').form('submit',{
+										url:'${path}/admin/edit',
+										success:function(data){
+											$.messager.alert("提示",data);
+										}
+									});
 								}
 							},{
 								text:'退出',
@@ -177,8 +201,10 @@
 									$('#edit').dialog('close');
 								}
 							}]
-						});
-						
+						}); 
+						 $('#formEdit').form('load','${path}/admin/load?adm_id='+adm_id);//加载选中数据
+						 
+						 
 					}
 				}
 			},{
@@ -237,11 +263,11 @@
     <tr height="30" >
     	<td>账号：</td><td><input id="name" name="adm_name" class="easyui-textbox"   data-options="required:true,iconCls:'icon-man'" /></td>
     </tr>
-    <tr height="30">
+    <tr height="50">
     	<td>密码：</td><td><input id="pwd"  name="adm_password" class="easyui-passwordbox"  data-options="required:true" /></td>
     </tr>
  	<tr height="50">
-    	<td><input type="radio" name="adm_status" value="1"  checked="checked"/>启用</td><td><input type="radio" name="adm_status" value="0" />禁用 </td>
+    	 <td><input type="radio" name="adm_status" value="1"  checked="checked"/>启用</td><td><input type="radio" name="adm_status" value="0" />禁用 </td> 
     </tr>
   	
     </table>
@@ -251,17 +277,16 @@
 </div>
 <div align="center" id="edit" class="easyui-dialog" title="管理员编辑" style="width:500px;height:220px;"
     data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true" >
-   
-    <form id="formEdit" action="${path}/admin/load" method="post">
+    <form id="formEdit" action="" method="post">
     	<table style="margin-top: 20px">
     <tr height="30" >
-    	<td>账号：</td><td><input name="adm_name" class="easyui-textbox"   data-options="required:true,iconCls:'icon-man'" /></td>
+    	<td>账号：</td><td><input id="ename" name="adm_name" class="easyui-textbox"   data-options="required:true,iconCls:'icon-man'" /></td>
     </tr>
-    <tr height="30">
-    	<td>密码：</td><td><input  name="adm_password" class="easyui-passwordbox"  data-options="required:true" /></td>
+    <tr height="50">
+    	<td>密码：</td><td><input id="epwd"  name="adm_password" class="easyui-passwordbox"  data-options="required:true" /></td>
     </tr>
  	<tr height="50">
-    	<td><input type="radio" name="adm_status" value="1" />启用</td><td><input type="radio" name="adm_status" value="0" />禁用 </td>
+    	 <td><input type="radio" name="adm_status" value="1" id="raA"/>启用</td><td><input type="radio" name="adm_status" value="0" id="raB"/>禁用 </td>
     </tr>
   	
     </table>

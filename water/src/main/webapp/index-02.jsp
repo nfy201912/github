@@ -65,14 +65,7 @@
 	if($('#center').tabs("exists",name)){
 		$('#center').tabs("select",name);
 		var tab = $('#center').tabs('getSelected');
-		/* $('#center').tabs("update",{
-			tab:tab,
-			options: {
-				title:name,
-				href:'datagrid.jsp'
-			 }
-			
-		}); */
+		
 		tab.panel('refresh', 'datagrid.jsp');//刷新
 		}else{
 			$('#center').tabs("add",{

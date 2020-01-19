@@ -62,7 +62,7 @@
 						    			onSubmit:function(){
 						    				var isValid =$(this).form('validate');
 						    				if(isValid){
-						    					var rp = /[^\w\/]/ig;//中文字符以及其他特殊字符							 					
+						    					var rp = /[^\w\/]/ig;//匹配除字母下划线中划线斜杠以外的字符						 					
 						    					var re = /\s/;//空格
 						    					var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
 						    					//console.info(!re.test($('#name').val())&&!pattern.test($('#name').val()))
@@ -187,12 +187,22 @@
 							buttons:[{
 								text:'保存',
 								handler:function(){
-									$('#formEdit').form('submit',{
-										url:'${path}/admin/edit',
-										success:function(data){
-											$.messager.alert("提示",data);
-										}
-									});
+									console.log($('#ename').val());
+									console.log($('#epwd').val());
+									console.log(isFitCheck($('#ename').val(),$('#epwd').val()))
+									 if(isFitCheck($('#ename').val(),$('#epwd').val())){
+										$('#formEdit').form('submit',{
+											url:'${path}/admin/edit',
+											success:function(data){
+												$('#datagrid').datagrid('reload');
+												$.messager.alert("提示",data);
+												
+											}
+										});
+									}else{
+										$.messager.alert("提示","wrong");
+									} 
+									
 								}
 							},{
 								text:'退出',
@@ -216,6 +226,14 @@
 			}]
 		});
 	});
+	
+	
+	function isFitCheck(name,pwd){
+		var rp = /[^\w\/]/ig;//匹配除字母下划线中划线斜杠以外的字符						 					
+		var re = /\s/;//空格
+		var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+		return !re.test(name)&&!pattern.test(name)&&!rp.test(pwd);
+	}
 	//分页实现
 	function pagerFilter(data) {  
 	    if (typeof data.length == 'number' && typeof data.splice == 'function') {  
@@ -279,6 +297,7 @@
     data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true" >
     <form id="formEdit" action="" method="post">
     	<table style="margin-top: 20px">
+    	<input type="hidden" name="adm_id" />
     <tr height="30" >
     	<td>账号：</td><td><input id="ename" name="adm_name" class="easyui-textbox"   data-options="required:true,iconCls:'icon-man'" /></td>
     </tr>
@@ -294,6 +313,7 @@
     
 
 </div>
+<div id="win"></div>
 <div class="easyui-tabs" fit="true" border="false"> 
 	
 		<table id="datagrid"></table>

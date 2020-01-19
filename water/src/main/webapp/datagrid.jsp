@@ -15,7 +15,7 @@
 			nowarp:false,
 			border:false,
 			idField:'adm_id',
-			checkOnSelect:false,
+			checkOnSelect:true,
 			selectOnCheck:true,
 			sortName:'adm_id',
 			sortOrder:'desc',
@@ -54,48 +54,50 @@
 						 buttons:[{
 						    	text:'保存',
 						    	handler:function(){
-						    		/* var adm =  $('#formAdd').serialize();
-						    		console.info(adm);
-						    		$.post("${path}/admin/add",adm,function(data){
-						    			if("success"==data){
-						    				$.messager.show({
-							    				title:'My Title',
-							    				msg:'添加成功!',
-							    				timeout:1000,
-							    				showType:'slide'
-							    			});
-						    				$('#datagrid').datagrid('reload'),
-								    		$('#add').dialog('close') 
-						    			}else{
-						    				$.messager.alert('Warning','添加失败');
-						    			}
-						    				
-						    		}); */
 						    		$.messager.progress();
 						    		$('#formAdd').form('submit',{
 						    			url:'${path}/admin/add',
 						    			onSubmit:function(){
 						    				var isValid =$(this).form('validate');
-						    				console.info(isValid);
-						    				
-						    				if(!isValid){
+						    				if(isValid){
+						    					var rp = /[^\w\/]/ig;//中文字符以及其他特殊字符							 					
+						    					var re = /\s/;//空格
+						    					var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+						    					//console.info(!re.test($('#name').val())&&!pattern.test($('#name').val()))
+						    					 if(!re.test($('#name').val())&&!pattern.test($('#name').val())){//排除空格和特殊字符
+						    						 if(rp.test($('#pwd').val())){
+						    							 $.messager.alert('提示','密码只允许输入英文字母、数字');
+									    					$.messager.progress('close');
+									    					return false;
+						    						 }
+							    						$.messager.progress('close');
+								    					return true;
+						    					}else{
+						    						$.messager.alert('提示','账号不能包含特殊字符');
+							    					$.messager.progress('close');
+							    					return false;
+						    					}
+						    					
+						    				}else{
+						    					
 						    					$.messager.progress('close');
-						    				}
-						    				return isValid;
+						    					return false;
+						    				} 					    
 						    			},
 						    			success:function(data){
 						    				if("success"==data){
 						    					$.messager.progress('close');
 						    					$.messager.show({
-								    				title:'My Title',
+								    				title:'提示',
 								    				msg:'添加成功!',
 								    				timeout:1000,
 								    				showType:'slide'
 								    			});
+						    					$('#datagrid').datagrid('reload');
+						    					$('#add').dialog('close');
 						    				}else{
 						    					$.messager.progress('close');
-						    					console.info(data)
-						    					$.messager.alert('Warning','添加失败');
+						    					$.messager.alert('提示',data);
 						    				}
 						    				
 						    				
@@ -233,10 +235,10 @@
     <form id="formAdd" action="${path}/admin/add" method="post">
     	<table style="margin-top: 20px">
     <tr height="30" >
-    	<td>账号：</td><td><input name="adm_name" class="easyui-textbox"   data-options="required:true,iconCls:'icon-man'" /></td>
+    	<td>账号：</td><td><input id="name" name="adm_name" class="easyui-textbox"   data-options="required:true,iconCls:'icon-man'" /></td>
     </tr>
     <tr height="30">
-    	<td>密码：</td><td><input  name="adm_password" class="easyui-passwordbox"  data-options="required:true" /></td>
+    	<td>密码：</td><td><input id="pwd"  name="adm_password" class="easyui-passwordbox"  data-options="required:true" /></td>
     </tr>
  	<tr height="50">
     	<td><input type="radio" name="adm_status" value="1"  checked="checked"/>启用</td><td><input type="radio" name="adm_status" value="0" />禁用 </td>

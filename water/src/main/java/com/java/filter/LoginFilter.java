@@ -59,6 +59,8 @@ public class LoginFilter implements Filter {
 					}
 				}
 			
+			}else{
+				response.sendRedirect(request.getContextPath()+"/login.jsp");
 			}
 			
 		}			

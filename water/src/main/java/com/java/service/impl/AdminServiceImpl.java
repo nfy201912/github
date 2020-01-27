@@ -69,9 +69,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Admin> findUsers() throws Exception {
+	public List<Admin> findAdms(Admin admin) throws Exception {
 		
-		return adminMapper.findUsers();
+		return adminMapper.findAdms(admin);
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class AdminServiceImpl implements AdminService {
 		String flag = "";
 		if(adminMapper.unique(admin)==null||adminMapper.unique(admin).size()==0){
 			this.update(admin);
-			flag = "更新成功";
+			flag = "success";
 		}else{
 			flag="用户名不能相同";
 		}

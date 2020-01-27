@@ -17,10 +17,11 @@
 		
 	</insert>
 	
-	<select id="findUsers" parameterType="int" resultType="admin">
+	<select id="findAdms" parameterType="admin" resultType="admin">
 		select * from admin 
-		
-	
+		<if test="adm_name">
+			where adm_name like '%${adm_name}%'
+		</if>
 	</select>
 	
 	<select id="unique" parameterType="admin" resultType="admin">

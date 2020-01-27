@@ -194,13 +194,17 @@
 										$('#formEdit').form('submit',{
 											url:'${path}/admin/edit',
 											success:function(data){
-												$('#datagrid').datagrid('reload');
-												$.messager.alert("提示",data);
+												
+												if("success"==data){
+													$('#edit').dialog('close');
+													$('#datagrid').datagrid('reload');
+												}
+												$.messager.alert("提示","修改成功");
 												
 											}
 										});
 									}else{
-										$.messager.alert("提示","wrong");
+										$.messager.alert("提示","账号或密码不能有特殊字符");
 									} 
 									
 								}
@@ -216,12 +220,6 @@
 						 
 						 
 					}
-				}
-			},{
-				text:'查询',
-				iconCls:'icon-search',
-				handler:function(){
-					
 				}
 			}]
 		});
@@ -270,7 +268,21 @@
 	    data.rows = (data.originalRows.slice(start, end));  
 	    return data;  
 	}    
+	$('#ss').searchbox({
+	    searcher:function(value,name){
+	   console.log(value+","+name)
+	   /*  if(value==''){
+	    	$('#datagrid').datagrid('load');
+	    }else{
 
+	    		$('#datagrid').datagrid('load',{
+		    		"adm_name":value
+		    	});
+
+	    } */
+	    },
+	    prompt:'Please Input Value'
+	});
 </script>
 <input type="hidden" id="admin" value="${admin }"/>
 <div align="center" id="add" class="easyui-dialog" title="管理员新增" style="width:500px;height:220px;"
@@ -315,7 +327,11 @@
 </div>
 <div id="win"></div>
 <div class="easyui-tabs" fit="true" border="false"> 
-	
+		<input id="ss" class="easyui-searchbox" style="width:300px" data-options="menu:'#mm'"></input>
+		<div id="mm" style="width:120px">
+    <div data-options="name:'adm_name',iconCls:'icon-ok'">账号</div>
+   <!--  <div data-options="name:'adm_status',iconCls:'icon-ok'">状态</div> -->
+</div>
 		<table id="datagrid"></table>
 		
 	

@@ -59,7 +59,7 @@
               
              <tr height="120">
               
-                <td><input type="button" name="exit" value="返 回" class="log_btn" onclick="exit()"/></td>
+                <td><input type="button" name="exit" value="首 页" class="log_btn" onclick="exit()"/></td>
               </tr>
             </table>
          
@@ -267,7 +267,7 @@ function login(){
 		
 		
 		if("SUCCESS"==data){
-			location.href="${path}/admin/index.jsp";
+			location.href="${path}/admin/index-02.jsp";
 			//$scope.$apply();
 		}else{
 			alert(data);

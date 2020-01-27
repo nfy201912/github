@@ -18,9 +18,13 @@
 <script type="text/javascript" src="${path }/js/jquery-easyui-1.8.8/plugins/jquery.form.js"></script>
 </head>
 <body class="easyui-layout">
-	
-	 <div data-options="region:'north'" style="height:80px; overflow: hidden" >
-	 	<img src="${path }/img/adlogo.jpg" border="0" />
+		
+	 <div data-options="region:'north'" style="height:80px; overflow: hidden;">
+	 	<div style="float: right;padding-top: 20px;padding-right:50px;">
+	 		<span> 管理员:【${admin.adm_name }】 </span><br/>
+	 		<a href="#" style="text-decoration: none"><span> 帮助 </span></a>|<a href="${path }/admin/exit" style="text-decoration: none"><span> 退出 </span></a>
+	 	</div><img src="${path }/img/adlogo.jpg" border="0" />
+	 	
 	 </div>
 	 <div data-options="region:'south',split:true" style="height:50px; text-align: center;line-height: 50px; overflow: hidden">
 	 	<span>版权信息</span>
@@ -55,7 +59,6 @@
 			
 		</div>
 	</div> 
-	
 	<script type="text/javascript">
 	$(function(){
 		$('#center').tabs();

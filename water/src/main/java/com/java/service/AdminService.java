@@ -10,7 +10,7 @@ public interface AdminService {
 	//添加管理员
 	public boolean insert(Admin admin) throws Exception;
 	//查询所有管理员
-	public List<Admin>  findUsers() throws Exception;
+	public List<Admin>  findAdms(Admin admin) throws Exception;
 	//删除管理员
 	public void delete(int[] arry) throws Exception;
 	//根据id查询amdin

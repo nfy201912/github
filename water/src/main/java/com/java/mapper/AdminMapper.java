@@ -10,7 +10,7 @@ public interface AdminMapper {
 	//添加管理员
 	public void insert(Admin admin) throws Exception;
 	//查询所有管理员
-	public List<Admin>  findUsers()throws Exception;
+	public List<Admin>  findAdms(Admin admin)throws Exception;
 	
 	//删除管理员
 	public void delete(int[] array) throws Exception;

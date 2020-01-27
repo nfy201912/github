@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -73,7 +74,6 @@ public class AdminController {
 	@RequestMapping("/add")
 	@ResponseBody
 	public String add(Admin admin){
-		System.out.println(admin);
 		if(admin!=null){
 			try {
 				
@@ -93,7 +93,7 @@ public class AdminController {
 		return "error";
 	}
 	
-	@RequestMapping("/findUsers")
+	/*@RequestMapping("/findUsers")
 	public ModelAndView findUsers(ModelAndView mv){
 		try {
 			mv.addObject("admins", adminService.findUsers());
@@ -104,13 +104,20 @@ public class AdminController {
 		}
 		mv.setViewName("/admin/user/listuser");
 		return mv; 
-	}
+	}*/
 	
 	@RequestMapping("/findAll")
 	@ResponseBody
-	public Object findAll() throws Exception{
+	public Object findAll(@RequestParam("adm_name")String name) throws Exception{
+		//String name = request.getParameter("adm_name");
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
-			List<Admin> admins = adminService.findUsers();
+		Admin admin = new Admin();
+		if(name!=null&&!"".equals(name)){
+			
+			admin.setAdm_name(name);
+		}
+		
+			List<Admin> admins = adminService.findAdms(admin);
 			jsonMap.put("rows", admins);
 			jsonMap.put("total",admins.size());
 			Object	jsonObject = JSONObject.toJSON(jsonMap);
@@ -151,26 +158,24 @@ public class AdminController {
 	
 	@RequestMapping("/delete")
 	@ResponseBody
-	public boolean delete(@RequestParam("array[]") int[] array,@RequestParam("id") int id){
+	public String delete(@RequestParam("array[]") int[] array,@RequestParam("id") int id) throws Exception{
 		
 		for(int ids:array){
 			
 			if(id==ids){
 				
-				return false;
+				return "不能删除当前登录账号";
 			}	
 		}
-		try {
-			
+		
 			adminService.delete(array);
-			return true;
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}
-		return false;
+			return "success";
+		
+		
 	}
-	
+	/*
+	 * 退出登录
+	 * */
 	@RequestMapping("/exit")
 	public String exit(HttpSession session,SessionStatus sessionStatus){
 	

@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService{
 	public boolean activeFind(User user) throws Exception {
 		User u = new User();
 		u=userMapper.activeFind(user);
-		System.out.println(u);
 		if(u!=null){
 			u.setU_status(true);
 			userMapper.statusUpdate(u);
@@ -77,14 +76,26 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<User> findAll() throws Exception {
+	public List<User> findAll(User user) throws Exception {
 		
-		return userMapper.findAll();
+		return userMapper.findAll(user);
 	}
 
 	@Override
 	public void delete(int[] array) throws Exception {
 		userMapper.delete(array);
+		
+	}
+
+	@Override
+	public void add(User user) throws Exception {
+		userMapper.add(user);
+		
+	}
+
+	@Override
+	public void addUsers(List<User> users) throws Exception {
+		userMapper.addUsers(users);
 		
 	}
 

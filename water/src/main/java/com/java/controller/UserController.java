@@ -3,6 +3,9 @@ package com.java.controller;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -23,6 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.dsna.util.images.ValidateCode;
 
+import com.alibaba.fastjson.JSONObject;
+import com.java.po.Admin;
 import com.java.po.User;
 import com.java.service.UserService;
 
@@ -35,14 +40,45 @@ public class UserController {
 	UserService userService;
 	
 	
-	@RequestMapping("/findAll")
+	/*@RequestMapping("/findAll")
 	public ModelAndView findAll(ModelAndView mv) throws Exception{
 		mv.addObject("users",userService.findAll());
 		mv.setViewName("/admin/member/listuser");
 		return mv;
+	}*/
+	@RequestMapping("/findAll")
+	@ResponseBody
+	public Object findAll(@RequestParam("u_username")String name) throws Exception{
+		//String name = request.getParameter("adm_name");
+		Map<String,Object> jsonMap = new HashMap<String,Object>();
+		User user = new User();
+		if(name!=null&&!"".equals(name)){
+			
+			user.setU_username(name);
+		}
+		
+			List<User> users = userService.findAll(user);
+			jsonMap.put("rows", users);
+			jsonMap.put("total",users.size());
+			Object	jsonObject = JSONObject.toJSON(jsonMap);
+			return jsonObject;
+		
 	}
-	
-	
+	@RequestMapping("/add")
+	@ResponseBody
+	public String addUser(User user){
+		try {
+			if(this.checkName(user)){
+				userService.add(user);
+				return "success";
+			}
+			return "账号已存在";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "error";
+	}
 	@RequestMapping("/delete")
 	@ResponseBody
 	public boolean delete(@RequestParam("array[]") int[] array){
@@ -173,13 +209,14 @@ public class UserController {
 	@RequestMapping("/checkName")
 	@ResponseBody
 	public boolean checkName(User user) throws Exception{
-		System.out.println(user);
-		if(userService.find(user)==null){
-			return true;
+		User u = new User();
+		u=userService.find(user);
+		if(user.getU_username().equals(u.getU_username())){
+			return false;
 		}
-		return false;
+		return true;
 	}
-	@RequestMapping("acvtiveCode")
+	@RequestMapping("/acvtiveCode")
 	public String active(@RequestParam("active") String active){
 		User user = new User();
 		user.setU_activeCode(active);
@@ -195,7 +232,7 @@ public class UserController {
 		return "";
 	}
 	
-	@RequestMapping(value={"exit"})
+	@RequestMapping(value={"/exit"})
 	public String exit(HttpSession session,SessionStatus sessionStatus){
 		
 		 session.removeAttribute("user");//我这里是先取出httpsession中的user属性

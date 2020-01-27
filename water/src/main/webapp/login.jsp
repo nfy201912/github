@@ -267,7 +267,7 @@ function login(){
 		
 		
 		if("SUCCESS"==data){
-			location.href="${path}/admin/index-02.jsp";
+			location.href="${path}/admin/index.jsp";
 			//$scope.$apply();
 		}else{
 			alert(data);

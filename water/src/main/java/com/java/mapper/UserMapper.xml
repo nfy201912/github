@@ -25,11 +25,26 @@
 	 values(#{u_username},#{u_password},#{u_name},#{u_email},#{u_phone},#{u_activeCode},#{u_createTime})
 	
 </if>
-
-
 </insert>
+<insert id="add" parameterType="user">
+	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime,u_status)
+	 values(#{u_username},#{u_password},#{u_name},#{u_email},#{u_phone},#{u_activeCode},#{u_createTime},#{u_status})
+	
+</insert>
+
+<insert id="addUsers" parameterType="user">
+	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime,u_status)
+	 values
+	 <foreach collection="users" item="user" separator=",">
+	 	(#{user.u_username},#{user.u_password},#{user.u_name},#{user.u_email},#{user.u_phone},#{user.u_activeCode},#{user.u_createTime},#{user.u_status})
+	 </foreach>	
+</insert>
+
 <select id="findAll" resultType="user">
 	select * from user
+	<if test="u_username">
+		where u_username like '%${u_username}%'
+	</if>
 </select>
 
 <delete id="delete" parameterType="int">

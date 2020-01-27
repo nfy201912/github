@@ -63,19 +63,29 @@
 	$(function(){
 		$('#center').tabs();
 	});
-	
+	var grid;
 	function add(object,name){
+		if(name==$('#spa').html()){
+			grid ='admGrid.jsp' ;
+		}else if(name==$('#spa2').html()){
+			grid = 'userGrid.jsp';
+		}else if(name==$('#spa3').html()){
+			grid = 'orderGrid.jsp';
+		}else if(name==$('#spa4').html()){
+			grid = 'goodGrid.jsp'; 
+		}
+
 	if($('#center').tabs("exists",name)){
 		$('#center').tabs("select",name);
 		var tab = $('#center').tabs('getSelected');
 		
-		tab.panel('refresh', 'datagrid.jsp');//刷新
+		tab.panel('refresh',grid);//刷新/water/src/main/webapp/admin/admGrid.jsp
 		}else{
 			$('#center').tabs("add",{
 				title:name,
 				selected:true,
 				closable:true,
-				href:'datagrid.jsp'
+				href:grid
 			});
 		}
 	}

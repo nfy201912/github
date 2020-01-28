@@ -79,18 +79,27 @@ public class UserController {
 		}
 		return "error";
 	}
+	
 	@RequestMapping("/delete")
 	@ResponseBody
-	public boolean delete(@RequestParam("array[]") int[] array){
+	public String delete(@RequestParam("array[]") int[] array){
 		
 		try {
 			userService.delete(array);
-			return true;
+			return "success";
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 		}
-		return false;
+		return "error";
+	}
+	
+	@RequestMapping(value={"/edit"})
+	@ResponseBody
+	public String edit(User user) throws Exception{
+		
+		return userService.update(user);
+		
 	}
 	
 	@RequestMapping(value={"/userLogin"},produces="text/html;charset=utf-8")
@@ -204,6 +213,12 @@ public class UserController {
 
 		// 把图片写到页面
 		vc.write(response.getOutputStream());
+	}
+	@RequestMapping("/load")
+	@ResponseBody
+	public User load(User user) throws Exception{
+	
+		return userService.loadByID(user);
 	}
 	//检查用户是否存在
 	@RequestMapping("/checkName")

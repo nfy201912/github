@@ -34,13 +34,13 @@ public class LoginFilter implements Filter {
 		String url = request.getRequestURI();
 		
 		if(url!=null){
-			if(url.indexOf("login.jsp")>=0||url.indexOf("index.jsp")>=0||url.indexOf("Register.jsp")>=0){//登入、注册、首页放行
-				chain.doFilter(req, res);
+			if(url.indexOf("normal")<0&&url.indexOf("admin")<0){
+				if(url.indexOf("login.jsp")>=0||url.indexOf("index.jsp")>=0||url.indexOf("Register.jsp")>=0){//登入、注册、首页放行
+					chain.doFilter(req, res);
+				}
 			}else if(user!=null&& admin!=null){
 				chain.doFilter(req, res);
-			}
-			
-			else if(url.contains("normal")||url.contains("admin")){
+			}else if(url.contains("normal")||url.contains("admin")){
 			 if(user!=null){//用户不为空
 					if(url.contains("normal")){//访问用户部分
 						chain.doFilter(req,res);

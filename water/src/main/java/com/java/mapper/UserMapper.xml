@@ -15,6 +15,9 @@
 	select * from user where u_activeCode=#{u_activeCode}
 </select>
 	
+	<select id="loadByID" parameterType="user" resultType="user">
+		select * from user where u_id = #{u_id}
+	</select>
 	<update id="statusUpdate" parameterType="user">
 		update user set  u_status=#{u_status} where u_username=#{u_username}
 	</update>
@@ -26,6 +29,11 @@
 	
 </if>
 </insert>
+<update id="update" parameterType="user">
+	update user set u_name = #{u_name},u_password = #{u_password},u_email = #{u_email},u_phone = #{u_phone},u_status = #{u_status}
+	where u_id = #{u_id}
+</update>
+
 <insert id="add" parameterType="user">
 	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime,u_status)
 	 values(#{u_username},#{u_password},#{u_name},#{u_email},#{u_phone},#{u_activeCode},#{u_createTime},#{u_status})

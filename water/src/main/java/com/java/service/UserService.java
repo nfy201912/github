@@ -19,4 +19,8 @@ public interface UserService {
 	public void add(User user) throws Exception;
 	//批量添加用户
 	public void addUsers(List<User> users) throws Exception;
+	//用户修改
+	public String update(User user) throws Exception;
+	//用户查询
+	public User loadByID(User user) throws Exception;
 }

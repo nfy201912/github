@@ -1,5 +1,7 @@
 package com.java.service.impl;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +91,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void add(User user) throws Exception {
+		user.setU_activeCode("byHand");
+		user.setU_createTime(new Timestamp(System.currentTimeMillis()));//获取当前系统时间
 		userMapper.add(user);
 		
 	}
@@ -98,6 +102,33 @@ public class UserServiceImpl implements UserService{
 		userMapper.addUsers(users);
 		
 	}
+
+	@Override
+	public String update(User user) {
+		try {
+			
+			if(user.getU_password()!=null){
+				String pwd = userMapper.loadByID(user).getU_password();
+				if(!pwd.equals(user.getU_password())){//密码是否有改动
+					user.setU_password(MD5Util.md5Password(user.getU_password()));//密码加密
+				}				
+			}
+			userMapper.update(user);
+			return "success";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "error";
+	}
+
+	@Override
+	public User loadByID(User user) throws Exception {
+		
+		return userMapper.loadByID(user);
+	}
+
+	
 
 	
 

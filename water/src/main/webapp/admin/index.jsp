@@ -72,7 +72,7 @@
 		}else if(name==$('#spa3').html()){
 			grid = 'orderGrid.jsp';
 		}else if(name==$('#spa4').html()){
-			grid = 'goodGrid.jsp'; 
+			grid = 'goodsGrid.jsp'; 
 		}
 
 	if($('#center').tabs("exists",name)){

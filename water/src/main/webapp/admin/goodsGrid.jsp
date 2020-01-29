@@ -2,11 +2,12 @@
     pageEncoding="UTF-8"%>
     
 <script type="text/javascript" charset="utf-8">
-	var userGrid;
+
+	var goodsGrid;
 	$(function(){
-		$('#userGrid').datagrid({
-			url:'${path}/user/findAll',
-			queryParams:{"u_username":null},
+		$('#goodsGrid').datagrid({
+			url:'${path}/goods/findAll',
+			queryParams:{"g_name":null},
 			iconCls:'icon-save',
 			pagination:true,
 			pageSize:20,
@@ -36,33 +37,26 @@
 				field:'id',
 				
 			},{
-				title:'编号',
-				field:'u_id',
+				title:'ID',
+				field:'g_id',
 				width:100
 			},
 			{
-				title:'账号',
-				field:'u_username',
+				title:'名称',
+				field:'g_name',
 				width:100
 			},{
-				title:'姓名',
-				field:'u_name',
-				width:100
+				title:'种类',
+				field:'category',
+				width:100,
+				formatter: function(value,row,index){
+						value = row.category.c_name;
+						return value;
+					}
+				
 			},{
-				title:'邮箱',
-				field:'u_email',
-				width:100
-			},{
-				title:'电话',
-				field:'u_phone',
-				width:100
-			},{
-				title:'状态',
-				field:'u_status',
-				width:100
-			},{
-				title:'创建时间',
-				field:'u_createTime',
+				title:'单价',
+				field:'g_price',
 				width:100
 			}]],
 			toolbar:[{
@@ -118,7 +112,7 @@
 								    				showType:'slide'
 								    			});
 						    					$("#formAddu").form('reset');
-						    					$('#userGrid').datagrid('reload');
+						    					$('#goodsGrid').datagrid('reload');
 						    					$('#add_u').dialog('close');
 						    				}else{
 						    					$.messager.progress('close');
@@ -143,7 +137,7 @@
 				text:'删除',
 				iconCls:'icon-remove',
 				handler:function(){
-					var arr = $('#userGrid').datagrid('getSelections');
+					var arr = $('#goodsGrid').datagrid('getSelections');
 					if(arr.length==0){
 						$.messager.alert('提示','请选择要删除的数据');
 					}else{
@@ -160,11 +154,11 @@
 								$.post("${path}/user/delete",{"array[]":arry},function(data){
 									//console.log(data)
 									if("success"==data){
-										$("#userGrid").datagrid('clearSelections');
-										$('#userGrid').datagrid('reload');
+										$("#goodsGrid").datagrid('clearSelections');
+										$('#goodsGrid').datagrid('reload');
 									}else{
 										$.messager.alert('提示',data);
-										$("#userGrid").datagrid('clearSelections');
+										$("#goodsGrid").datagrid('clearSelections');
 									}
 									
 								});
@@ -182,7 +176,7 @@
 				text:'编辑',
 				iconCls:'icon-edit',
 				handler:function(){
-					var arr = $('#userGrid').datagrid('getSelections');
+					var arr = $('#goodsGrid').datagrid('getSelections');
 					if(arr.length==0){
 						$.messager.alert('提示','请选择要编辑的数据');
 					}else if(arr.length>1){
@@ -208,8 +202,8 @@
 												
 												if("success"==data){
 													$('#uedit').dialog('close');
-													$('#userGrid').datagrid('reload');
-													$("#userGrid").datagrid('clearChecked');
+													$('#goodsGrid').datagrid('reload');
+													$("#goodsGrid").datagrid('clearChecked');
 												}
 												$.messager.alert("提示","修改成功");
 												
@@ -223,7 +217,7 @@
 							},{
 								text:'退出',
 								handler:function(){
-									$("#userGrid").datagrid('clearChecked');
+									$("#goodsGrid").datagrid('clearChecked');
 									$('#uedit').dialog('close');
 									$('#edit_h').hide();
 								}
@@ -247,6 +241,7 @@
 	}
 	//分页实现
 	function pagerFilter(data) {  
+		//console.log(data.rows[0].category.c_name)
 	    if (typeof data.length == 'number' && typeof data.splice == 'function') {  
 	    	//typeof判断变量类型的，12是数字，所以输出的结果是number
 	        data = {  
@@ -281,17 +276,17 @@
 	    data.rows = (data.originalRows.slice(start, end));  
 	    return data;  
 	}    
-	$('#uss').searchbox({
+	$('#gss').searchbox({
 	    searcher:function(value){
 	   //console.log(value)
 	      if(value==''){
-	    	$('#userGrid').datagrid('load',{
-	    		"u_username":null
+	    	$('#goodsGrid').datagrid('load',{
+	    		"g_name":null
 	    	});
 	    }else{
 
-	    		$('#userGrid').datagrid('load',{
-		    		"u_username":value
+	    		$('#goodsGrid').datagrid('load',{
+		    		"g_name":value
 		    	});
 
 	    }  
@@ -301,10 +296,10 @@
 	
 </script>
 
-<div align="center" id="add_u" class="easyui-dialog" title="用户新增" style="width:600px;height:220px;"
+<div align="center" id="add_g" class="easyui-dialog" title="用户新增" style="width:600px;height:220px;"
     data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
-   <div id="addu_h" style="display: none">
-   	 <form id="formAddu" action="${path}/user/add" method="post">
+   <div id="addg_h" style="display: none">
+   	 <form id="formAddg" action="${path}/user/add" method="post">
     	<table style="margin-top:0px">
     <tr height="50" >
     	`<td>账号:&nbsp;&nbsp;<input id="uname"  name="u_username" class="easyui-textbox"  data-options="required:true,iconCls:'icon-man'" /></td>
@@ -324,10 +319,10 @@
     </form>
    </div>
 </div>
-<div align="center" id="uedit" class="easyui-dialog" title="用户编辑" style="width:500px;height:220px;"
+<div align="center" id="gedit" class="easyui-dialog" title="用户编辑" style="width:500px;height:220px;"
     data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true" >
     <div id="edit_h" style="display: none">
-    	   <form id="formEditu" action="" method="post">
+    	   <form id="formEditg" action="" method="post">
     	<table style="margin-top:0px">
     <tr height="50" >
     	`<td>账号:&nbsp;&nbsp;<input id="uename"  name="u_username" class="easyui-textbox"  data-options="readonly:'true',iconCls:'icon-man'" /></td>
@@ -349,8 +344,8 @@
 </div>
 <div id="win"></div>
 		
-			&nbsp;&nbsp;&nbsp;&nbsp;账号：&nbsp;<input id="uss" class="easyui-searchbox" style="width:300px;"/><br/>
-		<table id="userGrid" style="height: 500px;width: 100%"></table>
+			&nbsp;&nbsp;&nbsp;&nbsp;名称：&nbsp;<input id="gss" class="easyui-searchbox" style="width:300px;"/><br/>
+		<table id="goodsGrid" style="height: 500px;width: 100%"></table>
 		
 	
 

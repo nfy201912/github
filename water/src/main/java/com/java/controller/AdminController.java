@@ -120,8 +120,8 @@ public class AdminController {
 			List<Admin> admins = adminService.findAdms(admin);
 			jsonMap.put("rows", admins);
 			jsonMap.put("total",admins.size());
-			Object	jsonObject = JSONObject.toJSON(jsonMap);
-			return jsonObject;
+			//Object	jsonObject = JSONObject.toJSON(jsonMap);
+			return jsonMap;
 		
 	}
 	

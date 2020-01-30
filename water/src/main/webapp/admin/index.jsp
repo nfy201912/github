@@ -94,6 +94,7 @@
 		var name = $("#tname").val();
 		$('#center').tabs("close",name);
 	}
+
 	</script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.java.po.Category;
 import com.java.po.Goods;
 
 public interface GoodsService {

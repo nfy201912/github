@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.java.mapper.CategoryMapper">
 
-<resultMap type="category" id="CaqtegoryAndGoods">
+<!-- <resultMap type="category" id="CaqtegoryAndGoods">
 	<id property="c_id" column="c_id"/>
 	<result property="c_name" column="c_name"/>
 	<collection property="goods" ofType="goods" >
@@ -10,9 +10,9 @@
 		<result property="g_name" column="g_name"/>
 		<result property="g_price" column="g_price"/>
 	</collection>
-</resultMap>
-<select id="findAll" resultMap="CaqtegoryAndGoods" >
-	select * from category c,goods g where c.c_id = g.c_id
+</resultMap> -->
+<select id="findAll" resultType="category" >
+	select * from category
 </select>
 
 </mapper>

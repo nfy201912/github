@@ -6,6 +6,7 @@
 	<id property="g_id" column="g_id"/>
 	<result property="g_name" column="g_name"/>
 	<result property="g_price" column="g_price"/>
+	<result property="g_imgUrl" column="g_imgUrl"/>
 	<association property="category" javaType="category">
 		<id property="c_id" column="c_id"/>
 		<result property="c_name" column="c_name"/>

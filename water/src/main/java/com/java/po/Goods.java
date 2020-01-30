@@ -3,7 +3,8 @@ package com.java.po;
 public class Goods {
 	private int g_id;
 	private String g_name;
-	private String g_price;
+	private double g_price;
+	private String g_imgUrl;
 	private Category category;//类别
 	public int getG_id() {
 		return g_id;
@@ -17,11 +18,17 @@ public class Goods {
 	public void setG_name(String g_name) {
 		this.g_name = g_name;
 	}
-	public String getG_price() {
+	public double getG_price() {
 		return g_price;
 	}
-	public void setG_price(String g_price) {
+	public void setG_price(double g_price) {
 		this.g_price = g_price;
+	}
+	public String getG_imgUrl() {
+		return g_imgUrl;
+	}
+	public void setG_imgUrl(String g_imgUrl) {
+		this.g_imgUrl = g_imgUrl;
 	}
 	public Category getCategory() {
 		return category;
@@ -32,8 +39,8 @@ public class Goods {
 	@Override
 	public String toString() {
 		return "Goods [g_id=" + g_id + ", g_name=" + g_name + ", g_price="
-				+ g_price + ", category=" + category + "]";
+				+ g_price + ", g_imgUrl=" + g_imgUrl + ", category=" + category
+				+ "]";
 	}
-	
 	
 }

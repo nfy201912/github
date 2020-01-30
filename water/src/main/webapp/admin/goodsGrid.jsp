@@ -58,23 +58,34 @@
 				title:'单价',
 				field:'g_price',
 				width:100
+			},{
+				title:'图片',
+				field:'g_imgUrl',
+				width:100,
+				formatter: function(value,row,index){
+					if(row.g_imgUrl!=null){
+						value = "<img style='width:80px;height:50px;' border='1' src='"+row.g_imgUrl+"'/>";
+						return value;
+					}
+					
+				}
 			}]],
 			toolbar:[{
 				text:'增加',
 				iconCls:'icon-add',
 				handler:function(){
-					$('#addu_h').show();
-					$('#add_u').dialog('center');
-					$('#add_u').dialog({
+					$('#addg_h').show();
+					$('#add_g').dialog('center');
+					$('#add_g').dialog({
 						width:600,
-						height:280,
+						height:200,
 						closed:false,
 						 buttons:[{
 						    	text:'保存',
 						    	handler:function(){
 						    		$.messager.progress();
-						    		$('#formAddu').form('submit',{
-						    			url:'${path}/user/add',
+						    		$('#formAddg').form('submit',{
+						    			url:'${path}/goods/add',
 						    			onSubmit:function(){
 						    				var isValid =$(this).form('validate');
 						    				if(isValid){
@@ -111,9 +122,9 @@
 								    				timeout:1000,
 								    				showType:'slide'
 								    			});
-						    					$("#formAddu").form('reset');
+						    					$("#formAddg").form('reset');
 						    					$('#goodsGrid').datagrid('reload');
-						    					$('#add_u').dialog('close');
+						    					$('#add_g').dialog('close');
 						    				}else{
 						    					$.messager.progress('close');
 						    					$.messager.alert('提示',data);
@@ -126,9 +137,9 @@
 						    },{
 						    	text:'退出',
 						    	handler:function(){
-						    		$("#formAddu").form('reset');
-						    		$('#add_u').dialog('close');
-						    		$('#addu_h').hide();
+						    		$("#formAddg").form('reset');
+						    		$('#add_g').dialog('close');
+						    		$('#addg_h').hide();
 						    	}
 						    }]
 					});
@@ -293,28 +304,30 @@
 	    },
 	    prompt:'Please Input Value'
 	});
-	
-</script>
+	$("#c").combobox({
+		url :"${path}/category/findCategory",				
+		valueField :"c_id",
+		textField :"c_name",
+		//multiple:true,//多选
+		panelHeight:'200',
+		panelWidth:'300',
+		
+	});
 
-<div align="center" id="add_g" class="easyui-dialog" title="用户新增" style="width:600px;height:220px;"
+</script>
+<input type="hidden" id="path" value="${pageContext.request.contextPath }"/>
+<div align="center" id="add_g" class="easyui-dialog" title="水源新增" style="width:600px;height:220px;"
     data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
    <div id="addg_h" style="display: none">
-   	 <form id="formAddg" action="${path}/user/add" method="post">
+   	 <form id="formAddg" action="${path}/goods/add" method="post">
     	<table style="margin-top:0px">
     <tr height="50" >
-    	`<td>账号:&nbsp;&nbsp;<input id="uname"  name="u_username" class="easyui-textbox"  data-options="required:true,iconCls:'icon-man'" /></td>
-    	<td>密码:&nbsp;&nbsp;<input id="upwd"  name="u_password" class="easyui-passwordbox"  data-options="required:true" /></td>
+    	<td>名称:&nbsp;&nbsp;<input id="gname"  name="g_name" class="easyui-textbox"  data-options="required:true" /></td>
+    	<td>种类:&nbsp;&nbsp;<input class="easyui-combobox" id="c" name="category" data-options="required:true" style="width:175px;" ></td>
     </tr>
-    <tr height="50">
-    	<td>姓名:&nbsp;&nbsp;<input id="urelname"  name="u_name" class="easyui-textbox"  data-options="required:true" /></td>
-    	<td>邮箱:&nbsp;&nbsp;<input id="uemail"  name="u_email" class="easyui-textbox"  data-options="required:true,validType:'email'" /></td>
+      <tr height="50" >
+    	<td>图片:&nbsp;&nbsp;<input id="gimg"  name="g_imgUrl" class="easyui-filebox"  data-options="required:true,buttonText:'文件'" /></td>
     </tr>
-    <tr height="50">
-    	<td>电话:&nbsp;&nbsp;<input id="uphone"  name="u_phone" class="easyui-textbox"  data-options="required:true" /></td>
-    	 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="u_status" value="1"  checked="checked"/>启用&nbsp;&nbsp;<input type="radio" name="u_status" value="0" />禁用 </td> 
-    </tr>
- 	
-  	
     </table>
     </form>
    </div>
@@ -325,7 +338,7 @@
     	   <form id="formEditg" action="" method="post">
     	<table style="margin-top:0px">
     <tr height="50" >
-    	`<td>账号:&nbsp;&nbsp;<input id="uename"  name="u_username" class="easyui-textbox"  data-options="readonly:'true',iconCls:'icon-man'" /></td>
+    	<td>账号:&nbsp;&nbsp;<input id="uename"  name="u_username" class="easyui-textbox"  data-options="readonly:'true',iconCls:'icon-man'" /></td>
     	<td>密码:&nbsp;&nbsp;<input id="uepwd"  name="u_password" class="easyui-passwordbox"  data-options="required:true" /></td>
     </tr>
     <tr height="50">

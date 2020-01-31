@@ -21,5 +21,10 @@ public class GoodsServiceImpl implements GoodsService{
 		
 		return goodsMapper.findAll();
 	}
+	@Override
+	public void add(Goods goods) throws Exception {
+		goodsMapper.add(goods);
+		
+	}
 
 }

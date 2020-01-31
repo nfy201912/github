@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <c:set var="path" value="${pageContext.request.contextPath }" />    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -20,6 +21,7 @@
 		<script src="${path }/js/wow.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			new WOW().init();
+			alert(path)
 		</script>
 </head>
 <body>
@@ -31,7 +33,7 @@
 				<a  href="${path }/login.jsp">登入</a>|<a  href="${path }/Register.jsp">注册</a>
 			</c:if>
 			<c:if test="${user!=null}">
-				<span>欢 迎 您 ！[${user.u_username}]</span><a  href="${path }/login.jsp">切换账号</a>&nbsp|&nbsp<a  href="${path }/Register.jsp">注册</a>&nbsp|&nbsp<a href="${path}/user/exit">退出</a>
+				<span>欢 迎 您 ！[${user.u_username}]</span><a  href="${path }/login.jsp">切换账号</a>&nbsp;|&nbsp;<a  href="${path }/Register.jsp">注册</a>&nbsp;|&nbsp;<a href="${path}/user/exit">退出</a>
 			</c:if>
 			
 			
@@ -188,7 +190,5 @@
 				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">版权</div>
 			</div>
 		</div>
-		
 	</body>
-	
 </html>

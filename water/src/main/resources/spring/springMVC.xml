@@ -66,6 +66,20 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 		<!-- 静态资源访问 :js css images 资源可以防止my_sour文件夹下才能访问到 -->
 
 	</bean>
+	<!-- 文件解析 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设定默认编码 -->
+    <property name="defaultEncoding" value="UTF-8"></property>
+    <!-- 设定文件上传的最大值为5MB，5*1024*1024 -->
+    <property name="maxUploadSize" value="5242880"></property>
+    <!-- 设定文件上传时写入内存的最大值，如果小于这个参数不会生成临时文件，默认为10240 -->
+    <property name="maxInMemorySize" value="40960"></property>
+    <!-- 上传文件的临时路径 -->
+    <property name="uploadTempDir" value="fileUpload/temp"></property>
+    <!-- 延迟文件解析 -->
+    <property name="resolveLazily" value="true"/>
+
+    </bean>
 	<!-- <mvc:resources location="/my_sour/" mapping="/my_sour/**"> -->
 	<mvc:default-servlet-handler />
 	<!-- 处理静态文件 -->

@@ -19,28 +19,8 @@
 </head>
 
 <body>
-<script type="text/javascript">
-		$(function(){
-			if($("#autoLogin").prop("checked")){
-				$("#rembPwd").prop("checked",true);
-				setTimeout(function () {
-				    
-			//		$("#loginForm").submit();//自动登入
-				}, 1000);
-				
-			}
-			$("#autoLogin").click(function(){//判断自动登入复选框
-				if($(this).prop("checked")){
-					$("#rembPwd").prop("checked",true);
-				}
-			});
-			$("#rembPwd").click(function(){//记住密码
-			if(!$(this).prop("checked"))
-				$("#autoLogin").prop("checked",false);
-			});
-		})
-		
-	</script>
+
+	<input type="hidden" id="p" value="${pageContext.request.contextPath }"/>
 		<div class="container">
 					
 							<div class="row" align="center"> 
@@ -76,4 +56,28 @@
 							
 						</div>
 	</body>
+	<script type="text/javascript">
+
+console.log($('#p').val())
+		$(function(){
+			if($("#autoLogin").prop("checked")){
+				$("#rembPwd").prop("checked",true);
+				setTimeout(function () {
+				    
+			//		$("#loginForm").submit();//自动登入
+				}, 1000);
+				
+			}
+			$("#autoLogin").click(function(){//判断自动登入复选框
+				if($(this).prop("checked")){
+					$("#rembPwd").prop("checked",true);
+				}
+			});
+			$("#rembPwd").click(function(){//记住密码
+			if(!$(this).prop("checked"))
+				$("#autoLogin").prop("checked",false);
+			});
+		})
+		
+	</script>
 </html>

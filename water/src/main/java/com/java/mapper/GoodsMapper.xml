@@ -15,5 +15,7 @@
 <select id="findAll" resultMap="GoodsAndCategory">
 	select * from goods g,category c where g.c_id = c.c_id
 </select>
-
+<insert id="add" parameterType="goods">
+	insert into goods values(g_id,#{g_name},#{g_price},#{category.c_id},#{g_imgUrl})
+</insert>
 </mapper>

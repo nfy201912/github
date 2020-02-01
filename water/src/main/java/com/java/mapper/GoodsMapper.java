@@ -9,4 +9,12 @@ public interface GoodsMapper {
 	public List<Goods> findAll() throws Exception;
 	//添加水源
 	public void add(Goods goods) throws Exception;
+	//删除水源
+	public void delete(int[] array) throws Exception;
+	//修改水源
+	public void edit(Goods goods) throws Exception;
+	//根据名称查询水源
+	public Goods findByName(Goods goods)throws Exception;
+	//根据ID查询水源
+	public Goods load(int g_id) throws Exception;
 }

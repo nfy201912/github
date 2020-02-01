@@ -18,4 +18,24 @@
 <insert id="add" parameterType="goods">
 	insert into goods values(g_id,#{g_name},#{g_price},#{category.c_id},#{g_imgUrl})
 </insert>
+<delete id="delete" parameterType="int">
+	delete from goods where g_id in (
+	<foreach collection="array" item="g_id" index="0" separator=",">
+		#{g_id}
+	</foreach>
+	)
+</delete>
+<update id="edit" parameterType="goods">
+	update goods set g_name=#{g_name},g_price=#{g_price},c_id=#{category.c_id},g_imgUrl=#{g_imgUrl} 
+	where g_id=#{g_id}
+</update>
+<select id="findByName" parameterType="goods" resultType="goods">
+	select * from goods where g_name = #{g_name}
+	<if test="g_id">
+		and g_id !=#{g_id}
+	</if>
+</select>
+<select id="load" parameterType="int" resultMap="GoodsAndCategory">
+	select * from goods,category where g_id = #{g_id}
+</select>
 </mapper>

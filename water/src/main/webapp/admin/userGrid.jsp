@@ -188,7 +188,7 @@
 					}else if(arr.length>1){
 						$.messager.alert('提示','编辑不能多选');
 					}else{
-						$('#edit_h').show();
+						$('#editu_h').show();
 						var u_id =arr[0].u_id;
 						//console.info(arr[0].adm_id);
 						 $('#uedit').dialog({
@@ -326,7 +326,7 @@
 </div>
 <div align="center" id="uedit" class="easyui-dialog" title="用户编辑" style="width:500px;height:220px;"
     data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true" >
-    <div id="edit_h" style="display: none">
+    <div id="editu_h" style="display: none">
     	   <form id="formEditu" action="" method="post">
     	<table style="margin-top:0px">
     <tr height="50" >

@@ -26,5 +26,25 @@ public class GoodsServiceImpl implements GoodsService{
 		goodsMapper.add(goods);
 		
 	}
+	@Override
+	public void delete(int[] array) throws Exception {
+		goodsMapper.delete(array);
+		
+	}
+	@Override
+	public void edit(Goods goods) throws Exception {
+		goodsMapper.edit(goods);
+		
+	}
+	@Override
+	public Goods findByName(Goods goods) throws Exception {
+		
+		return goodsMapper.findByName(goods);
+	}
+	@Override
+	public Goods load(int g_id) throws Exception {
+		
+		return goodsMapper.load(g_id);
+	}
 
 }

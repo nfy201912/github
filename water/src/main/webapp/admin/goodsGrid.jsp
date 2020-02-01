@@ -1,6 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+   
+
+<div align="center" id="add_g" class="easyui-dialog" title="水源新增" style="width:600px;height:220px;"
+    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
+   <div id="addg_h" style="display: none">
+   	 <form id="formAddg" action="${path}/goods/upload" method="post" enctype="multipart/form-data">
+    	<table style="margin-top:0px">
+   <tr height="50" >
+   <input type="hidden" id="hd" name="g_id" />
+    	<td>名称:&nbsp;&nbsp;<input id="gname"  name="g_name" class="easyui-textbox"  data-options="required:true" /></td>
+    	<td>种类:&nbsp;&nbsp;<input class="easyui-combobox" id="c" name="category" data-options="required:true" style="width:175px;" ></td>
+    </tr> 
+      <tr height="50" >
+     	 <td>价格:&nbsp;&nbsp;<input id="gprice"  name="g_price" class="easyui-textbox"  data-options="required:true" /></td>
+    	<td>图片:&nbsp;&nbsp;<input id="gimg"  name="g_imgUrl" class="easyui-filebox"  data-options="required:true,buttonText:'文件'" /></td>
+    </tr>
+    </table>
+    </form>
+   </div>
+</div>
+<div align="center" id="gedit" class="easyui-dialog" title="水源编辑" style="width:500px;height:220px;"
+    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true" >
+    <div id="editg_h" style="display: none">
+    	   <form id="formEditg" method="post" enctype="multipart/form-data">
+    	<table style="margin-top:0px">
+    <tr height="50" >
+    	<input type="hidden" id="hid" name="g_id"/>
+    	
+    	<td>名称:&nbsp;&nbsp;<input id="gename"  name="g_name"  class="easyui-textbox"  data-options="required:true" /></td>
+    	<td>种类:&nbsp;&nbsp;<input class="easyui-combobox" id="ec" name="category"  data-options="required:true" style="width:175px;" ></td>
+    </tr> 
+      <tr height="50" >
+     	 <td>价格:&nbsp;&nbsp;<input id="geprice"  name="g_price" class="easyui-textbox"  data-options="required:true" /></td>
+    	<td>图片:&nbsp;&nbsp;<input id="geimg"  name="g_imgUrl" class="easyui-filebox"  data-options="required:true,buttonText:'文件'" /></td>
+    </tr>
+ 	
+  	
+    </table>
+    </form>
+    </div>
+</div>
+<div id="win"></div>
+		
+			&nbsp;&nbsp;&nbsp;&nbsp;名称：&nbsp;<input id="gss" class="easyui-searchbox" style="width:300px;"/><br/>
+		<table id="goodsGrid" style="height: 500px;width: 100%"></table>   
 <script type="text/javascript" charset="utf-8">
 
 	var goodsGrid;
@@ -15,23 +59,13 @@
 			fitColumns:true,
 			nowarp:false,
 			border:false,
-			idField:'u_id',
+			idField:'g_id',
 			checkOnSelect:true,
 			selectOnCheck:true,
-			sortName:'u_id',
+			sortName:'g_id',
 			sortOrder:'desc',
 			toolbar:'#manager_tool',
 			loadFilter: pagerFilter,
-			/*  private Integer u_id; 
-	private String u_username;
-	private String u_password;
-	
-	private String u_name ;
-	private String u_email;
-	private String u_phone ;
-	private String u_activeCode;
-	private boolean u_status;
-	private Timestamp u_createTime; */
 			columns:[[{
 				checkbox:true,
 				field:'id',
@@ -74,7 +108,7 @@
 				text:'增加',
 				iconCls:'icon-add',
 				handler:function(){
-					
+					$('#hd').attr("value",0);
 					$('#addg_h').show();
 					$('#add_g').dialog('center');
 					$('#add_g').dialog({
@@ -97,14 +131,21 @@
 						    					//console.info(!re.test($('#name').val())&&!pattern.test($('#name').val()))
 						    					 if(!re.test($('#gname').val())&&!pattern.test($('#gname').val())){//排除空格和特殊字符
 						    						 
-						    					 if(changeNum($('#gprice'))){
+						    					 if(changeNum($('#gprice'))=="success"){
 						    						 $.messager.progress('close');
 						    						 return true;
 						    					 }else{
-							    						$.messager.alert('提示','价格输入有误');
-								    					$.messager.progress('close');
-								    					return false;
-								    					
+						    						 	if(changeNum($('#gprice'))==1){
+						    						 		$.messager.alert('提示','价格只能输入正数或0');
+									    					$.messager.progress('close');
+									    					return false;
+						    						 	}else{
+						    						 		$.messager.alert('提示','价格只能保留两位小数');
+									    					$.messager.progress('close');
+									    					return false;
+									    					
+						    						 	}
+							    						
 							    					}
 						    				
 						    					}else{
@@ -163,13 +204,13 @@
 							if(f){
 								var arry = new Array();
 								for(i=0;i<arr.length;i++){
-									var user = arr[i];
+									var goods = arr[i];
 							
-									arry.push(user.u_id);
+									arry.push(goods.g_id);
 									
 								}
 								
-								$.post("${path}/user/delete",{"array[]":arry},function(data){
+								$.post("${path}/goods/delete",{"array[]":arry},function(data){
 									//console.log(data)
 									if("success"==data){
 										$("#goodsGrid").datagrid('clearSelections');
@@ -200,26 +241,78 @@
 					}else if(arr.length>1){
 						$.messager.alert('提示','编辑不能多选');
 					}else{
-						$('#edit_h').show();
-						var u_id =arr[0].u_id;
+						$('#editg_h').show();
+						var g_id =arr[0].g_id;
+						$('#hid').attr("value",g_id);
+						$.post("${path}/goods/load",{"g_id":g_id},function(data){
+							 var json = eval("("+data+")");//转换成json对象
+							 console.log(json)
+							 console.log(json.g_name)
+							 $('#gename').textbox("setValue",json.g_name);
+							 $('#ec').textbox("setValue",json.category.c_name);
+							 $('#geprice').textbox("setValue",json.g_price);
+							 name = json.g_imgUrl;
+							    pos = name.lastIndexOf('\\');//'/所在的最后位置'
+							    str = name.substr(pos+1)//截取文件名称字符串
+							    //url = name.substr(0,pos)//截取路径字符
+							 $('#geimg').textbox("setValue",str);
+						 })
+						
 						//console.info(arr[0].adm_id);
-						 $('#uedit').dialog({
+						 $('#gedit').dialog({
 							width:600,
-							height:280,
+							height:200,
 							closed:false,
 							buttons:[{
 								text:'保存',
 								handler:function(){
-									/* console.log($('#ename').val());
-									console.log($('#epwd').val());
-									console.log(isFitCheck($('#ename').val(),$('#epwd').val())) */
-									 if(isFitCheck($('#ename').val(),$('#epwd').val())){
-										$('#formEditu').form('submit',{
-											url:'${path}/user/edit',
+								
+										$('#formEditg').form('submit',{
+											url:'${path}/goods/upload',
+											onSubmit:function(){
+							    				var isValid =$(this).form('validate');
+							    				if(isValid){
+							    					//var rn = ^({0,1}d.d{1,8})$|^(d{1,2})$;
+							    					//var rp = /[^\w\/]/ig;//匹配除字母下划线中划线斜杠以外的字符						 					
+							    					var re = /\s/;//空格
+							    					var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+							    					//console.info(!re.test($('#name').val())&&!pattern.test($('#name').val()))
+							    					 if(!re.test($('#gename').val())&&!pattern.test($('#gename').val())){//排除空格和特殊字符
+							    						 
+							    					 if(changeNum($('#geprice'))=="success"){
+							    						 $.messager.progress('close');
+							    						 return true;
+							    					 }else{
+							    						 	if(changeNum($('#gprice'))==1){
+							    						 		$.messager.alert('提示','价格只能输入正数或0');
+										    					$.messager.progress('close');
+										    					return false;
+							    						 	}else{
+							    						 		$.messager.alert('提示','价格只能保留两位小数');
+										    					$.messager.progress('close');
+										    					return false;
+										    					
+							    						 	}
+								    						
+								    					}
+							    				
+							    					}else{
+							    						$.messager.alert('提示','名称不能包含特殊字符');
+								    					$.messager.progress('close');
+								    					return false;
+								    					
+							    					}
+							    					
+							    				}else{
+							    					
+							    					$.messager.progress('close');
+							    					return false;
+							    				} 					    
+							    			}, 
 											success:function(data){
 												
 												if("success"==data){
-													$('#uedit').dialog('close');
+													$('#gedit').dialog('close');
 													$('#goodsGrid').datagrid('reload');
 													$("#goodsGrid").datagrid('clearChecked');
 												}
@@ -227,21 +320,19 @@
 												
 											}
 										});
-									}else{
-										$.messager.alert("提示","账号或密码不能有特殊字符");
-									} 
+									
 									
 								}
 							},{
 								text:'退出',
 								handler:function(){
 									$("#goodsGrid").datagrid('clearChecked');
-									$('#uedit').dialog('close');
+									$('#gedit').dialog('close');
 									$('#edit_h').hide();
 								}
 							}]
 						}); 
-						 $('#formEditu').form('load','${path}/user/load?u_id='+u_id);//加载选中数据
+						 //$('#formEditg').form('load','${path}/goods/load?g_id='+g_id);//加载选中数据
 						 
 						 
 					}
@@ -254,37 +345,24 @@
 	function isFitCheck(name,pwd){
 		var rp = /[^\w\/]/ig;//匹配除字母下划线中划线斜杠以外的字符						 					
 		var re = /\s/;//空格
-		var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+		var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");//特殊字符
 		return !re.test(name)&&!pattern.test(name)&&!rp.test(pwd);
 	}
 	
 	function changeNum(obj) {
-		
-	    
-	    var rn =/[^\d.]/g;
-	  
-	    if(rn.test(obj.val())){
-	    	return false;
-	    }
-	    if(obj.val() != ''){
-	    	if ( obj.val().substr(0, 1) == '.'||obj.val().substr(0, 1) == 0) {
-	  	      return false;
-	  	    }
-	    } 
-	    var value = obj.val();
-	    var vl = value.replace(/\.{2,}/g,".");//this.value.replace(/\.{2,}/g,".")
-	    alert(vl)
-	    obj.attr("value",value.replace(/^0*(0\.|[1-9])/, '$1'));//粘贴不生效
-	    obj.attr("value",value.replace(/[^\d.]/g, ""));  //清除“数字”和“.”以外的字符
-	    $('#gprice').attr("value",value.replace(/\.{2,}/g, "")) ; //只保留第一个. 清除多余的
-	    obj.attr("value",value.replace(".", "$#$").replace(/\./g, "").replace("$#$", "."));
-	    obj.attr("value",value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'));//只能输入两个小数
-	    if (obj.val().indexOf(".") < 0 && obj.val() != "") {//以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
-	      if (obj.val().substr(0, 1) == '0' && obj.val().length == 2) {
-	    	  $('#gprice').attr("value",obj.val().substr(1, obj.val().length));
-	      }
-	    }  
-	    return true;
+		let reg = /^([0]|([1-9][0-9]*)|(([0]\.\d{1,}|[1-9][0-9]*\.\d{1,})))$/;
+			  if (!reg.test(obj.val())) {
+			    console.warn('只能输入正数或零')
+			    return 1;
+			  }
+			  reg = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+			  if (!reg.test(obj.val())) {
+			    console.warn('请保留2位小数')
+			    return 2;
+			  }
+	   
+	   
+	    return "success";
 	  }
 
 	//分页实现
@@ -341,7 +419,7 @@
 	    },
 	    prompt:'Please Input Value'
 	});
-	$("#c").combobox({
+	$('input[name="category"]').combobox({
 		url :"${path}/category/findCategory",				
 		valueField :"c_id",
 		textField :"c_name",
@@ -354,51 +432,7 @@
 	
 	
 </script>
-<input type="hidden" id="path" value="${pageContext.request.contextPath }"/>
-<div align="center" id="add_g" class="easyui-dialog" title="水源新增" style="width:600px;height:220px;"
-    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
-   <div id="addg_h" style="display: none">
-   	 <form id="formAddg" action="${path}/goods/upload" method="post" enctype="multipart/form-data">
-    	<table style="margin-top:0px">
-   <tr height="50" >
-    	<td>名称:&nbsp;&nbsp;<input id="gname"  name="g_name" class="easyui-textbox"  data-options="required:true" /></td>
-    	<td>种类:&nbsp;&nbsp;<input class="easyui-combobox" id="c" name="category" data-options="required:true" style="width:175px;" ></td>
-    </tr> 
-      <tr height="50" >
-     	 <td>价格:&nbsp;&nbsp;<input id="gprice"  name="g_price" class="easyui-textbox"  data-options="required:true" /></td>
-    	<td>图片:&nbsp;&nbsp;<input id="gimg"  name="g_imgUrl" class="easyui-filebox"  data-options="required:true,buttonText:'文件'" /></td>
-    </tr>
-    </table>
-    </form>
-   </div>
-</div>
-<div align="center" id="gedit" class="easyui-dialog" title="用户编辑" style="width:500px;height:220px;"
-    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true" >
-    <div id="edit_h" style="display: none">
-    	   <form id="formEditg" action="" method="post">
-    	<table style="margin-top:0px">
-    <tr height="50" >
-    	<td>账号:&nbsp;&nbsp;<input id="uename"  name="u_username" class="easyui-textbox"  data-options="readonly:'true',iconCls:'icon-man'" /></td>
-    	<td>密码:&nbsp;&nbsp;<input id="uepwd"  name="u_password" class="easyui-passwordbox"  data-options="required:true" /></td>
-    </tr>
-    <tr height="50">
-    	<td>姓名:&nbsp;&nbsp;<input id="uerelname"  name="u_name" class="easyui-textbox"  data-options="required:true" /></td>
-    	<td>邮箱:&nbsp;&nbsp;<input id="ueEmail"  name="u_email" class="easyui-textbox"  data-options="required:true,validType:'email'" /></td>
-    </tr>
-    <tr height="50">
-    	<td>电话:&nbsp;&nbsp;<input id="uephone"  name="u_phone" class="easyui-textbox"  data-options="required:true" /></td>
-    	 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="u_status" value="1"  checked="checked"/>启用&nbsp;&nbsp;<input type="radio" name="u_status" value="0" />禁用 </td> 
-    </tr>
- 	
-  	
-    </table>
-    </form>
-    </div>
-</div>
-<div id="win"></div>
-		
-			&nbsp;&nbsp;&nbsp;&nbsp;名称：&nbsp;<input id="gss" class="easyui-searchbox" style="width:300px;"/><br/>
-		<table id="goodsGrid" style="height: 500px;width: 100%"></table>
+
 		
 	
 

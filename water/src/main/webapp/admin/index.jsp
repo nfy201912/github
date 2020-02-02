@@ -40,7 +40,7 @@
 				</div>
 				<div title="用户管理"  style="padding:10px;">
 					<ul style="padding: 0">
-					<li>>>>&nbsp;<a href="#" style="text-decoration: none"><span  id="spa2" onclick="add(this,$('#spa2').html())">用户</span></a></li>
+					<li>>>>&nbsp;<a href="#" style="text-decoration: none"><span  id="spa2" onclick="add(this,$('#spa2').html())">用户列表</span></a></li>
 				</ul>
 				</div>
 				<div title="订单管理" style="padding:10px">
@@ -48,9 +48,10 @@
 					<li>>>>&nbsp;<a href="#" style="text-decoration: none"><span id="spa3" onclick="add(this,$('#spa3').html())">订单</span></a></li>
 				</ul>
 				</div>
-				<div title="商品管理" style="padding:10px">
+				<div title="水源管理" style="padding:10px">
 					<ul style="padding: 0">
-					<li>>>>&nbsp;<a href="#"  style="text-decoration: none"><span id="spa4"  onclick="add(this,$('#spa4').html())">商品</span></a></li>
+					<li>>>>&nbsp;<a href="#"  style="text-decoration: none"><span id="spa4"  onclick="add(this,$('#spa4').html())">水源列表</span></a></li><br/>
+					<li>>>>&nbsp;<a href="#"  style="text-decoration: none"><span id="spa5"  onclick="add(this,$('#spa5').html())">分类列表</span></a></li>
 				</ul>
 				</div>
 			</div>
@@ -73,6 +74,8 @@
 			grid = 'orderGrid.jsp';
 		}else if(name==$('#spa4').html()){
 			grid = 'goodsGrid.jsp'; 
+		}else if(name==$('#spa5').html()){
+			grid = 'categoryGrid.jsp'; 
 		}
 
 	if($('#center').tabs("exists",name)){

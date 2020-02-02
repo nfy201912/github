@@ -55,7 +55,7 @@
 		</form>
 	</div>
 </div>
-<div id="win"></div>
+
 <form id="sform">
 	&nbsp;&nbsp;&nbsp;&nbsp;名称：&nbsp;
 <input id="ns" class="easyui-textbox" style="width: 175px;" />
@@ -97,7 +97,6 @@
 								"g_name" : "",
 								"c_id":0
 							},
-							iconCls : 'icon-save',
 							pagination : true,
 							pageSize : 20,
 							pageList : [ 20, 40, 80 ],

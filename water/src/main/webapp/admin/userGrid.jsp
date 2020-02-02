@@ -7,7 +7,6 @@
 		$('#userGrid').datagrid({
 			url:'${path}/user/findAll',
 			queryParams:{"u_username":""},
-			iconCls:'icon-save',
 			pagination:true,
 			pageSize:20,
 			pageList:[20,40,80],

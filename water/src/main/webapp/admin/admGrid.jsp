@@ -7,7 +7,6 @@
 		$('#datagrid').datagrid({
 			url:'${path}/admin/findAll',
 			queryParams:{"adm_name":""},
-			iconCls:'icon-save',
 			pagination:true,
 			pageSize:20,
 			pageList:[20,40,80],

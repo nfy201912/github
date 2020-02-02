@@ -30,12 +30,12 @@
 	where g_id=#{g_id}
 </update>
 <select id="findByName" parameterType="goods" resultType="goods">
-	select * from goods where g_name = #{g_name}
+	select * from goods,category where g_name = #{g_name}
 	<if test="g_id">
 		and g_id !=#{g_id}
 	</if>
 </select>
 <select id="load" parameterType="int" resultMap="GoodsAndCategory">
-	select * from goods,category where g_id = #{g_id}
+	select * from goods g,category c where g_id = #{g_id} and g.c_id = c.c_id
 </select>
 </mapper>

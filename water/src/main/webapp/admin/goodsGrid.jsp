@@ -32,6 +32,7 @@
     	<td>种类:&nbsp;&nbsp;<input class="easyui-combobox" id="ec" name="category"  data-options="required:true" style="width:175px;" ></td>
     </tr> 
       <tr height="50" >
+      	<input type="hidden" name="himg" id="himg" value=""/>
      	 <td>价格:&nbsp;&nbsp;<input id="geprice"  name="g_price" class="easyui-textbox"  data-options="required:true" /></td>
     	<td>图片:&nbsp;&nbsp;<input id="geimg"  name="g_imgUrl" class="easyui-filebox"  data-options="required:true,buttonText:'文件'" /></td>
     </tr>
@@ -246,17 +247,19 @@
 						$('#hid').attr("value",g_id);
 						$.post("${path}/goods/load",{"g_id":g_id},function(data){
 							 var json = eval("("+data+")");//转换成json对象
-							 console.log(json)
-							 console.log(json.g_name)
 							 $('#gename').textbox("setValue",json.g_name);
-							 $('#ec').textbox("setValue",json.category.c_name);
+							 $('#ec').textbox("setValue",json.category.c_id);
+							 $('#ec').textbox("setText",json.category.c_name);
 							 $('#geprice').textbox("setValue",json.g_price);
 							 name = json.g_imgUrl;
-							    pos = name.lastIndexOf('\\');//'/所在的最后位置'
-							    str = name.substr(pos+1)//截取文件名称字符串
-							    //url = name.substr(0,pos)//截取路径字符
+							 pos = name.lastIndexOf('\\');//'/所在的最后位置'
+							 str = name.substr(pos+1)//截取文件名称字符串
+							 //url = name.substr(0,pos)//截取路径字符
+							 //$('#img').attr("src","${path}/img/"+str);
+							 $('#himg').attr("value",str);
 							 $('#geimg').textbox("setValue",str);
-						 })
+							
+						 });
 						
 						//console.info(arr[0].adm_id);
 						 $('#gedit').dialog({
@@ -315,8 +318,10 @@
 													$('#gedit').dialog('close');
 													$('#goodsGrid').datagrid('reload');
 													$("#goodsGrid").datagrid('clearChecked');
+												}else{
+													$.messager.alert("提示",data);	
 												}
-												$.messager.alert("提示","修改成功");
+												
 												
 											}
 										});

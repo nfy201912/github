@@ -24,6 +24,7 @@ import com.java.service.GoodsService;
 @RequestMapping("/goods")
 @SessionAttributes(value={})
 public class GoodsController {
+	private static final long serialVersionUID = 1L;
 	@Resource
 	HttpServletRequest request;
 	@Autowired
@@ -43,9 +44,13 @@ public class GoodsController {
 		jsonMap.put("total",goods.size());
 		return jsonMap;
 	}
+	
+	/*
+	 * 添加、修改
+	 * */
 	@RequestMapping("/upload")
 	@ResponseBody
-	public Object upload(@RequestParam("g_imgUrl") MultipartFile file,@RequestParam("g_name")String name,
+	public Object upload(@RequestParam("himg") String img,@RequestParam("g_imgUrl") MultipartFile file,@RequestParam("g_name")String name,
 			@RequestParam("g_price")double price,@RequestParam("category")int c,@RequestParam("g_id")int g_id) throws Exception{
 		Goods good = new Goods();
 		Goods G = new Goods();
@@ -57,7 +62,22 @@ public class GoodsController {
 		if(G!=null){
 			return "已存在该名称水源";
 		}
-		if (!file.isEmpty()) {
+		if (file.isEmpty()){
+			if(img==null||img.length()<1){
+				return "图片文件为空或有误";
+			}else{
+				Category category = new Category();
+				category.setC_id(c);
+				good.setCategory(category);
+				good.setG_imgUrl(File.separator+UPLOAD_DIRECTORY+img);
+				good.setG_name(name);
+				good.setG_price(price);
+				good.setG_id(g_id);
+				goodsService.edit(good);
+				return "success";
+			}
+			
+		}else {
 			try {
 				// getOriginalFilename()是包含源文件后缀的全名
 				String filePath = request.getServletContext().getRealPath("/")+UPLOAD_DIRECTORY+file.getOriginalFilename();

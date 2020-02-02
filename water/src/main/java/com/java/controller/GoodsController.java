@@ -34,12 +34,26 @@ public class GoodsController {
 	//
 	@RequestMapping("/findAll")
 	@ResponseBody
-	public Object findAll() throws Exception{
+	public Object findAll(@RequestParam("g_name")String g_name,@RequestParam("c_id")int c_id) throws Exception{
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
-		List<Goods> goods = goodsService.findAll();
-		for(Goods g: goods){
-			System.out.println(g);
+		Goods good = new Goods();
+		Category c = new Category();
+		if(!"".equals(g_name)&&0!=c_id){
+				good.setG_name(g_name);
+				c.setC_id(c_id);
+				good.setCategory(c);
+
+		}else{
+			if(!"".equals(g_name)){
+				good.setG_name(g_name);
+			}
+			if(0!=c_id){
+				c.setC_id(c_id);
+				good.setCategory(c);
+			}
 		}
+		
+		List<Goods> goods = goodsService.findAll(good);
 		jsonMap.put("rows",goods);
 		jsonMap.put("total",goods.size());
 		return jsonMap;

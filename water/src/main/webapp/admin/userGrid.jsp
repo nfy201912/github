@@ -6,7 +6,7 @@
 	$(function(){
 		$('#userGrid').datagrid({
 			url:'${path}/user/findAll',
-			queryParams:{"u_username":null},
+			queryParams:{"u_username":""},
 			iconCls:'icon-save',
 			pagination:true,
 			pageSize:20,
@@ -286,7 +286,7 @@
 	   //console.log(value)
 	      if(value==''){
 	    	$('#userGrid').datagrid('load',{
-	    		"u_username":null
+	    		"u_username":""
 	    	});
 	    }else{
 

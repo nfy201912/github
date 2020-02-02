@@ -16,11 +16,7 @@ public class GoodsServiceImpl implements GoodsService{
 	private GoodsMapper goodsMapper;
 	@Autowired
 	private CategoryMapper categoryMapper;
-	@Override
-	public List<Goods> findAll() throws Exception {
-		
-		return goodsMapper.findAll();
-	}
+	
 	@Override
 	public void add(Goods goods) throws Exception {
 		goodsMapper.add(goods);
@@ -45,6 +41,11 @@ public class GoodsServiceImpl implements GoodsService{
 	public Goods load(int g_id) throws Exception {
 		
 		return goodsMapper.load(g_id);
+	}
+	@Override
+	public List<Goods> findAll(Goods good) throws Exception {
+		
+		return goodsMapper.findAll(good);
 	}
 
 }

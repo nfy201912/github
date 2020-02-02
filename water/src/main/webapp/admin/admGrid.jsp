@@ -6,7 +6,7 @@
 	$(function(){
 		$('#datagrid').datagrid({
 			url:'${path}/admin/findAll',
-			queryParams:{"adm_name":null},
+			queryParams:{"adm_name":""},
 			iconCls:'icon-save',
 			pagination:true,
 			pageSize:20,
@@ -264,7 +264,7 @@
 	   //console.log(value)
 	      if(value==''){
 	    	$('#datagrid').datagrid('load',{
-	    		"adm_name":null
+	    		"adm_name":""
 	    	});
 	    }else{
 

@@ -12,8 +12,15 @@
 		<result property="c_name" column="c_name"/>
 	</association>
 </resultMap>
-<select id="findAll" resultMap="GoodsAndCategory">
+<select id="findAll" parameterType="goods" resultMap="GoodsAndCategory">
 	select * from goods g,category c where g.c_id = c.c_id
+	<if test="g_name">
+		and g.g_name like '%${g_name}%'
+		
+	</if>
+	<if test="category">
+		and	g.c_id=#{category.c_id}
+		</if>
 </select>
 <insert id="add" parameterType="goods">
 	insert into goods values(g_id,#{g_name},#{g_price},#{category.c_id},#{g_imgUrl})
@@ -30,7 +37,7 @@
 	where g_id=#{g_id}
 </update>
 <select id="findByName" parameterType="goods" resultType="goods">
-	select * from goods,category where g_name = #{g_name}
+	select * from goods where g_name = #{g_name}
 	<if test="g_id">
 		and g_id !=#{g_id}
 	</if>

@@ -6,7 +6,7 @@ import com.java.po.Goods;
 
 public interface GoodsMapper {
 	//查询所有水源
-	public List<Goods> findAll() throws Exception;
+	public List<Goods> findAll(Goods good) throws Exception;
 	//添加水源
 	public void add(Goods goods) throws Exception;
 	//删除水源

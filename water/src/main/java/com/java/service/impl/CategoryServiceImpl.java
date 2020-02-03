@@ -19,4 +19,41 @@ public class CategoryServiceImpl implements CategoryService{
 		
 		return categoryMapper.findAll();
 	}
+
+	@Override
+	public String add(Category category) throws Exception {
+		if(this.findByName(category)!=null){
+			return "该名称种类已存在";
+		}
+		categoryMapper.add(category);
+		return "success";
+	}
+
+	@Override
+	public void delete(int[] array) throws Exception {
+		categoryMapper.delete(array);
+		
+	}
+
+	@Override
+	public String edit(Category category) throws Exception {
+		if(this.findByName(category)!=null){
+			return "该名称种类已存在";
+		}
+		categoryMapper.edit(category);
+		return "success";
+		
+	}
+
+	@Override
+	public Category load(int c_id) throws Exception {
+		
+		return categoryMapper.load(c_id);
+	}
+
+	@Override
+	public Category findByName(Category category) throws Exception {
+		
+		return categoryMapper.findByName(category);
+	}
 }

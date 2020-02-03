@@ -11,6 +11,7 @@
 			pageSize:20,
 			pageList:[20,40,80],
 			fitColumns:false,
+			rownumbers:true,
 			nowarp:false,
 			border:false,
 			idField:'adm_id',
@@ -24,11 +25,11 @@
 				checkbox:true,
 				field:'id',
 				
-			},{
+			},/* {
 				title:'编号',
 				field:'adm_id',
 				width:100
-			},
+			}, */
 			{
 				title:'账号',
 				field:'adm_name',
@@ -187,8 +188,13 @@
 													$('#edit').dialog('close');
 													$('#datagrid').datagrid('reload');
 													$("#datagrid").datagrid('clearChecked');
+													$.messager.show({
+									    				title:'提示',
+									    				msg:'修改成功!',
+									    				timeout:1000,
+									    				showType:'slide'
+									    			});
 												}
-												$.messager.alert("提示","修改成功");
 												
 											}
 										});
@@ -319,7 +325,7 @@
 </div>
 <div id="win"></div>
 		
-			&nbsp;&nbsp;&nbsp;&nbsp;账号：&nbsp;<input id="ss" class="easyui-searchbox" style="width:300px;"/><br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;账号：&nbsp;<input id="ss" class="easyui-searchbox" style="width:290px;"/><br/>
 		<table id="datagrid" style="height: 500px;width: 100%"></table>
 		
 	

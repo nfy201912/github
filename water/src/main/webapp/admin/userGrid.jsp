@@ -11,6 +11,7 @@
 			pageSize:20,
 			pageList:[20,40,80],
 			fitColumns:true,
+			rownumbers:true,
 			nowarp:false,
 			border:false,
 			idField:'u_id',
@@ -34,11 +35,11 @@
 				checkbox:true,
 				field:'id',
 				
-			},{
+			},/* {
 				title:'编号',
 				field:'u_id',
 				width:100
-			},
+			}, */
 			{
 				title:'账号',
 				field:'u_username',
@@ -209,8 +210,13 @@
 													$('#uedit').dialog('close');
 													$('#userGrid').datagrid('reload');
 													$("#userGrid").datagrid('clearChecked');
+													$.messager.show({
+									    				title:'提示',
+									    				msg:'修改成功!',
+									    				timeout:1000,
+									    				showType:'slide'
+									    			});
 												}
-												$.messager.alert("提示","修改成功");
 												
 											}
 										});

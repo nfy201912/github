@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,20 +27,20 @@ import com.java.service.AdminService;
 
 @Controller
 @RequestMapping(value={"/admin"})
-@SessionAttributes(value={"admin"})
+@SessionAttributes(value={"adm"})
 public class AdminController {
 	@Autowired
 	private AdminService adminService;
-	@RequestMapping(value={"/login"},produces="text/html;charset=utf-8")
+	@RequestMapping(value={"/login"})//,produces="text/html;charset=utf-8"
 	@ResponseBody
-	public String login(Admin admin,Model m){
+	public String login(Admin admin,ModelMap m){
 		String info = "";
 		try {
 			Admin adm = new Admin();
 			adm = adminService.login(admin);
 			
 			if(adm.getAdm_name().equals(admin.getAdm_name())){//如果名称不变则成功
-				m.addAttribute("admin",adm);
+				m.addAttribute("adm",adm);
 				info="SUCCESS";
 			}else{
 				info = adm.getAdm_name();

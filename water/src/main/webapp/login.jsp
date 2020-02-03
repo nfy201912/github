@@ -83,7 +83,7 @@
               </tr>
               <tr height="70">
                 <td>用户名</td>
-                <td><input type="text"  name="adm_name" value="${admin.adm_name }" class="l_user" /></td>
+                <td><input type="text"  name="adm_name" value="${adm.adm_name }" class="l_user" /></td>
               </tr>
               <tr height="70">
                 <td>密&nbsp; &nbsp; 码</td>
@@ -267,6 +267,7 @@ function login(){
 		
 		
 		if("SUCCESS"==data){
+			alert(data)
 			location.href="${path}/admin/index.jsp";
 			//$scope.$apply();
 		}else{

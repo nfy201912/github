@@ -21,7 +21,7 @@
 		
 	 <div data-options="region:'north'" style="height:80px; overflow: hidden;">
 	 	<div style="float: right;padding-top: 20px;padding-right:50px;">
-	 		<span> 管理员:【${admin.adm_name }】 </span><br/>
+	 		<span> 管理员:【${adm.adm_name }】 </span><br/>
 	 		<a href="#" style="text-decoration: none"><span> 帮助 </span></a>|<a href="${path }/admin/exit" style="text-decoration: none"><span> 退出 </span></a>
 	 	</div><img src="${path }/img/adlogo.jpg" border="0" />
 	 	
@@ -51,7 +51,7 @@
 				<div title="水源管理" style="padding:10px">
 					<ul style="padding: 0">
 					<li>>>>&nbsp;<a href="#"  style="text-decoration: none"><span id="spa4"  onclick="add(this,$('#spa4').html())">水源列表</span></a></li><br/>
-					<li>>>>&nbsp;<a href="#"  style="text-decoration: none"><span id="spa5"  onclick="add(this,$('#spa5').html())">分类列表</span></a></li>
+					<li>>>>&nbsp;<a href="#"  style="text-decoration: none"><span id="spa5"  onclick="add(this,$('#spa5').html())">种类列表</span></a></li>
 				</ul>
 				</div>
 			</div>
@@ -93,10 +93,10 @@
 		}
 	}
 	
-	function del(){
+	/* function del(){
 		var name = $("#tname").val();
 		$('#center').tabs("close",name);
-	}
+	} */
 
 	</script>
 </body>

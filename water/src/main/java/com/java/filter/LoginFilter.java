@@ -30,7 +30,7 @@ public class LoginFilter implements Filter {
 		HttpSession session = request.getSession();
 		
 		User user = (User)session.getAttribute("user");
-		Admin admin = (Admin)session.getAttribute("admin");
+		Admin admin = (Admin)session.getAttribute("adm");
 		String url = request.getRequestURI();
 		
 		if(url!=null){

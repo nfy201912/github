@@ -14,5 +14,26 @@
 <select id="findAll" resultType="category" >
 	select * from category
 </select>
+<select id="load" parameterType="int" resultType="category">
+	select * from category where c_id = #{c_id}
+</select>
+<select id="findByName" parameterType="category" resultType="category">
+	select * from category  where c_name = #{c_name}
+	<if test="c_id">
+		and c_id != #{c_id}
+	</if> 
+</select>
+<insert id="add" parameterType="category">
+	insert into category values(c_id,#{c_name})
+</insert>
 
+<delete id="delete" parameterType="int">
+	delete from category where c_id in (
+	<foreach collection="array" item="c_id" index="0" separator=",">
+		#{c_id}
+	</foreach> )
+</delete>
+<update id="edit" parameterType="category">
+	update category set c_name = #{c_name} where c_id = #{c_id}
+</update>
 </mapper>

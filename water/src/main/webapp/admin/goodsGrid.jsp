@@ -8,6 +8,7 @@
 			enctype="multipart/form-data">
 			<table style="margin-top: 0px">
 				<tr height="50">
+					<input type="hidden" name="himg"  value="" />
 					<input type="hidden" id="hd" name="g_id" />
 					<td>名称:&nbsp;&nbsp;<input id="gname" name="g_name"
 						class="easyui-textbox" data-options="required:true" /></td>
@@ -101,13 +102,15 @@
 							pageSize : 20,
 							pageList : [ 20, 40, 80 ],
 							fitColumns : true,
+							rownumbers:true,
 							nowarp : false,
 							border : false,
 							idField : 'g_id',
 							checkOnSelect : true,
 							selectOnCheck : true,
-							sortName : 'g_id',
-							sortOrder : 'desc',
+							remoteSort: false,
+							sortName : 'g_price',
+							sortOrder : 'asc',
 							toolbar : '#manager_tool',
 							loadFilter : pagerFilter,
 							columns : [ [
@@ -116,11 +119,11 @@
 										field : 'id',
 
 									},
-									{
+									/* {
 										title : 'ID',
 										field : 'g_id',
 										width : 100
-									},
+									}, */
 									{
 										title : '名称',
 										field : 'g_name',
@@ -139,7 +142,8 @@
 									{
 										title : '单价',
 										field : 'g_price',
-										width : 100
+										width : 100,
+										sortable:true
 									},
 									{
 										title : '图片',
@@ -198,7 +202,9 @@
 																													&& !pattern
 																															.test($(
 																																	'#gname')
-																																	.val())) {//排除空格和特殊字符
+																																	.val())&&$(
+																																'#gname')
+																																.val().indexOf('"')<0) {//排除空格和特殊字符
 
 																												if (changeNum($('#gprice')) == "success") {
 																													$.messager

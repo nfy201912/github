@@ -34,7 +34,7 @@ import com.java.service.UserService;
 
 @Controller
 @RequestMapping("/user")
-@SessionAttributes(value={"user"})
+@SessionAttributes(value={"u"})
 public class UserController {
 	@Autowired
 	UserService userService;
@@ -68,7 +68,7 @@ public class UserController {
 	@ResponseBody
 	public String addUser(User user){
 		try {
-			if(this.checkName(user)){
+			if("success".equals(this.checkName(user))){
 				userService.add(user);
 				return "success";
 			}
@@ -189,7 +189,7 @@ public class UserController {
 						}
 					}
 				}
-				m.addAttribute("user",user);
+				m.addAttribute("u",user);
 				return "SUCCESS";//成功
 			}else{
 				return "用户未激活";
@@ -223,13 +223,14 @@ public class UserController {
 	//检查用户是否存在
 	@RequestMapping("/checkName")
 	@ResponseBody
-	public boolean checkName(User user) throws Exception{
+	public String checkName(User user) throws Exception{
+		
 		User u = new User();
 		u=userService.find(user);
 		if(user.getU_username().equals(u.getU_username())){
-			return false;
+			return "error";
 		}
-		return true;
+		return "success";
 	}
 	@RequestMapping("/acvtiveCode")
 	public String active(@RequestParam("active") String active){
@@ -250,7 +251,7 @@ public class UserController {
 	@RequestMapping(value={"/exit"})
 	public String exit(HttpSession session,SessionStatus sessionStatus){
 		
-		 session.removeAttribute("user");//我这里是先取出httpsession中的user属性
+		 session.removeAttribute("u");//我这里是先取出httpsession中的user属性
 	     session.invalidate();  //然后是让httpsession失效
 	     sessionStatus.setComplete();//最后是调用sessionStatus方法
 

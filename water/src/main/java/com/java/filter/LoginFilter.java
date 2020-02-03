@@ -29,7 +29,7 @@ public class LoginFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse)res;
 		HttpSession session = request.getSession();
 		
-		User user = (User)session.getAttribute("user");
+		User user = (User)session.getAttribute("u");
 		Admin admin = (Admin)session.getAttribute("adm");
 		String url = request.getRequestURI();
 		

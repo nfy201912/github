@@ -24,7 +24,7 @@
 <body>
 
 		<div id="register" class="container">
-		<div class="row">
+		<div class="row" style="margin: -40px">
 			<div class="col-md-12 col-sm-12 col-xs-12" align="center">
 		<form method="post">
 			<table>
@@ -35,7 +35,7 @@
 							<tr height="36">
 									<th>账 号：</th>
 										<td>
-										<input type="text" id="u_username" name="u_username" value=""/><span id="sp_username"></span></td>
+										<input type="text" id="u_username" name="u_username" value=""/></td><td><span id="sp_username"></span></td>
 										
 								</tr>
 									<tr height="36">
@@ -47,7 +47,7 @@
 									 <tr height="36">
 									<th>确认密 码：</th>
 									<td>
-									<input type="password" name="u_password2" id="u_password2"/><span id="sp_password"></span>
+									<input type="password" name="u_password2" id="u_password2"/></td><td><span id="sp_password"></span>
 									</td>
 									</tr>  
 									 <tr height="36">
@@ -60,13 +60,13 @@
 								<tr height="36">
 									<th>邮 箱：</th>
 									<td>
-										<input type="text" name="u_email" id="u_email"/><span id="sp_email"></span>
+										<input type="text" name="u_email" id="u_email"/></td><td><span id="sp_email"></span>
 										</td>
 										</tr>	
 									<tr height="36">
 										<th>电 话：</th>
 										<td>
-											<input type="text" name="u_phone" id="u_phone"/><span id="sp_phone"></span>
+											<input type="text" name="u_phone" id="u_phone"/></td><td><span id="sp_phone"></span>
 											</td>
 											</tr>
 								 <tr height="36">
@@ -108,15 +108,20 @@
 			// username:$(this).val()：自定义一个变量，变量名为：username  变量值：$(this).val() :获取当前文本框中的内容
 			//mark:"checkName"    mark是一个变量名     "checkName":是mark的值   类似于  String mark="checkName";
 			//function(data)：回调函数
-			$.post("${path}/user/checkName",{"u_username":$("#u_username").val()},function(data){
-				if(!data){
-					data ="用户已存在";
-				}else{
-					data="";
-				}
-				
-				$("#sp_username").html(data).css("color","#ff0000");
-			});
+			if($("#u_username").val()==""){
+				$("#sp_username").html("账号不能为空").css("color","#ff0000");
+			}else{
+				$.post("${path}/user/checkName",{"u_username":$("#u_username").val()},function(data){
+					if("success"!=data){
+						data ="用户已存在";
+					}else{
+						data="";
+					}
+					
+					$("#sp_username").html(data).css("color","#ff0000");
+				});
+			}
+			
 		}); 
 		//确认密码
 		$("#u_password2").blur(function(){

@@ -29,11 +29,11 @@
 		<div class="row" style="float: right;margin-top:20px; padding: 0" >
 			
 			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="padding: 0" align="right">
-			<c:if test="${user==null}">
+			<c:if test="${u==null}">
 				<a  href="${path }/login.jsp">登入</a>|<a  href="${path }/Register.jsp">注册</a>
 			</c:if>
-			<c:if test="${user!=null}">
-				<span>欢 迎 您 ！[${user.u_username}]</span><a  href="${path }/login.jsp">切换账号</a>&nbsp;|&nbsp;<a  href="${path }/Register.jsp">注册</a>&nbsp;|&nbsp;<a href="${path}/user/exit">退出</a>
+			<c:if test="${u!=null}">
+				<span>欢 迎 您 ！[${u.u_username}]</span><a  href="${path }/login.jsp">切换账号</a>&nbsp;|&nbsp;<a  href="${path }/Register.jsp">注册</a>&nbsp;|&nbsp;<a href="${path}/user/exit">退出</a>
 			</c:if>
 			
 			

@@ -84,7 +84,7 @@
 						    			onSubmit:function(){
 						    				var isValid =$(this).form('validate');
 						    				if(isValid){
-						    					var rp = /[^\w\/]/ig;//匹配除字母下划线中划线斜杠以外的字符						 					
+						    					var rp = /[^\w\/]/ig;//匹配除字母下划线中划线斜杠数字以外的字符						 					
 						    					var re = /\s/;//空格
 						    					var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
 						    					//console.info(!re.test($('#name').val())&&!pattern.test($('#name').val()))

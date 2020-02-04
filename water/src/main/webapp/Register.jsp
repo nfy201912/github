@@ -16,6 +16,7 @@
 		<script src="${path }/js/my.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${path }/js/jquery.singlePageNav.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${path }/js/wow.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="${path }/js/jquery-easyui-1.8.8/plugins/jquery.form.js"></script>
 		<style type="text/css">
 	
 </style>
@@ -23,60 +24,60 @@
 
 <body>
 
-		<div id="register" class="container">
-		<div class="row" style="margin: -40px">
-			<div class="col-md-12 col-sm-12 col-xs-12" align="center">
-		<form method="post">
-			<table>
+		<div id="register" >
+		<div style="margin: -40px">
+			<div align="center">
+		<form id="regform" action="${path }/user/register" method="post">
+			<table >
 			<h1>用户注册</h1>
 			<br />
 							
 						<tbody>
 							<tr height="36">
-									<th>账 号：</th>
+									<th style="text-align: right;">账 号：</th>
 										<td>
-										<input type="text" id="u_username" name="u_username" value=""/></td><td><span id="sp_username"></span></td>
+										<input type="text" id="u_username" name="u_username"  /></td><td><span id="sp_username"></span></td>
 										
 								</tr>
 									<tr height="36">
-									<th>密 码：</th>
+									<th style="text-align: right;">密 码：</th>
 									<td>
-									<input type="password" name="u_password" id="u_password"/>
+									<input type="password" name="u_password" id="u_password" /></td><td><span id="sp_password"></span>
 									</td>
 									</tr>
 									 <tr height="36">
-									<th>确认密 码：</th>
+									<th style="text-align: right;">确认密 码：</th>
 									<td>
-									<input type="password" name="u_password2" id="u_password2"/></td><td><span id="sp_password"></span>
+									<input type="password" name="u_password2" id="u_password2"/></td><td><span id="sp_password2"></span>
 									</td>
 									</tr>  
 									 <tr height="36">
-										 <th>姓 名：</th>
+										 <th style="text-align: right;">姓 名：</th>
 										 <td>
-											 <input type="text" name="u_name"/>
+											 <input type="text" id="u_name" name="u_name"/></td><td><span id="sp_name"></span>
 											 </td>
 											 
 											 </tr>
 								<tr height="36">
-									<th>邮 箱：</th>
+									<th style="text-align: right;">邮 箱：</th>
 									<td>
 										<input type="text" name="u_email" id="u_email"/></td><td><span id="sp_email"></span>
 										</td>
 										</tr>	
 									<tr height="36">
-										<th>电 话：</th>
+										<th style="text-align: right;">电 话：</th>
 										<td>
 											<input type="text" name="u_phone" id="u_phone"/></td><td><span id="sp_phone"></span>
 											</td>
 											</tr>
 								 <tr height="36">
-										<th>
+										<th style="text-align: right;">
 											验证码：
 										</th>
 										<td>
-												<input type="text" name="validateCode"  id="validateCode" class="text" >
+												<input type="text" name="u_validateCode"  id="validateCode" class="text" >
 											</td>
-												<td><img id="code" src="${path }/user/doValidateCode" alt="验证码图片"></td>
+												<td ><img id="code" src="${path }/user/doValidateCode" alt="验证码图片"></td>
 												<span class="redFont">&nbsp;&nbsp;&nbsp;&nbsp;${validateCodeMessage }</span>
 										
 									</tr> 
@@ -100,6 +101,9 @@
 		</div>
 		
 		<script type="text/javascript">
+		var rp = /[^\w\/]/ig;//匹配除字母下划线中划线斜杠数字以外的字符						 					
+		var re = /\s/;//空格
+		var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");//特殊字符
 	$(function(){
 		
 		$("#u_username").blur(function(){
@@ -123,15 +127,34 @@
 			}
 			
 		}); 
+		 $('#u_password').blur(function(){
+			var data = "";
+			if($(this).val()==""){
+				data = "密码不能为空";
+			}
+			if(rp.test($(this).val())){
+				data="密码只能输入字母、数字"
+			}
+			$("#sp_password").html(data).css("color","#ff0000");
+		});
 		//确认密码
 		$("#u_password2").blur(function(){
+			var data = "";
+			if($(this).val()==""){
+				data = "请确认密码";
+			}
 			if($(this).val()!=$("#u_password").val()){
 				var data = "密码不一致";
 				
-			}else{
-				var data="";
 			}
-			$("#sp_password").html(data).css("color","#ff0000");
+			$("#sp_password2").html(data).css("color","#ff0000");
+		}); 
+		
+		$('#u_name').blur(function(){
+			var data = "";
+			if($('#u_name').val()!=""){
+				$('#sp_name').html(data).css("color","#ff0000");;
+			}
 		});
 		//邮箱格式验证
 		$("#u_email").blur(function(){
@@ -161,7 +184,12 @@
 			
 			$("#sp_phone").html(data).css("color","#ff0000");
 		}) 
-		
+		$('#validateCode').blur(function(){
+			var data = "";
+			if($(this).val()!=""){
+				$('#sp_validateCode').html(data);
+			}
+		});
 		//点击更改另一张验证码
 		$("#code").on("click",function(){
 			
@@ -172,17 +200,61 @@
 	 
 	
 	function commit(object,flag){
-		var regu = "^[ ]+$";//空格
-		var re = new RegExp(regu);
-		$('input[type="text"]').each(function(i,v){
-			if($(this).val()==null||$(this).val()==""||re.test($(this).val())){
-			$(this).siblings().html("不能为空").css("color","#ff0000");
-			alert($(this).siblings().val())
+		
+		var tr = "";
+		var u = "u_";
+		var sp = "sp_";
+		var data = "";
+		if($('#u_username').val()!=""){
+			if($("#u_password").val()==""){
+				$("#sp_password").html("密码不能为空").css("color","#ff0000");
+				return;
+			}else if($("#u_password2").val()==""){
+				$("#sp_password2").html("请确认密码").css("color","#ff0000");
+				return;
+			}else{
+				$('input[type="text"]').each(function(i,v){
+					
+					tr = $(this).attr('name');
+					tr = tr.replace(u,sp);	
+					
+					if($(this).val()==""||re.test($(this).val())){
+						flag = false;
+						data = "不能为空";
+						//document.getElementById(tr) 得到dom对象 ,通过$(document.getElementById(tr))转换传jquery对象
+					$(document.getElementById(tr)).html(data).css("color","#ff0000");
+					return false;
+					}else {
+						flag = true;
+					}
+					
+				});
 			}
-		});
-		if(flag){
-			$('form').location.href="${path }/user/register";
+		}else{
+			$('#sp_username').html("账号不能为空").css("color","#ff0000");
+			return;
 		}
+		if(flag){
+			var v = $('#validateCode').val();
+			$.post("${path }/user/validateCode",{"validateCode":v},function(data){
+				if("success"==data){
+					var data = $('#regform').serialize();
+					$.post("${path }/user/register",data,function(data){
+						if("success"==data){
+							alert("注册成功，请前往邮箱激活")
+							location.href="${path}/login.jsp";
+						}
+					});
+					
+				}else{
+					alert(data)
+				}
+			});
+		}
+		
+		/* if(flag){
+			$('form').location.href="${path }/user/register";
+		} */
 		
 		
 	}	

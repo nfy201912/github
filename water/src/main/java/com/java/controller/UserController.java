@@ -258,16 +258,21 @@ public class UserController {
 		return "/login";
 	}
 	
+	@RequestMapping(value={"/validateCode"},produces="text/html;charset=utf-8")
+	@ResponseBody
+	public String validateCode(@RequestParam("validateCode") String validateCode,HttpServletRequest req){
+		String code = req.getSession().getAttribute("code").toString();
+		if(!code.equalsIgnoreCase(validateCode)){
+			return "验证码错误";
+		}
+		
+		return "success";
+	}
 	@RequestMapping("/register")
-	public String register(User user,@RequestParam("validateCode") String validateCode,HttpServletRequest req){
+	@ResponseBody
+	public String register(User user){
 			
 			user.setU_createTime(new Timestamp(new Date().getTime()));
-			//获取验证码
-			String code = req.getSession().getAttribute("code").toString();
-			
-			if(!code.equalsIgnoreCase(validateCode)){
-				return "/Register";
-			}
 			// 随机产生一个激活码
 				String activerCoude = UUID.randomUUID().toString();
 				user.setU_activeCode(activerCoude);
@@ -275,11 +280,11 @@ public class UserController {
 		try {
 			
 			userService.register(user);
-			return "/login";
+			return "success";
 		} catch (Exception e) {
 			
 			e.printStackTrace();
-			return "/Register";
+			return "error";
 		}
 		
 		

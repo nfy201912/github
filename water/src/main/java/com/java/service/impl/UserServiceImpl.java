@@ -65,6 +65,7 @@ public class UserServiceImpl implements UserService{
 		String md5password = MD5Util.md5Password(password);
 		
 		user.setU_password(md5password);
+		user.setU_status(false);
 		try {
 			userMapper.register(user);
 			//给用户发送一份邮件            emailMsg：内容

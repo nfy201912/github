@@ -6,14 +6,7 @@
 	background-color: #5BC0DE;
 	height:500px;
 }
- #form{
-	position: relative;
-	bottom: 20px;
-	padding: 20px;
-	height: 600px;
-	width: 500px;
-	background-color:rgba(0,70,100,0.1);
-} 
+
 #register{
 	
 	padding: 50px;

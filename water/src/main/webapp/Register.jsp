@@ -25,14 +25,16 @@
 <body>
 
 		<div id="register" >
-		<div style="margin: -40px">
-			<div align="center">
+		
+			
 		<form id="regform" action="${path }/user/register" method="post">
-			<table >
-			<h1>用户注册</h1>
+			<table align="center" style="background-color: gray;width: 400px;height: 500px">
+			
 			<br />
 							
 						<tbody>
+						
+						<tr><td></td><td><h2 >用 户 注  册</h2></td></tr>
 							<tr height="36">
 									<th style="text-align: right;">账 号：</th>
 										<td>
@@ -94,8 +96,8 @@
 								
 				</table>
 				
-				</form></div>
-		</div>
+				</form>
+
 		
 				
 		</div>
@@ -216,15 +218,31 @@
 				$('input[type="text"]').each(function(i,v){
 					
 					tr = $(this).attr('name');
+					if(tr=="u_username"){
+						data = "账号不能为空";
+					}else if(tr=="u_name"){
+						data = "姓名不能为空";
+					}else if(tr=="u_email"){
+						data = "邮箱不能为空";
+					}else if(tr=="u_phone"){
+						data = "电话不能为空";
+					}
 					tr = tr.replace(u,sp);	
 					
-					if($(this).val()==""||re.test($(this).val())){
+					if($(this).val()==""||re.test($(this).val())){//为空或者输入空格
 						flag = false;
-						data = "不能为空";
+						console.log(tr);
+						if(tr=="sp_validateCode"){
+							alert("请输入验证码")
+						}
 						//document.getElementById(tr) 得到dom对象 ,通过$(document.getElementById(tr))转换传jquery对象
 					$(document.getElementById(tr)).html(data).css("color","#ff0000");
 					return false;
-					}else {
+					}else if($(document.getElementById(tr)).html()!=""&&tr!="sp_validateCode"){
+						flag = false;
+						return false;
+					}
+					else {
 						flag = true;
 					}
 					
@@ -234,6 +252,7 @@
 			$('#sp_username').html("账号不能为空").css("color","#ff0000");
 			return;
 		}
+		alert(flag)
 		if(flag){
 			var v = $('#validateCode').val();
 			$.post("${path }/user/validateCode",{"validateCode":v},function(data){

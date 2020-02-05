@@ -70,9 +70,9 @@
 			<!-- 管理员登入 -->
 		
 			<div id="d2" class="login" style="margin-top: 100px;display: none">
-		<div style="background-color: #b0fdfb;width: 455px;height: 385px;padding: 10px">
+		<div style="background-color: #b0fdfb;width: 500px;height: 385px;padding: 10px">
         	<form  method="post">
-            <table border="0" style="width:370px; font-size:14px; margin-top:30px;" cellspacing="0" cellpadding="0">
+            <table border="0" style="width:400px; font-size:14px; margin-top:30px;" cellspacing="0" cellpadding="0">
            
               <tr height="50" valign="top" style="text-align: center">
               	<td width="50">&nbsp;</td>
@@ -82,11 +82,11 @@
                 </td>
               </tr>
               <tr height="70">
-                <td>用户名</td>
+                <th style="text-align: right;">用 户 名</th>
                 <td><input type="text"  name="adm_name" value="${adm.adm_name }" class="l_user" /></td>
               </tr>
               <tr height="70">
-                <td>密&nbsp; &nbsp; 码</td>
+                <th style="text-align: right;">密  码</th>
                 <td><input type="password"  name="adm_password" value="" class="l_pwd" /></td>
               </tr>
               <tr>

@@ -2,6 +2,8 @@ package com.java.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.java.po.Goods;
 
 public interface GoodsMapper {
@@ -17,4 +19,6 @@ public interface GoodsMapper {
 	public Goods findByName(Goods goods)throws Exception;
 	//根据ID查询水源
 	public Goods load(int g_id) throws Exception;
+	//页码内容查询
+	public List<Goods> findPage(@Param("g_name")String g_name,@Param("startPage")int startPage,@Param("pageSize")int pageSize) throws Exception;
 }

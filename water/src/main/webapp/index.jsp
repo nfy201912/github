@@ -21,10 +21,18 @@
 		<script src="${path }/js/wow.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			new WOW().init();
-			alert(path)
 		</script>
 </head>
 <body>
+
+<script type="text/javascript">
+		
+		/* $.post("${path}/goods/findGoods",{},function(data){
+			console.log(data)
+			
+		}); */
+	</script>
+	<input type="hidden" id="goods">
 		<div class="container" >
 		<div class="row" style="float: right;margin-top:20px; padding: 0" >
 			
@@ -40,31 +48,18 @@
 			</div>
 		</div>
 		
-			<div class="row" id="rowheader" style="height: 50px;">
-				<div class="col-md-3 col-lg-3 col-sm-4 " style="margin-bottom: 50px"><a class="navbar-brand"  href="index.jsp"><h2>校园送水</h2></a></div>
-				<div class="col-md-3 col-lg-3 col-sm-3" style="margin-top: 33px" ><div class="dropdown" >
-	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    选择校区
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#">东合校区</a></li>
-    <li><a href="#">澄碧校区</a></li>
-   
-    <li role="separator" class="divider"></li>
-    <li><a href="#">更多</a></li>
-  </ul>
-</div></div>
-				
-				
+			<div class="row" id="rowheader" style="height: 50px;margin-bottom: 70px;">
+				<div class="col-md-3 col-lg-3 col-sm-4 " style="margin-bottom: 50px"><a class="navbar-brand"  href="index.jsp"><h1>校 园 送 水</h1></a></div>
 			</div>
-			
-			<div class="row" style="padding: 0">
+			<div class="row">
+					
+			</div>
+			 <!-- <div class="row" style="padding: 0">
 				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-8" style="padding: 0" align="right">
 					<form class="navbar-form navbar-right" role="search">
-	<!-- <div class="col-sm-4 col-xs-4" style="margin: 0;padding: 0 2px"> -->
+	<div class="col-sm-4 col-xs-4" style="margin: 0;padding: 0 2px">
     <input type="text" class="form-control" placeholder="Search">
-<!-- </div> -->
+</div>
  
  <button type="submit" class="btn btn-default">搜索</button>
 
@@ -72,7 +67,7 @@
 
 </form>
 				</div>
-			</div>
+			</div> -->
 			<!-- Static navbar -->
 			<div  class="row" style="padding: 0;">
 				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-9" style="padding: 0;">
@@ -90,15 +85,21 @@
 							</div>
 							<div id="navbar" class="navbar-collapse collapse" align="center">
 								<ul class="nav navbar-nav navbar-letf">
-									<li><a href="#home">首页 <span class="sr-only">(current)</span></a></li>
-									<li><a href="#bbs">论坛</a></li>
-									<li><a href="">送水员</a></li>
-									<li><a href="">桶装水</a></li>
-									
-									<li><a href="">联系我们</a></li>
-									
+									<li><a href="#home">首 页 <span class="sr-only">(current)</span></a></li>
+									<li><a href="#bbs">论 坛</a></li>
+									<li><a href="">送 水 员</a></li>
+									<li><a href="${path}/goods/findGoods?g_name&startPage=1&pageSize=12">商 品</a></li>
+									<li><a href="">联 系 我 们</a></li>
 								</ul>
-								
+								<form class="navbar-form navbar-right" role="search" style="margin-right:-90px;">
+	<div class="col-sm-4 col-xs-4" style="margin-right:75px;padding:0;">
+    <input id="st" type="text" style="width: 280px;" class="form-control" placeholder="Search">
+</div>
+ <button id="ser" type="button" class="btn btn-default">搜 索</button>
+
+  
+
+</form>
 							</div>
 							
 							<!--/.nav-collapse -->
@@ -156,23 +157,43 @@
 						  </a>
 						</div>
 						</div>
-						<div class="row" style="padding: 8px 14px">
-							<span>商品 >></span>
-						</div>
+						<div class="row" style="padding:0;margin: 40px 0;">
+						<div class="col-md-4 col-lg-4 col-sm-4" style="text-align: right">
+									
+								</div>
+								<div class="col-md-4 col-lg-4 col-sm-4" style="text-align:center">
+									<span>品 牌 系 列</span>
+								</div>
+								
+		
+			
+						</div>	
 						
-						<div class="row" style="padding: 20px;background-color: #c9e9f9;">
-							<div class="row" style="height:202px; padding: 0;margin: 5px -15px" align="center">
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin:0" ><img src="${path }/img/lebaishi1.jpg"  ><span>商品 >></span></div>
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="  padding: 0;  margin:0"><img src="${path }/img/wahaha1.jpg" ><span>商品 >></span></div>
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="padding: 0;  margin:0"><img src="${path }/img/nfsc.jpg" ><span>商品 >></span></div>
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin:0"><img src="${path }/img/yibao1.jpg" ><span>商品 >></span></div>
+						<div class="row" style="padding:8px 20px 20px 20px;background-color: #c9e9f9;">
+							<div class="row" style="height:240px; padding: 0;margin: 5px -15px" align="center">
+						 <c:choose>
+								<c:when test="">
+								
+									<c:forEach items="" var="good">
+				<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;" ><img src="${path }${good.g_imgUrl}"  ><span style="font-size: 18px;margin-top: 6px;">${good.g_name} &nbsp;&nbsp;&nbsp;单 价:&nbsp;${good.g_price}</span></div>
+									</c:forEach>
+								</c:when>
+								<c:otherwise></c:otherwise>
+							</c:choose> 
+							
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;" ><a href="#" style="text-decoration: none;"><img src="${path }/img/lebaishi1.jpg"  ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></a></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="  padding: 0;  margin-top:20px;"><img src="${path }/img/wahaha1.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="padding: 0;  margin-top:20px;"><img src="${path }/img/nfsc.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;"><img src="${path }/img/yibao1.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
+					
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;" ><img src="${path }/img/binglu.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="  padding: 0;  margin-top:20px;"><img src="${path }/img/dnyl.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="padding: 0;  margin-top:20px;"><img src="${path }/img/quchenshi.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;"><img src="${path }/img/quechao.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
 				</div>
-			<div class="row" style="height:202px; padding: 0;margin: 5px -15px " align="center">
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin:0" ><img src="${path }/img/binglu.jpg" ><span>商品 >></span></div>
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="  padding: 0;  margin:0"><img src="${path }/img/dnyl.jpg" ><span>商品 >></span></div>
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="padding: 0;  margin:0"><img src="${path }/img/quchenshi.jpg" ><span>商品 >></span></div>
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin:0"><img src="${path }/img/quechao.jpg" ><span>商品 >></span></div>
-				</div>
+			<%-- <div class="row" style="height:202px; padding: 0;margin: 0px -15px " align="center">
+					
+				</div> --%>
 						
 						</div>
 				
@@ -190,5 +211,16 @@
 				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">版权</div>
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+			$(function(){
+				$("#ser").click(function(){
+					//$(location).attr('href', "${path}/goods/findGoods?g_name="+$("#st").val());startPage=0&pageSize=12
+					var url = "${path}/goods/findGoods?g_name="+$("#st").val()+"&startPage="+1+"&pageSize="+12;
+					location.href=url;
+				});
+			})
+		</script>
 	</body>
+	
 </html>

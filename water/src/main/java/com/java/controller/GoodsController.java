@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.java.po.Category;
 import com.java.po.Goods;
 import com.java.service.GoodsService;
 @Controller
 @RequestMapping("/goods")
-@SessionAttributes(value={})
+@SessionAttributes(value={"goods"})
 public class GoodsController {
 	private static final long serialVersionUID = 1L;
 	@Resource
@@ -57,6 +57,22 @@ public class GoodsController {
 		jsonMap.put("rows",goods);
 		jsonMap.put("total",goods.size());
 		return jsonMap;
+	}
+	
+	@RequestMapping("/findGoods")
+	public Object findGoods(@RequestParam("g_name")String g_name,@RequestParam("startPage")int startPage,
+			@RequestParam("pageSize")int pageSize) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		Goods good = new Goods();
+		if(!"".equals(g_name)){
+			good.setG_name(g_name);
+		}
+		mv.addObject("startPage", startPage);//回传指定页码
+		mv.addObject("count",goodsService.findAll(good).size());//总记录数
+		mv.addObject("goods",goodsService.findPage(good,startPage, pageSize));//指定页码的商品数
+		//mv.addObject("goods",goodsService.findAll(good));
+		mv.setViewName("goods");
+		return mv;
 	}
 	
 	/*

@@ -47,5 +47,12 @@ public class GoodsServiceImpl implements GoodsService{
 		
 		return goodsMapper.findAll(good);
 	}
+	@Override
+	public List<Goods> findPage(Goods good,int startPage, int pageSize) throws Exception {
+		
+		int count = goodsMapper.findAll(good).size();//总记录数
+		int startCount = pageSize*(startPage-1); //查询页
+		return goodsMapper.findPage(good.getG_name(),startCount, pageSize);
+	}
 
 }

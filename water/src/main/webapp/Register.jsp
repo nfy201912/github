@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Register</title>
 		<link rel="stylesheet" type="text/css" href="${path }/css/bootstrap.css" />
-		<link rel="stylesheet" type="text/css" href="${path }/css/mybootstrap.css"/>
+		<%-- <link rel="stylesheet" type="text/css" href="${path }/css/mybootstrap.css"/> --%>
 		<link rel="stylesheet" type="text/css" href="${path }/css/Login.css" />
 		
 		<script src="${path }/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
@@ -24,7 +24,7 @@
 
 <body>
 
-		<div id="register" >
+		<div >
 		
 			
 		<form id="regform" action="${path }/user/register" method="post">

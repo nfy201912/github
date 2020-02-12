@@ -2,6 +2,7 @@ package com.java.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.java.po.Category;
@@ -20,4 +21,6 @@ public interface GoodsService {
 	public Goods findByName(Goods goods)throws Exception;
 	//根据ID查询水源
 	public Goods load(int g_id) throws Exception;
+	//页码内容查询
+	public List<Goods> findPage(Goods good,int startPage,int pageSize) throws Exception;
 }

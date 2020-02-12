@@ -22,6 +22,9 @@
 		and	g.c_id=#{category.c_id}
 		</if>
 </select>
+<select id="findPage" resultType="goods">
+	 select * from goods where g_name like '%${g_name}%' limit #{startPage},#{pageSize}
+</select>
 <insert id="add" parameterType="goods">
 	insert into goods values(g_id,#{g_name},#{g_price},#{category.c_id},#{g_imgUrl})
 </insert>

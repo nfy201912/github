@@ -75,21 +75,21 @@
             <table border="0" style="width:400px; font-size:14px; margin-top:30px;" cellspacing="0" cellpadding="0">
            
               <tr height="50" valign="top" style="text-align: center">
-              	<td width="50">&nbsp;</td>
+              	<td width="60">&nbsp;</td>
                 <td>
                 	<span  style="font-size:24px;">管理员登录</span>
                    
                 </td>
               </tr>
               <tr height="70">
-                <th style="text-align: right;">用 户 名</th>
+                <td width="50" align="right">用 户 名&nbsp;&nbsp;</td>
                 <td><input type="text"  name="adm_name" value="${adm.adm_name }" class="l_user" /></td>
               </tr>
               <tr height="70">
-                <th style="text-align: right;">密  码</th>
+                <td align="right">密  码&nbsp;&nbsp;</td>
                 <td><input type="password"  name="adm_password" value="" class="l_pwd" /></td>
               </tr>
-              <tr>
+              <!-- <tr>
               	<td>&nbsp;</td>
                 <td style="font-size:12px; padding-top:20px;">
                 	<span style="font-family:'宋体';" class="fl">
@@ -97,7 +97,7 @@
                     </span>
                   
                 </td>
-              </tr>
+              </tr> -->
               <tr height="60">
               	<td>&nbsp;</td>
                 <td><input type="button" name="dr" value="登录" class="log_btn" onclick="login()"/></td>
@@ -116,24 +116,24 @@
     	
 		<div style="background-color: #b0fdfb;width: 455px;height: 385px;padding: 10px">
         	<form  id="loginForm" action="${path }/user/userLogin" method="post">
-            <table border="0" style="width:370px; font-size:14px; margin-top:30px;" cellspacing="0" cellpadding="0">
+            <table border="0" style="width:400px; font-size:14px; margin-top:30px;" cellspacing="0" cellpadding="0">
            
               <tr height="50" valign="top" style="text-align: center">
-              	<td width="50">&nbsp;</td>
+              	<td width="60">&nbsp;</td>
                 <td>
                 	<span  style="font-size:24px;">用户登录</span>
                    
                 </td>
               </tr>
               <tr height="70">
-                <td>用户名</td>
+                <td width="50" align="right">用 户 名&nbsp;&nbsp;</td>
                 <td>
                 <input type="text"  id="name" name="u_username" value="${cookie.username.value }" class="l_user" />
                 <span id="sp_username"></span>
                 </td>
               </tr>
               <tr height="70">
-                <td>密&nbsp; &nbsp; 码</td>
+                <td align="right">密 码&nbsp;&nbsp;</td>
                 <td><input type="password" name="u_password" id="u_password" value="${cookie.password.value }" class="l_pwd" />
                 	<span id="sp_password"></span>
                 </td>

@@ -31,7 +31,7 @@ import com.java.service.AdminService;
 public class AdminController {
 	@Autowired
 	private AdminService adminService;
-	@RequestMapping(value={"/login"})//,produces="text/html;charset=utf-8"
+	@RequestMapping(value={"/login"},produces="text/html;charset=utf-8")//,produces="text/html;charset=utf-8"
 	@ResponseBody
 	public String login(Admin admin,ModelMap m){
 		String info = "";

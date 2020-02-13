@@ -11,19 +11,33 @@
 		<id property="c_id" column="c_id"/>
 		<result property="c_name" column="c_name"/>
 	</association>
+	<association property="brand" javaType="brand">
+		<id property="b_id" column="b_id" />
+		<result property="b_name" column="b_name" />
+	</association>
 </resultMap>
 <select id="findAll" parameterType="goods" resultMap="GoodsAndCategory">
-	select * from goods g,category c where g.c_id = c.c_id
+	select * from goods g,category c,brand b where g.c_id = c.c_id and g.b_id=b.b_id
 	<if test="g_name">
 		and g.g_name like '%${g_name}%'
 		
+	</if>
+	<if test="brand">
+		and b.b_name=#{brand.b_name}
 	</if>
 	<if test="category">
 		and	g.c_id=#{category.c_id}
 		</if>
 </select>
 <select id="findPage" resultType="goods">
-	 select * from goods where g_name like '%${g_name}%' limit #{startPage},#{pageSize}
+	 select * from goods g,category c,brand b where g.c_id = c.c_id and g.b_id=b.b_id
+	 <if test="b_name">
+		and b.b_name=#{b_name} 
+	 </if>
+	<if test="g_name">
+		and g_name like '%${g_name}%'
+	</if>
+	  limit #{startPage},#{pageSize}
 </select>
 <insert id="add" parameterType="goods">
 	insert into goods values(g_id,#{g_name},#{g_price},#{category.c_id},#{g_imgUrl})

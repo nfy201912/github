@@ -6,6 +6,7 @@ public class Goods {
 	private double g_price;
 	private String g_imgUrl;
 	private Category category;//类别
+	private Brand brand;//品牌
 	public int getG_id() {
 		return g_id;
 	}
@@ -36,11 +37,17 @@ public class Goods {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	public Brand getBrand() {
+		return brand;
+	}
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}
 	@Override
 	public String toString() {
 		return "Goods [g_id=" + g_id + ", g_name=" + g_name + ", g_price="
 				+ g_price + ", g_imgUrl=" + g_imgUrl + ", category=" + category
-				+ "]";
+				+ ", brand=" + brand + "]";
 	}
 	
 }

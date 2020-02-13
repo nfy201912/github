@@ -49,10 +49,13 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 	@Override
 	public List<Goods> findPage(Goods good,int startPage, int pageSize) throws Exception {
-		
+		String b_name = null;
+		if(good.getBrand()!=null){
+			b_name = good.getBrand().getB_name();
+		}
 		int count = goodsMapper.findAll(good).size();//总记录数
 		int startCount = pageSize*(startPage-1); //查询页
-		return goodsMapper.findPage(good.getG_name(),startCount, pageSize);
+		return goodsMapper.findPage(b_name,good.getG_name(),startCount, pageSize);
 	}
 
 }

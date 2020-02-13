@@ -20,5 +20,5 @@ public interface GoodsMapper {
 	//根据ID查询水源
 	public Goods load(int g_id) throws Exception;
 	//页码内容查询
-	public List<Goods> findPage(@Param("g_name")String g_name,@Param("startPage")int startPage,@Param("pageSize")int pageSize) throws Exception;
+	public List<Goods> findPage(@Param("b_name")String b_name,@Param("g_name")String g_name,@Param("startPage")int startPage,@Param("pageSize")int pageSize) throws Exception;
 }

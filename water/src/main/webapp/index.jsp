@@ -25,13 +25,6 @@
 </head>
 <body>
 
-<script type="text/javascript">
-		
-		/* $.post("${path}/goods/findGoods",{},function(data){
-			console.log(data)
-			
-		}); */
-	</script>
 	<input type="hidden" id="goods">
 		<div class="container" >
 		<div class="row" style="float: right;margin-top:20px; padding: 0" >
@@ -88,7 +81,7 @@
 									<li><a href="#home">首 页 <span class="sr-only">(current)</span></a></li>
 									<li><a href="#bbs">论 坛</a></li>
 									<li><a href="">送 水 员</a></li>
-									<li><a href="${path}/goods/findGoods?g_name&startPage=1&pageSize=12">商 品</a></li>
+									<li><a href="${path}/goods/findGoods?g_name&b_name&startPage=1&pageSize=12">商 品</a></li>
 									<li><a href="">联 系 我 们</a></li>
 								</ul>
 								<form class="navbar-form navbar-right" role="search" style="margin-right:-90px;">
@@ -171,25 +164,16 @@
 						
 						<div class="row" style="padding:8px 20px 20px 20px;background-color: #c9e9f9;">
 							<div class="row" style="height:240px; padding: 0;margin: 5px -15px" align="center">
-						 <c:choose>
-								<c:when test="">
-								
-									<c:forEach items="" var="good">
-				<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;" ><img src="${path }${good.g_imgUrl}"  ><span style="font-size: 18px;margin-top: 6px;">${good.g_name} &nbsp;&nbsp;&nbsp;单 价:&nbsp;${good.g_price}</span></div>
-									</c:forEach>
-								</c:when>
-								<c:otherwise></c:otherwise>
-							</c:choose> 
-							
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;" ><a href="#" style="text-decoration: none;"><img src="${path }/img/lebaishi1.jpg"  ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></a></div>
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="  padding: 0;  margin-top:20px;"><img src="${path }/img/wahaha1.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="padding: 0;  margin-top:20px;"><img src="${path }/img/nfsc.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;"><img src="${path }/img/yibao1.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
+							<input type="hidden" id="tt" value="乐百氏"/>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;" ><a  href="${path}/goods/findGoods?g_name&startPage=1&pageSize=12&b_name=7" style="text-decoration: none;"><img src="${path }/img/lebaishi1.jpg"><span style="font-size: 18px;margin-top: 6px;">乐 百 氏</span></a></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="  padding: 0;  margin-top:20px;"><a  href="${path}/goods/findGoods?g_name&startPage=1&pageSize=12&b_name=1" style="text-decoration: none;"><img src="${path }/img/wahaha1.jpg" ><span style="font-size: 18px;margin-top: 6px;">娃 哈 哈</span></a></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="padding: 0;  margin-top:20px;"><a  href="${path}/goods/findGoods?g_name&startPage=1&pageSize=12&b_name=5" style="text-decoration: none;"><img src="${path }/img/nfsc.jpg" ><span style="font-size: 18px;margin-top: 6px;">农 夫 山 泉</span></a></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;"><a  href="${path}/goods/findGoods?g_name&startPage=1&pageSize=12&b_name=3" style="text-decoration: none;"><img src="${path }/img/yibao1.jpg" ><span style="font-size: 18px;margin-top: 6px;">怡 宝</span></a></div>
 					
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;" ><img src="${path }/img/binglu.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="  padding: 0;  margin-top:20px;"><img src="${path }/img/dnyl.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="padding: 0;  margin-top:20px;"><img src="${path }/img/quchenshi.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
-					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;"><img src="${path }/img/quechao.jpg" ><span style="font-size: 18px;margin-top: 6px;">名 称 &nbsp;&nbsp;&nbsp;单 价:&nbsp;20</span></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;" ><a  href="${path}/goods/findGoods?g_name&startPage=1&pageSize=12&b_name=8" style="text-decoration: none;"><img src="${path }/img/binglu.jpg" ><span style="font-size: 18px;margin-top: 6px;">冰 露</span></a></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="  padding: 0;  margin-top:20px;"><a  href="${path}/goods/findGoods?g_name&startPage=1&pageSize=12&b_name=6" style="text-decoration: none;"><img src="${path }/img/dnyl.jpg" ><span style="font-size: 18px;margin-top: 6px;">达 能 益 力</span></a></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style="padding: 0;  margin-top:20px;"><a  href="${path}/goods/findGoods?g_name&startPage=1&pageSize=12&b_name=4" style="text-decoration: none;"><img src="${path }/img/quchenshi.jpg" ><span style="font-size: 18px;margin-top: 6px;">屈 臣 氏</span></a></div>
+					<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6" style=" padding: 0; margin-top:20px;"><a  href="${path}/goods/findGoods?g_name&startPage=1&pageSize=12&b_name=2" style="text-decoration: none;"><img src="${path }/img/quechao.jpg" ><span style="font-size: 18px;margin-top: 6px;">雀 巢</span></a></div>
 				</div>
 			<%-- <div class="row" style="height:202px; padding: 0;margin: 0px -15px " align="center">
 					
@@ -211,14 +195,15 @@
 				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">版权</div>
 			</div>
 		</div>
-		
 		<script type="text/javascript">
+			 
 			$(function(){
 				$("#ser").click(function(){
 					//$(location).attr('href', "${path}/goods/findGoods?g_name="+$("#st").val());startPage=0&pageSize=12
-					var url = "${path}/goods/findGoods?g_name="+$("#st").val()+"&startPage="+1+"&pageSize="+12;
+					var url = "${path}/goods/findGoods?g_name="+$("#st").val()+"&startPage="+1+"&pageSize="+12+"&b_name";
 					location.href=url;
 				});
+				 
 			})
 		</script>
 	</body>

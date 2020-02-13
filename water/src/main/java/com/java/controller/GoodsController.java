@@ -17,14 +17,23 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.java.po.Brand;
 import com.java.po.Category;
 import com.java.po.Goods;
 import com.java.service.GoodsService;
 @Controller
 @RequestMapping("/goods")
-@SessionAttributes(value={"goods"})
+@SessionAttributes(value={"goods","brand"})
 public class GoodsController {
 	private static final long serialVersionUID = 1L;
+	private static final String WHH = "1";//娃哈哈
+	private static final String QC = "2";//雀巢
+	private static final String YB = "3";//怡宝	
+	private static final String QCS = "4";//屈臣氏
+	private static final String NFSQ = "5";//农夫山泉
+	private static final String DNYL = "6";//达能益力
+	private static final String LBS = "7";//乐百氏
+	private static final String BL = "8";//冰露
 	@Resource
 	HttpServletRequest request;
 	@Autowired
@@ -60,13 +69,45 @@ public class GoodsController {
 	}
 	
 	@RequestMapping("/findGoods")
-	public Object findGoods(@RequestParam("g_name")String g_name,@RequestParam("startPage")int startPage,
+	public Object findGoods(@RequestParam("b_name")String b_name,@RequestParam("g_name")String g_name,@RequestParam("startPage")int startPage,
 			@RequestParam("pageSize")int pageSize) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		Goods good = new Goods();
+		Brand brand = new Brand();
+		String flag = "";
+		if(!"".equals(b_name)){
+			if(LBS.equals(b_name)){
+				brand.setB_name("乐百氏");
+				flag = LBS;
+			}else if(WHH.equals(b_name)){
+				brand.setB_name("娃哈哈");
+				flag = WHH;
+			}else if(QC.equals(b_name)){
+				brand.setB_name("雀巢");
+				flag = QC;
+			}else if(NFSQ.equals(b_name)){
+				brand.setB_name("农夫山泉");
+				flag = NFSQ;
+			}else if(YB.equals(b_name)){
+				brand.setB_name("怡宝");
+				flag = YB;
+			}else if(QCS.equals(b_name)){
+				brand.setB_name("屈臣氏");
+				flag = QCS;
+			}else if(BL.equals(b_name)){
+				brand.setB_name("冰露");
+				flag = BL;
+			}else if(DNYL.equals(b_name)){
+				brand.setB_name("达能益力");
+				flag = DNYL;
+			}	
+			good.setBrand(brand);
+		}
 		if(!"".equals(g_name)){
 			good.setG_name(g_name);
 		}
+		
+		mv.addObject("brand",flag);
 		mv.addObject("startPage", startPage);//回传指定页码
 		mv.addObject("count",goodsService.findAll(good).size());//总记录数
 		mv.addObject("goods",goodsService.findPage(good,startPage, pageSize));//指定页码的商品数

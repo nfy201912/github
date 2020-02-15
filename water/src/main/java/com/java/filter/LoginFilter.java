@@ -35,7 +35,8 @@ public class LoginFilter implements Filter {
 		
 		if(url!=null){
 			if(url.indexOf("normal")<0&&url.indexOf("admin")<0){
-				if(url.indexOf("login.jsp")>=0||url.indexOf("index.jsp")>=0||url.indexOf("Register.jsp")>=0||url.indexOf("goods.jsp")>=0){//登入、注册、首页放行
+				if(url.indexOf("login.jsp")>=0||url.indexOf("index.jsp")>=0||url.indexOf("Register.jsp")>=0
+						||url.indexOf("goods.jsp")>=0||url.indexOf("Product.jsp")>=0){//登入、注册、首页放行
 					chain.doFilter(req, res);
 				}
 			}else if(user!=null&& admin!=null){

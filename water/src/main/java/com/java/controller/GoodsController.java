@@ -1,6 +1,8 @@
 package com.java.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java.po.Brand;
+import com.java.po.BuyCar;
 import com.java.po.Category;
 import com.java.po.Goods;
 import com.java.service.GoodsService;
@@ -122,10 +129,13 @@ public class GoodsController {
 	@RequestMapping("/upload")
 	@ResponseBody
 	public Object upload(@RequestParam("himg") String img,@RequestParam("g_imgUrl") MultipartFile file,@RequestParam("g_name")String name,
-			@RequestParam("g_price")double price,@RequestParam("category")int c,@RequestParam("g_id")int g_id) throws Exception{
+			@RequestParam("g_price")double price,@RequestParam("category")int c,@RequestParam("g_id")int g_id,@RequestParam("brand")int b) throws Exception{
 		Goods good = new Goods();
 		Goods G = new Goods();
-		if(g_id!=0){
+		Brand brand = new Brand();
+		brand.setB_id(b);
+		good.setBrand(brand);
+		if(g_id!=0){//为0则是添加，否则是修改
 			G.setG_id(g_id);
 		}
 		G.setG_name(name);
@@ -155,8 +165,9 @@ public class GoodsController {
 				File saveDir = new File(filePath);
 				if (!saveDir.getParentFile().exists()){
 					saveDir.getParentFile().mkdirs();
+					file.transferTo(saveDir);
 				}
-				file.transferTo(saveDir);
+				
 				Category category = new Category();
 				category.setC_id(c);
 				good.setCategory(category);
@@ -198,5 +209,35 @@ public class GoodsController {
 	public Object load(@RequestParam("g_id") int g_id) throws Exception{
 		
 		return goodsService.load(g_id);
+	}
+	
+	/*
+	 * 购物车
+	 * */
+	
+	@RequestMapping("/loadByID")
+	public Object loadByID(@RequestParam("g_id") int g_id,ModelAndView mv) throws Exception{
+		mv.addObject("good",goodsService.load(g_id));
+		mv.setViewName("Product");
+		return mv;
+	}
+	
+	@RequestMapping("/addc")
+	@ResponseBody
+	public String addc(@RequestParam("data")String Cars) throws JsonParseException, JsonMappingException, IOException{
+		//jackson对象  
+	    ObjectMapper mapper = new ObjectMapper();  
+	    //使用jackson将json转为List<BuyCar>  
+	    JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, BuyCar.class);	     
+	    List<BuyCar> buyCars =  (List<BuyCar>)mapper.readValue(Cars, jt); 
+		try {
+			
+			goodsService.add(buyCars);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		
 	}
 }

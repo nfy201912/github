@@ -40,7 +40,7 @@
 	  limit #{startPage},#{pageSize}
 </select>
 <insert id="add" parameterType="goods">
-	insert into goods values(g_id,#{g_name},#{g_price},#{category.c_id},#{g_imgUrl})
+	insert into goods values(g_id,#{g_name},#{g_price},#{category.c_id},#{g_imgUrl},#{brand.b_id})
 </insert>
 <delete id="delete" parameterType="int">
 	delete from goods where g_id in (
@@ -50,7 +50,7 @@
 	)
 </delete>
 <update id="edit" parameterType="goods">
-	update goods set g_name=#{g_name},g_price=#{g_price},c_id=#{category.c_id},g_imgUrl=#{g_imgUrl} 
+	update goods set g_name=#{g_name},g_price=#{g_price},c_id=#{category.c_id},g_imgUrl=#{g_imgUrl},b_id=#{brand.b_id} 
 	where g_id=#{g_id}
 </update>
 <select id="findByName" parameterType="goods" resultType="goods">
@@ -60,6 +60,6 @@
 	</if>
 </select>
 <select id="load" parameterType="int" resultMap="GoodsAndCategory">
-	select * from goods g,category c where g_id = #{g_id} and g.c_id = c.c_id
+	select * from goods g,category c,brand b where g_id = #{g_id} and g.c_id = c.c_id and g.b_id = b.b_id
 </select>
 </mapper>

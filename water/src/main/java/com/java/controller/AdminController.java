@@ -181,7 +181,7 @@ public class AdminController {
 	public String exit(HttpSession session,SessionStatus sessionStatus){
 	
 		session.removeAttribute("admin");
-		session.invalidate();
+		//session.invalidate();//删除所有
 		sessionStatus.setComplete();
 		
 		return "/login";

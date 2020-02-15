@@ -19,6 +19,11 @@
 				<tr height="50">
 					<td>价格:&nbsp;&nbsp;<input id="gprice" name="g_price"
 						class="easyui-textbox" data-options="required:true" /></td>
+					<td>品牌:&nbsp;&nbsp;<input class="easyui-combobox" id="b"
+						name="brand" editable="false" data-options="required:true"
+						style="width: 175px;"></td>
+				</tr>
+				<tr height="50">
 					<td>图片:&nbsp;&nbsp;<input id="gimg" name="g_imgUrl"
 						class="easyui-filebox"
 						data-options="required:true,buttonText:'文件'" /></td>
@@ -38,19 +43,25 @@
 
 					<td>名称:&nbsp;&nbsp;<input id="gename" name="g_name"
 						class="easyui-textbox" data-options="required:true" /></td>
-					<td>种类:&nbsp;&nbsp;<input class="easyui-combobox" id="ec"
-						name="category" editable="false" data-options="required:true"
+					<td>品牌:&nbsp;&nbsp;<input class="easyui-combobox" id="eb"
+						name="brand" editable="false" data-options="required:true"
 						style="width: 175px;"></td>
+					
 				</tr>
 				<tr height="50">
 					<input type="hidden" name="himg" id="himg" value="" />
+					<td>种类:&nbsp;&nbsp;<input class="easyui-combobox" id="ec"
+						name="category" editable="false" data-options="required:true"
+						style="width: 175px;"></td>
 					<td>价格:&nbsp;&nbsp;<input id="geprice" name="g_price"
 						class="easyui-textbox" data-options="required:true" /></td>
+					
+				</tr>
+				<tr>
 					<td>图片:&nbsp;&nbsp;<input id="geimg" name="g_imgUrl"
 						class="easyui-filebox"
 						data-options="required:true,buttonText:'文件'" /></td>
 				</tr>
-
 
 			</table>
 		</form>
@@ -128,6 +139,16 @@
 										title : '名称',
 										field : 'g_name',
 										width : 100
+									},
+									{
+										title : '品牌',
+										field : 'brand',
+										width : 100,
+										formatter : function(value, row, index) {
+											value = row.brand.b_name;
+											return value;
+										}
+
 									},
 									{
 										title : '种类',
@@ -387,8 +408,8 @@
 												$('#editg_h').show();
 												var g_id = arr[0].g_id;
 												$('#hid').attr("value", g_id);
-												$
-														.post(
+												
+														$.post(
 																"${path}/goods/load",
 																{
 																	"g_id" : g_id
@@ -409,8 +430,10 @@
 																			.textbox(
 																					"setText",
 																					json.category.c_name);
-																	$(
-																			'#geprice')
+																	$('#eb').textbox(
+																			"setText",
+																			json.brand.b_name);
+																	$('#geprice')
 																			.textbox(
 																					"setValue",
 																					json.g_price);
@@ -641,6 +664,15 @@
 		url : "${path}/category/findCategory",
 		valueField : "c_id",
 		textField : "c_name",
+		//multiple:true,//多选
+		panelHeight : '200',
+		panelWidth : '300',
+
+	});
+	$('input[name="brand"]').combobox({
+		url : "${path}/category/findBrands",
+		valueField : "b_id",
+		textField : "b_name",
 		//multiple:true,//多选
 		panelHeight : '200',
 		panelWidth : '300',

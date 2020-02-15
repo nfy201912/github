@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
+import com.java.po.BuyCar;
 import com.java.po.Category;
 import com.java.po.Goods;
 
@@ -23,4 +24,12 @@ public interface GoodsService {
 	public Goods load(int g_id) throws Exception;
 	//页码内容查询
 	public List<Goods> findPage(Goods good,int startPage,int pageSize) throws Exception;
+	/*
+	 * 购物车
+	 * */
+	public List<BuyCar> findAll() throws Exception;
+	public BuyCar findByGid(int g_id) throws Exception;
+	public String update(BuyCar buyCar) throws Exception;
+	public String add(List<BuyCar> buyCars) throws Exception;
+	public String del(int[] array) throws Exception;
 }

@@ -39,13 +39,6 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	
-	/*@RequestMapping("/findAll")
-	public ModelAndView findAll(ModelAndView mv) throws Exception{
-		mv.addObject("users",userService.findAll());
-		mv.setViewName("/admin/member/listuser");
-		return mv;
-	}*/
 	@RequestMapping("/findAll")
 	@ResponseBody
 	public Object findAll(@RequestParam("u_username")String name) throws Exception{
@@ -252,10 +245,10 @@ public class UserController {
 	public String exit(HttpSession session,SessionStatus sessionStatus){
 		
 		 session.removeAttribute("u");//我这里是先取出httpsession中的user属性
-	     session.invalidate();  //然后是让httpsession失效
+	     //session.invalidate();  //然后是让httpsession失效   删除所有
 	     sessionStatus.setComplete();//最后是调用sessionStatus方法
 
-		return "/login";
+		return "login";
 	}
 	
 	@RequestMapping(value={"/validateCode"},produces="text/html;charset=utf-8")

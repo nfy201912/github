@@ -1,5 +1,6 @@
 package com.java.service.impl;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +65,9 @@ public class GoodsServiceImpl implements GoodsService{
 	 * 购物车
 	 * */
 	@Override
-	public List<BuyCar> findAll() throws Exception {
+	public List<BuyCar> findAll(int u_id) throws Exception {
 		
-		return buyCarMapper.findAll();
+		return buyCarMapper.findAll(u_id);
 	}
 	@Override
 	public BuyCar findByGid(int g_id) throws Exception {
@@ -88,13 +89,28 @@ public class GoodsServiceImpl implements GoodsService{
 	@Override
 	public String add(List<BuyCar> buyCars)  {
 		try {
-			buyCarMapper.add(buyCars);
+			BuyCar buyCar = new BuyCar();
+			BuyCar b = new BuyCar();
+			Iterator<BuyCar> it = buyCars.iterator();//迭代器
+			while(it.hasNext()){
+				b = it.next();
+				buyCar = buyCarMapper.findByGid(b.getGoods().getG_id());
+				if(buyCar!=null){
+					b.setBuyNum(buyCar.getBuyNum()+b.getBuyNum());//数量相加
+					buyCarMapper.update(b);//更新数据
+					it.remove();//除去已有数据
+				}
+			}
+			if(buyCars.size()<1){
+				return "success";
+			}
+			buyCarMapper.add(buyCars);//添加新数据
 			return "success";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
-		return "error";
+		
 	}
 	@Override
 	public String del(int[] array){

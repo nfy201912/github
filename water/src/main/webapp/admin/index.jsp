@@ -51,7 +51,8 @@
 				<div title="水源管理" style="padding:10px">
 					<ul style="padding: 0">
 					<li>>>>&nbsp;<a href="#"  style="text-decoration: none"><span id="spa4"  onclick="add(this,$('#spa4').html())">水源列表</span></a></li><br/>
-					<li>>>>&nbsp;<a href="#"  style="text-decoration: none"><span id="spa5"  onclick="add(this,$('#spa5').html())">种类列表</span></a></li>
+					<li>>>>&nbsp;<a href="#"  style="text-decoration: none"><span id="spa5"  onclick="add(this,$('#spa5').html())">种类列表</span></a></li><br/>
+					<li>>>>&nbsp;<a href="#"  style="text-decoration: none"><span id="spa6"  onclick="add(this,$('#spa6').html())">品牌列表</span></a></li>
 				</ul>
 				</div>
 			</div>
@@ -76,6 +77,8 @@
 			grid = 'goodsGrid.jsp'; 
 		}else if(name==$('#spa5').html()){
 			grid = 'categoryGrid.jsp'; 
+		}else if(name==$('#spa6').html()){
+			grid = 'brandGrid.jsp'; 
 		}
 
 	if($('#center').tabs("exists",name)){

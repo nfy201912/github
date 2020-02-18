@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <c:set var="path" value="${pageContext.request.contextPath }" />    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,7 +11,7 @@
 
 <title>index</title>
 		<link rel="stylesheet" type="text/css" href="${path }/css/bootstrap.css" />
-		<link rel="stylesheet" type="text/css" href="${path }/css/mybootstrap.css"/>
+		 <link rel="stylesheet" type="text/css" href="${path }/css/mybootstrap.css?v=<%= System.currentTimeMillis()%>" charset="utf-8"/>
 		<link rel="stylesheet" type="text/css" href="${path }/css/animate.css"/>
 		<script src="${path }/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${path }/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
@@ -23,44 +22,10 @@
 			new WOW().init();
 		</script>
 </head>
-<body>
+<body >
 
-	<input type="hidden" id="goods">
+	<jsp:include page="${path}/head.jsp"  flush="true"/><!--动态包含  -->
 		<div class="container" >
-		<div class="row" style="float: right;margin-top:20px; padding: 0" >
-			
-			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="padding: 0" align="right">
-			<c:if test="${u==null}">
-				<a  href="${path }/login.jsp">登入</a>|<a  href="${path }/Register.jsp">注册</a>
-			</c:if>
-			<c:if test="${u!=null}">
-				<span>欢 迎 您 ！[${u.u_username}]</span><a  href="${path }/login.jsp">切换账号</a>&nbsp;|&nbsp;<a  href="${path }/Register.jsp">注册</a>&nbsp;|&nbsp;<a href="${path}/user/exit">退出</a>
-			</c:if>
-			
-			
-			</div>
-		</div>
-		
-			<div class="row" id="rowheader" style="height: 50px;margin-bottom: 70px;">
-				<div class="col-md-3 col-lg-3 col-sm-4 " style="margin-bottom: 50px"><a class="navbar-brand"  href="index.jsp"><h1>校 园 送 水</h1></a></div>
-			</div>
-			<div class="row">
-					
-			</div>
-			 <!-- <div class="row" style="padding: 0">
-				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-8" style="padding: 0" align="right">
-					<form class="navbar-form navbar-right" role="search">
-	<div class="col-sm-4 col-xs-4" style="margin: 0;padding: 0 2px">
-    <input type="text" class="form-control" placeholder="Search">
-</div>
- 
- <button type="submit" class="btn btn-default">搜索</button>
-
-  
-
-</form>
-				</div>
-			</div> -->
 			<!-- Static navbar -->
 			<div  class="row" style="padding: 0;">
 				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-9" style="padding: 0;">
@@ -184,17 +149,7 @@
 				</div>
 		
 		
-		<div id="foot"  class="container-fluid" style="background-color:">
-			<div id="foot1" class="row" style="background: #c9e9f9" >
-				<div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">1313</div>
-				<div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">1313</div>
-				<div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">1313</div>
-				<div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">1313</div>
-			</div>
-			<div class="row" id="foot2" >
-				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">版权</div>
-			</div>
-		</div>
+		<%@include file="foot.jsp" %><!-- 静态包含 -->
 		<script type="text/javascript">
 			 
 			$(function(){

@@ -215,6 +215,14 @@ public class GoodsController {
 	 * 购物车
 	 * */
 	
+	@RequestMapping("/findAllc")
+	public Object findAllc(@RequestParam("u_id")int u_id,ModelAndView mv) throws Exception{
+		List<BuyCar> b = new ArrayList<BuyCar>();
+		b = goodsService.findAll(u_id);
+		mv.addObject("buyCars",b);
+		mv.setViewName("normal/BuyCar");
+		return mv;
+	}
 	@RequestMapping("/loadByID")
 	public Object loadByID(@RequestParam("g_id") int g_id,ModelAndView mv) throws Exception{
 		mv.addObject("good",goodsService.load(g_id));

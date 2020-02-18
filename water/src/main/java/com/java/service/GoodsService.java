@@ -27,7 +27,7 @@ public interface GoodsService {
 	/*
 	 * 购物车
 	 * */
-	public List<BuyCar> findAll() throws Exception;
+	public List<BuyCar> findAll(int u_id) throws Exception;
 	public BuyCar findByGid(int g_id) throws Exception;
 	public String update(BuyCar buyCar) throws Exception;
 	public String add(List<BuyCar> buyCars) throws Exception;

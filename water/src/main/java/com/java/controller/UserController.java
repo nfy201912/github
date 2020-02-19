@@ -110,7 +110,7 @@ public class UserController {
 	
 			if(user!=null&&user.isU_status()){
 				
-				if (isR != null) {// 记住用户名 复选框为勾选状态
+				if (isR != null) {// 记住密码 复选框为勾选状态
 					// 创建一个cookie
 					Cookie name = new Cookie("username",user.getU_username()); // Cookie的名字是username
 					name.setMaxAge(60 * 60 * 24 * 7); // 记住用户名为一个星期(cookie的存活时长为一个星期)
@@ -145,7 +145,7 @@ public class UserController {
 				}
 				//String autoLogin = request.getParameter("autoLogin");
 				
-				if (autoLogin != null) {
+				if (autoLogin!=null&&autoLogin.equalsIgnoreCase("true") ) {
 					Cookie loginAuto = new Cookie("autoLogin", "autoLogin"); // Cookie的名字是username
 					loginAuto.setMaxAge(60 * 60 * 24 * 7); // 记住用户名为一个星期(cookie的存活时长为一个星期)
 					loginAuto.setPath("/"); // 放到当前浏览目录下
@@ -198,7 +198,7 @@ public class UserController {
 	protected void doValidateCode(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// 参数一：图片宽度 参数二：高度 三：验证码的个数 四、验证码的颗粒多少
-		ValidateCode vc = new ValidateCode(100, 26, 4, 50);
+		ValidateCode vc = new ValidateCode(160, 40, 4, 20);
 
 		// 把验证码存到session范围
 		// String code = vc.getCode();

@@ -1,108 +1,114 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<c:set var="path" value="${pageContext.request.contextPath }" />
+<c:set var="path" value="${pageContext.request.contextPath }" />    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Register</title>
-		<link rel="stylesheet" type="text/css" href="${path }/css/bootstrap.css" />
-		<%-- <link rel="stylesheet" type="text/css" href="${path }/css/mybootstrap.css"/> --%>
-		<link rel="stylesheet" type="text/css" href="${path }/css/Login.css" />
-		
-		<script src="${path }/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
-		<script src="${path }/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-		<script src="${path }/js/my.js" type="text/javascript" charset="utf-8"></script>
-		<script src="${path }/js/jquery.singlePageNav.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="${path }/js/wow.min.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="${path }/js/jquery-easyui-1.8.8/plugins/jquery.form.js"></script>
-		<style type="text/css">
-	
-</style>
+<link type="text/css" rel="stylesheet" href="${path }/css/style.css" />
+<%--  <script type="text/javascript" src="${path}/js/jquery-1.11.1.min_044d0927.js"></script>
+	<script type="text/javascript" src="${path}/js/jquery.bxslider_e88acd1b.js"></script> --%>
+    
+    <script type="text/javascript" src="${path}/js/jquery-1.8.2.min.js"></script>
+  <%--   <script type="text/javascript" src="${path}/js/menu.js"></script>    
+        
+	<script type="text/javascript" src="${path}/js/select.js"></script>
+    
+	<script type="text/javascript" src="${path}/js/lrscroll.js"></script>
+    
+    <script type="text/javascript" src="${path}/js/iban.js"></script>
+    <script type="text/javascript" src="${path}/js/fban.js"></script>
+    <script type="text/javascript" src="${path}/js/f_ban.js"></script>
+    <script type="text/javascript" src="${path}/js/mban.js"></script>
+    <script type="text/javascript" src="${path}/js/bban.js"></script>
+    <script type="text/javascript" src="${path}/js/hban.js"></script>
+    <script type="text/javascript" src="${path}/js/tban.js"></script>
+    
+	<script type="text/javascript" src="${path}/js/lrscroll_1.js"></script> --%>
+<title>Insert title here</title>
 </head>
+<body>  
+<!--Begin Header Begin-->
+<div class="soubg" style="height: 50px;overflow: hidden;">
+	<jsp:include page="${path}/head.jsp"  flush="true"/><!--动态包含  -->
+</div>
+<!--End Header End--> 
+<!--Begin Login Begin-->
+<div class="log_bg">	
+    <div class="top" style="height: 140px;">
+        <div class="logo"><a href="#"><img src="${path}/images/logo.png" /></a></div>
+    </div>
+	<div class="regist">
+    	<div class="log_img" style="float: left;"><img src="${path}/images/l_img.png" width="611" height="425" /></div>
+		<div class="reg_c">
+        	<form id="regform">
+            <table border="0" style="width:420px; font-size:14px; margin-top:20px;" cellspacing="0" cellpadding="0">
+              <tr height="50" valign="top">
+              	<td width="95">&nbsp;</td>
+                <td>
+                	<span class="fl" style="font-size:24px;">注册</span>
+                    <span class="fr">已有账号，<a href="${path}/login.jsp" style="color:#ff4e00;">我要登录</a></span>
+                </td>
+              </tr>
+              <tr height="50">
+                <td align="right"><font color="#ff4e00">*</font>&nbsp;用户名 &nbsp;</td>
+                <td><input type="text" id="u_username" name="u_username"  value="" class="l_user" /><span id="sp_username"></span></td>
+                
+              </tr>
+              <tr height="50">
+                <td align="right"><font color="#ff4e00">*</font>&nbsp;密码 &nbsp;</td>
+                <td><input type="password" name="u_password" id="u_password" value="" class="l_pwd" /><span id="sp_password"></span></td>
+              </tr>
+              <tr height="50">
+                <td align="right"><font color="#ff4e00">*</font>&nbsp;确认密码 &nbsp;</td>
+                <td><input type="password" name="u_password2" id="u_password2" value="" class="l_pwd" /><span id="sp_password2"></span></td>
+              </tr>
+              <tr height="50">
+                <td align="right"><font color="#ff4e00">*</font>&nbsp;邮箱 &nbsp;</td>
+                <td><input type="text" name="u_email" id="u_email" class="l_email" /><span id="sp_email"></span></td>
+              </tr>
+              <tr height="50">
+                <td align="right"><font color="#ff4e00">*</font>&nbsp;手机 &nbsp;</td>
+                <td><input type="text" name="u_phone" id="u_phone" value="" class="l_tel" /><span id="sp_phone"></span></td>
+              </tr>
+              <tr height="50">
+                <td align="right">姓名 &nbsp;</td>
+                <td><input type="text" id="u_name" name="u_name" value="" class="l_mem" /><span id="sp_name"></span></td>
+              </tr>
+              <tr height="50">
+                <td align="right"> <font color="#ff4e00">*</font>&nbsp;验证码 &nbsp;</td>
+                <td>
+                   <input type="text" name="u_validateCode"  id="validateCode" value="" class="l_ipt" /> 
+                     <a><img id="code" src="${path }/user/doValidateCode" alt="验证码图片" style="vertical-align:middle;"></a>
+                </td><span class="redFont">&nbsp;&nbsp;&nbsp;&nbsp;${validateCodeMessage }</span>
+              </tr>
+              <tr>
+              	<td>&nbsp;</td>
+                <td style="font-size:12px; padding-top:20px;">
+                	<span style="font-family:'宋体';" class="fl">
+                    	<label class="r_rad"><input type="checkbox" /></label><label class="r_txt">我已阅读并接受《用户协议》</label>
+                    </span>
+                </td>
+              </tr>
+              <tr height="60">
+              	<td>&nbsp;</td>
+                <td><input type="button" value="立即注册" onclick="commit(this,false)" class="log_btn" /></td>
+              </tr>
+            </table>
+            </form>
+        </div>
+    </div>
+</div>
+<!--End Login End--> 
+<!--Begin Footer Begin-->
+<div class="btmbg">
+    <%@include file="../foot.jsp" %><!-- 静态包含 -->	
+</div>
+<!--End Footer End -->    
 
-<body>
-
-		<div >
-		
-			
-		<form id="regform" action="${path }/user/register" method="post">
-			<table align="center" style="background-color: gray;width: 400px;height: 500px">
-			
-			<br />
-							
-						<tbody>
-						
-						<tr><td></td><td><h2 >用 户 注  册</h2></td></tr>
-							<tr height="36">
-									<th style="text-align: right;">账 号：</th>
-										<td>
-										<input type="text" id="u_username" name="u_username"  /></td><td><span id="sp_username"></span></td>
-										
-								</tr>
-									<tr height="36">
-									<th style="text-align: right;">密 码：</th>
-									<td>
-									<input type="password" name="u_password" id="u_password" /></td><td><span id="sp_password"></span>
-									</td>
-									</tr>
-									 <tr height="36">
-									<th style="text-align: right;">确认密 码：</th>
-									<td>
-									<input type="password" name="u_password2" id="u_password2"/></td><td><span id="sp_password2"></span>
-									</td>
-									</tr>  
-									 <tr height="36">
-										 <th style="text-align: right;">姓 名：</th>
-										 <td>
-											 <input type="text" id="u_name" name="u_name"/></td><td><span id="sp_name"></span>
-											 </td>
-											 
-											 </tr>
-								<tr height="36">
-									<th style="text-align: right;">邮 箱：</th>
-									<td>
-										<input type="text" name="u_email" id="u_email"/></td><td><span id="sp_email"></span>
-										</td>
-										</tr>	
-									<tr height="36">
-										<th style="text-align: right;">电 话：</th>
-										<td>
-											<input type="text" name="u_phone" id="u_phone"/></td><td><span id="sp_phone"></span>
-											</td>
-											</tr>
-								 <tr height="36">
-										<th style="text-align: right;">
-											验证码：
-										</th>
-										<td>
-												<input type="text" name="u_validateCode"  id="validateCode" class="text" >
-											</td>
-												<td ><img id="code" src="${path }/user/doValidateCode" alt="验证码图片"></td>
-												<span class="redFont">&nbsp;&nbsp;&nbsp;&nbsp;${validateCodeMessage }</span>
-										
-									</tr> 
-								
-								
-								</tbody>		
-								
-							<tr height="70">
-									<td></td><td align="center"><input type="button"  value="注 册" style="width: 180px;height: 36px;line-height: 34px" onclick="commit(this,false)" /></td>
-								</tr>
-								<tr height="30">
-									<td></td><td align="center"><input type="button"  value="退 出" style="width: 180px;height: 36px;line-height: 34px;margin-top: -20px"  onclick="exit()" /></td>
-								</tr>
-								
-				</table>
-				
-				</form>
-
-		
-				
-		</div>
-		
-		<script type="text/javascript">
+</body>
+<script type="text/javascript">
 		var rp = /[^\w\/]/ig;//匹配除字母下划线中划线斜杠数字以外的字符						 					
 		var re = /\s/;//空格
 		var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");//特殊字符
@@ -203,16 +209,18 @@
 	
 	function commit(object,flag){
 		
-		var tr = "";
+		 var tr = "";
 		var u = "u_";
 		var sp = "sp_";
 		var data = "";
-		if($('#u_username').val()!=""){
+		if($('#u_username').val()!=""&&$('#sp_username').html()==""){
 			if($("#u_password").val()==""){
 				$("#sp_password").html("密码不能为空").css("color","#ff0000");
 				return;
 			}else if($("#u_password2").val()==""){
 				$("#sp_password2").html("请确认密码").css("color","#ff0000");
+				return;
+			}else if($("#u_password2").val()!=""&&$("#sp_password2").html()!=""){
 				return;
 			}else{
 				$('input[type="text"]').each(function(i,v){
@@ -248,11 +256,11 @@
 					
 				});
 			}
-		}else{
+		}else if($('#u_username').val()==""){
 			$('#sp_username').html("账号不能为空").css("color","#ff0000");
 			return;
 		}
-		alert(flag)
+		
 		if(flag){
 			var v = $('#validateCode').val();
 			$.post("${path }/user/validateCode",{"validateCode":v},function(data){
@@ -270,16 +278,13 @@
 				}
 			});
 		}
-		
-		/* if(flag){
-			$('form').location.href="${path }/user/register";
-		} */
-		
+		 
 		
 	}	
  function exit(){
 	 location.href="${path}/index.jsp";
  }
 </script>
-	</body>
+
+
 </html>

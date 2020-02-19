@@ -25,7 +25,7 @@ h1,h2,h3,h4,h5,h6{
 	padding:0; margin:0 auto;
 }
 .fl{
-	
+	float:left;
 }
 .fr{
 	float:right;
@@ -127,10 +127,10 @@ table.c_tab tr th{
 
 
 .top{
-	width:1200px; height:300px;
+	width:1200px; height:140px;
 }
 .logo{
-	width:300px; height:200px; overflow:hidden; float:left; display:inline; margin-top:40px;
+	width:207px; height:55px; overflow:hidden; float:left; display:inline; margin-top:40px;
 }
 .search{
 	width:520px; height:65px; overflow:hidden; float:left; display:inline; margin-left:134px; margin-top:50px;
@@ -1031,15 +1031,17 @@ ul.menu_r li a:hover, ul.menu_r li a.now{
 
 /*---------------登录、注册---------------*/
 .log_bg{
-	width:100%; min-width:1200px; height:840px; overflow:hidden; background-color:#82fbf8;
+	width:100%; min-width:1200px; height:840px; overflow:hidden; background-color:#fff4ef;
 }
 .login{
 	width:1200px; overflow:hidden; margin-top:45px;
 }
-
- .log_c{
-	width:455px; height:385px; overflow:hidden; background-color:#FFF; display:inline; margin-top:40px; margin-right:10px; margin-bottom:10px; -webkit-box-shadow:0 0 5px #e0e0e0; -moz-box-shadow:0 0 5px #e0e0e0; box-shadow:0 0 5px #e0e0e0; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;
-} 
+.log_img{
+	width:611px; height:425px; overflow:hidden; float:left; margin-top:40px;
+}
+.log_c{
+	width:455px; height:385px; overflow:hidden; background-color:#FFF; float:right; display:inline; margin-top:40px; margin-right:10px; margin-bottom:10px; -webkit-box-shadow:0 0 5px #e0e0e0; -moz-box-shadow:0 0 5px #e0e0e0; box-shadow:0 0 5px #e0e0e0; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;
+}
 .l_user{
 	width:267px; height:38px; line-height:38px\9; overflow:hidden; background:url(../images/i_u.png) no-repeat 285px center; background-color:#FFF; color:#888888; font-size:14px; font-family:"Microsoft YaHei"; padding:0 40px 0 10px; border:1px solid #cccccc;
 }

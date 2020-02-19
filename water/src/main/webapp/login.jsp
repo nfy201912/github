@@ -12,24 +12,11 @@
            EvPNG.fix('div, ul, img, li, input, a'); 
         </script>
     <![endif]-->    
-    <script type="text/javascript" src="${path }/js/jquery-1.11.1.min_044d0927.js"></script>
-	<script type="text/javascript" src="${path }/js/jquery.bxslider_e88acd1b.js"></script>
     <script type="text/javascript" src="${path }/js/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="${path }/js/menu.js"></script>    
      <script type="text/javascript" src="${path }/js/jquery-3.4.1.js"></script>   
-	<script type="text/javascript" src="${path }/js/select.js"></script>
+	
     
-	<script type="text/javascript" src="${path }/js/lrscroll.js"></script>
-    
-    <script type="text/javascript" src="${path }/js/iban.js"></script>
-    <script type="text/javascript" src="${path }/js/fban.js"></script>
-    <script type="text/javascript" src="${path }/js/f_ban.js"></script>
-    <script type="text/javascript" src="${path }/js/mban.js"></script>
-    <script type="text/javascript" src="${path }/js/bban.js"></script>
-    <script type="text/javascript" src="${path }/js/hban.js"></script>
-    <script type="text/javascript" src="${path }/js/tban.js"></script>
-    
-	<script type="text/javascript" src="${path }/js/lrscroll_1.js"></script>
+	
     
     
 <title>校园送水登入</title>
@@ -169,10 +156,10 @@
 
 </body>
 <script type="text/javascript">
-//document.getElementById("d2").style.display="none";//隐藏
-//document.getElementById("d3").style.display="none";//隐藏
-$("#d2").hide();
-$("#d3").hide();
+
+	$("#d2").hide();
+	$("#d3").hide();
+
 function init(){
 
 	//document.getElementById("d3").style.display="none";//隐藏
@@ -186,10 +173,6 @@ function exit(){
 	location.href="${path}/index.jsp";//退回首页
 }
 function ul(){
-		
-		//document.getElementById("d1").style.display="none";//隐藏
-		//document.getElementById("d2").style.display="none";//隐藏
-		//document.getElementById("d3").style.display="";//显示
 		$("#d1").hide();
 		$("#d2").hide();
 		$("#d3").show();
@@ -219,13 +202,14 @@ function ul(){
 		}, 2000);
 }
 function commit(){
-	$.post("${path}/user/userLogin",{"u_username":$("#name").val(),"u_password":$("#u_password").val(),"autoLogin":$("#autoLogin").val(),"rembPwd":$("#rembPwd").val()},function(data){
+	
+	$.post("${path}/user/userLogin",{"u_username":$("#name").val(),"u_password":$("#u_password").val(),"autoLogin":$("#autoLogin").prop("checked"),"rembPwd":$("#rembPwd").val()},function(data){
 		if("SUCCESS"==data){
 			location.href="${path}/index.jsp";
 		}else{
 			alert(data)
 		}
-	});
+	}); 
 }
 function al(){
 	

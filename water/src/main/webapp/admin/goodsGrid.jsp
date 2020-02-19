@@ -431,8 +431,12 @@
 																					"setText",
 																					json.category.c_name);
 																	$('#eb').textbox(
+																			"setValue",
+																			json.brand.b_id);
+																	$('#eb').textbox(
 																			"setText",
 																			json.brand.b_name);
+																	
 																	$('#geprice')
 																			.textbox(
 																					"setValue",

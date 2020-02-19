@@ -70,9 +70,9 @@ public class GoodsServiceImpl implements GoodsService{
 		return buyCarMapper.findAll(u_id);
 	}
 	@Override
-	public BuyCar findByGid(int g_id) throws Exception {
+	public BuyCar findByGid(BuyCar buyCar) throws Exception {
 		
-		return buyCarMapper.findByGid(g_id);
+		return buyCarMapper.findByGid(buyCar);
 	}
 	@Override
 	public String update(BuyCar buyCar) {
@@ -94,7 +94,7 @@ public class GoodsServiceImpl implements GoodsService{
 			Iterator<BuyCar> it = buyCars.iterator();//迭代器
 			while(it.hasNext()){
 				b = it.next();
-				buyCar = buyCarMapper.findByGid(b.getGoods().getG_id());
+				buyCar = buyCarMapper.findByGid(b);
 				if(buyCar!=null){
 					b.setBuyNum(buyCar.getBuyNum()+b.getBuyNum());//数量相加
 					buyCarMapper.update(b);//更新数据

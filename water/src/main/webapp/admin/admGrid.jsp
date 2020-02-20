@@ -326,7 +326,7 @@
 <div id="win"></div>
 		
 			&nbsp;&nbsp;&nbsp;&nbsp;账号：&nbsp;<input id="ss" class="easyui-searchbox" style="width:290px;"/><br/>
-		<table id="datagrid" style="height: 500px;width: 100%"></table>
+		<table id="datagrid" style="width: 100%"></table>
 		
 	
 

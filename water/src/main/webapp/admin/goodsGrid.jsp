@@ -83,7 +83,7 @@
 	style="width: 80px">重 置</a>
 </form>
 
-<table id="goodsGrid" style="height: 500px; width: 100%"></table>
+<table id="goodsGrid" style=" width: 100%"></table>
 <script type="text/javascript" charset="utf-8">
 	$('#cz').click(function(){
 		$('#sform').form('reset')

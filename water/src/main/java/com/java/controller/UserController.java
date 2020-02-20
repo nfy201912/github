@@ -110,7 +110,7 @@ public class UserController {
 	
 			if(user!=null&&user.isU_status()){
 				
-				if (isR != null) {// 记住密码 复选框为勾选状态
+				if (isR != null&&isR.equals("true")) {// 记住密码 复选框为勾选状态
 					// 创建一个cookie
 					Cookie name = new Cookie("username",user.getU_username()); // Cookie的名字是username
 					name.setMaxAge(60 * 60 * 24 * 7); // 记住用户名为一个星期(cookie的存活时长为一个星期)
@@ -164,7 +164,7 @@ public class UserController {
 					}
 				}
 				String rembPwd = request.getParameter("rembPwd");//记住密码
-				if (rembPwd != null) {
+				if (rembPwd != null&&rembPwd.equals("true")) {
 					Cookie loginAuto = new Cookie("rembPwd", "rembPwd"); // Cookie的名字是username
 					loginAuto.setMaxAge(60 * 60 * 24 * 7); // 记住用户名为一个星期(cookie的存活时长为一个星期)
 					loginAuto.setPath("/"); // 放到当前浏览目录下

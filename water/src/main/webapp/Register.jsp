@@ -7,25 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet" href="${path }/css/style.css" />
-<%--  <script type="text/javascript" src="${path}/js/jquery-1.11.1.min_044d0927.js"></script>
-	<script type="text/javascript" src="${path}/js/jquery.bxslider_e88acd1b.js"></script> --%>
     
     <script type="text/javascript" src="${path}/js/jquery-1.8.2.min.js"></script>
-  <%--   <script type="text/javascript" src="${path}/js/menu.js"></script>    
-        
-	<script type="text/javascript" src="${path}/js/select.js"></script>
-    
-	<script type="text/javascript" src="${path}/js/lrscroll.js"></script>
-    
-    <script type="text/javascript" src="${path}/js/iban.js"></script>
-    <script type="text/javascript" src="${path}/js/fban.js"></script>
-    <script type="text/javascript" src="${path}/js/f_ban.js"></script>
-    <script type="text/javascript" src="${path}/js/mban.js"></script>
-    <script type="text/javascript" src="${path}/js/bban.js"></script>
-    <script type="text/javascript" src="${path}/js/hban.js"></script>
-    <script type="text/javascript" src="${path}/js/tban.js"></script>
-    
-	<script type="text/javascript" src="${path}/js/lrscroll_1.js"></script> --%>
+  
 <title>Insert title here</title>
 </head>
 <body>  
@@ -37,7 +21,7 @@
 <!--Begin Login Begin-->
 <div class="log_bg">	
     <div class="top" style="height: 140px;">
-        <div class="logo"><a href="#"><img src="${path}/images/logo.png" /></a></div>
+        <div class="logo"><a href="${path }/index.jsp"><img src="${path}/images/logo.png" /></a></div>
     </div>
 	<div class="regist">
     	<div class="log_img" style="float: left;"><img src="${path}/images/l_img.png" width="611" height="425" /></div>

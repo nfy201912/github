@@ -355,7 +355,7 @@
 <div id="win"></div>
 		
 			&nbsp;&nbsp;&nbsp;&nbsp;账号：&nbsp;<input id="uss" class="easyui-searchbox" style="width:300px;"/><br/>
-		<table id="userGrid" style="height: 500px;width: 100%"></table>
+		<table id="userGrid" style="width: 100%"></table>
 		
 	
 

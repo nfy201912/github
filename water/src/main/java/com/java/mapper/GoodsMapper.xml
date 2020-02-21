@@ -26,7 +26,7 @@
 		and b.b_name=#{brand.b_name}
 	</if>
 	<if test="category">
-		and	g.c_id=#{category.c_id}
+		and	g.c_id=#{category.c_id} 
 		</if>
 </select>
 <select id="findPage" resultType="goods">

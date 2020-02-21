@@ -31,5 +31,5 @@ public interface GoodsService {
 	public BuyCar findByGid(BuyCar buyCar) throws Exception;
 	public String update(BuyCar buyCar) throws Exception;
 	public String add(List<BuyCar> buyCars) throws Exception;
-	public String del(int[] array) throws Exception;
+	public String del(@Param("bc_id")int[] bc_id,@Param("u_id")int u_id) throws Exception;
 }

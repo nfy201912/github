@@ -248,4 +248,34 @@ public class GoodsController {
 		}
 		
 	}
+	@RequestMapping("/del")
+	@ResponseBody
+	public String del(@RequestParam("array[]")int[] bc_id,@RequestParam("u_id")int u_id) {
+		try {
+			goodsService.del(bc_id, u_id);
+			return "success";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "error";
+		}
+		
+	}
+	
+	/*@RequestMapping("/del")
+	@ResponseBody
+	public String del(@RequestParam("data")String Cars) throws JsonParseException, JsonMappingException, IOException{
+		ObjectMapper mapper = new ObjectMapper();  
+	    //使用jackson将json转为List<BuyCar>  
+	    JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, BuyCar.class);	     
+	    List<BuyCar> buyCars =  (List<BuyCar>)mapper.readValue(Cars, jt); 
+		try {
+			//goodsService.del(buyCars);
+			
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}*/
 }

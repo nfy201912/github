@@ -113,9 +113,9 @@ public class GoodsServiceImpl implements GoodsService{
 		
 	}
 	@Override
-	public String del(int[] array){
+	public String del(int[] array,int u_id){
 		try {
-			buyCarMapper.del(array);
+			buyCarMapper.del(array,u_id);
 			return "success";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -32,4 +32,5 @@ public interface GoodsService {
 	public String update(BuyCar buyCar) throws Exception;
 	public String add(List<BuyCar> buyCars) throws Exception;
 	public String del(@Param("bc_id")int[] bc_id,@Param("u_id")int u_id) throws Exception;
+	public BuyCar findByID(BuyCar buyCar) throws Exception;
 }

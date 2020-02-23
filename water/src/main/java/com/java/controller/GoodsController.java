@@ -261,21 +261,38 @@ public class GoodsController {
 		}
 		
 	}
-	
-	/*@RequestMapping("/del")
-	@ResponseBody
-	public String del(@RequestParam("data")String Cars) throws JsonParseException, JsonMappingException, IOException{
+	/*
+	 * 购物车结算
+	 * */
+	@RequestMapping("/paySure")
+	public ModelAndView paySure(@RequestParam("list")String list,@RequestParam("totalPrice")double totalPrice,
+			ModelAndView mv) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();  
+		List<BuyCar> cars = new ArrayList<BuyCar>();
+		BuyCar c = new BuyCar();
 	    //使用jackson将json转为List<BuyCar>  
 	    JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, BuyCar.class);	     
-	    List<BuyCar> buyCars =  (List<BuyCar>)mapper.readValue(Cars, jt); 
+	    List<BuyCar> buyCars =  (List<BuyCar>)mapper.readValue(list, jt); 
+	    if(buyCars.size()<1){
+	    	mv.setViewName("error");
+			return mv;
+	    }
 		try {
-			//goodsService.del(buyCars);
-			
-			return "success";
+			for(BuyCar bc:buyCars){
+				c = goodsService.findByID(bc);
+				if(c!=null){
+					c.setBuyNum(bc.getBuyNum());
+					cars.add(c);
+				}
+			}
+			mv.addObject("buyCars",cars);
+			mv.addObject("totalPrice",totalPrice);
+			mv.setViewName("normal/BuyCar_Two");
+			return mv;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "error";
+			mv.setViewName("error");
+			return mv;
 		}
-	}*/
+	}
 }

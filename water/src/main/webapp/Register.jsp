@@ -57,8 +57,17 @@
                 <td><input type="text" name="u_phone" id="u_phone" value="" class="l_tel" /><span id="sp_phone"></span></td>
               </tr>
               <tr height="50">
-                <td align="right">姓名 &nbsp;</td>
+                <td align="right"><font color="#ff4e00">*</font>&nbsp;姓名 &nbsp;</td>
                 <td><input type="text" id="u_name" name="u_name" value="" class="l_mem" /><span id="sp_name"></span></td>
+              </tr>
+              <tr height="50">
+                <td align="right"><font color="#ff4e00">*</font>&nbsp;地址 &nbsp;</td>
+                <td>
+                <select id="u_address" name="u_address" style="width: 319px;height: 40px;">
+          			<option value="澄碧校区" selected="selected">澄碧校区</option>
+                	<option value="东合校区" >东合校区</option>
+                </select>
+               <!-- <input type="hidden" id="u_address" name="u_address" value="" class="l_mem" /><span id="sp_address"></span> --></td>
               </tr>
               <tr height="50">
                 <td align="right"> <font color="#ff4e00">*</font>&nbsp;验证码 &nbsp;</td>
@@ -148,6 +157,7 @@
 				$('#sp_name').html(data).css("color","#ff0000");;
 			}
 		});
+		
 		//邮箱格式验证
 		$("#u_email").blur(function(){
 			var mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;

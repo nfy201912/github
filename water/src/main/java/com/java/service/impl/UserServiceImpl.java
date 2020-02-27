@@ -32,13 +32,16 @@ public class UserServiceImpl implements UserService{
 			u.setU_username("账号错误");
 			return u;
 		}
+		if(user.getU_id()!=null){
 			u.setU_password(user.getU_password());
-		if(userMapper.find(u)==null){
-			u.setU_username("密码错误");
-			return u;
+			if(userMapper.find(u)==null){
+				u.setU_username("密码错误");
+				return u;
+			}
 		}
 			
-			u = userMapper.find(user);
+			
+			u = userMapper.find(u);
 		
 		return u;
 	

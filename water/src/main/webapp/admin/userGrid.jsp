@@ -57,6 +57,10 @@
 				field:'u_phone',
 				width:100
 			},{
+				title:'地址',
+				field:'u_address',
+				width:100
+			},{
 				title:'状态',
 				field:'u_status',
 				width:100
@@ -73,7 +77,7 @@
 					$('#add_u').dialog('center');
 					$('#add_u').dialog({
 						width:600,
-						height:280,
+						height:315,
 						closed:false,
 						 buttons:[{
 						    	text:'保存',
@@ -193,7 +197,7 @@
 						//console.info(arr[0].adm_id);
 						 $('#uedit').dialog({
 							width:600,
-							height:280,
+							height:315,
 							closed:false,
 							buttons:[{
 								text:'保存',
@@ -321,9 +325,11 @@
     </tr>
     <tr height="50">
     	<td>电话:&nbsp;&nbsp;<input id="uphone"  name="u_phone" class="easyui-textbox"  data-options="required:true" /></td>
-    	 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="u_status" value="1"  checked="checked"/>启用&nbsp;&nbsp;<input type="radio" name="u_status" value="0" />禁用 </td> 
+    	<td>地址:&nbsp;&nbsp;<input id="uaddress"  name="u_address" class="easyui-textbox"  data-options="required:true" /></td> 
     </tr>
- 	
+ 	<tr height="50">
+ 		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="u_status" value="1"  checked="checked"/>启用&nbsp;&nbsp;<input type="radio" name="u_status" value="0" />禁用 </td> 
+ 	</tr>
   	
     </table>
     </form>
@@ -334,6 +340,7 @@
     <div id="editu_h" style="display: none">
     	   <form id="formEditu" action="" method="post">
     	<table style="margin-top:0px">
+    	<input type="hidden" name="u_id"/>
     <tr height="50" >
     	`<td>账号:&nbsp;&nbsp;<input id="uename"  name="u_username" class="easyui-textbox"  data-options="readonly:'true',iconCls:'icon-man'" /></td>
     	<td>密码:&nbsp;&nbsp;<input id="uepwd"  name="u_password" class="easyui-passwordbox"  data-options="required:true" /></td>
@@ -344,9 +351,11 @@
     </tr>
     <tr height="50">
     	<td>电话:&nbsp;&nbsp;<input id="uephone"  name="u_phone" class="easyui-textbox"  data-options="required:true" /></td>
-    	 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="u_status" value="1"  checked="checked"/>启用&nbsp;&nbsp;<input type="radio" name="u_status" value="0" />禁用 </td> 
+    	<td>地址:&nbsp;&nbsp;<input id="ueaddress"  name="u_address" class="easyui-textbox"  data-options="required:true" /></td> 
     </tr>
- 	
+ 	<tr height="50">
+ 	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="u_status" value="1"  checked="checked"/>启用&nbsp;&nbsp;<input type="radio" name="u_status" value="0" />禁用 </td>
+ 	</tr>
   	
     </table>
     </form>

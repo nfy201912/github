@@ -231,14 +231,19 @@ public class UserController {
 		user.setU_activeCode(active);
 		
 		try {
-			userService.activeFind(user);
-			return "/login";
+			if(userService.activeFind(user)){
+				
+				return "/login";
+			}else{
+				return "error";
+			}
+			
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 			//throw new RuntimeException("激活失败");
 		}
-		return "";
+		return "error";
 	}
 	
 	@RequestMapping(value={"/exit"})

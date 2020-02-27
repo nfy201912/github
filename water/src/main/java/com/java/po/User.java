@@ -4,11 +4,11 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class User {
-     private Integer u_id; 
+    private Integer u_id; 
 	private String u_username;
 	private String u_password;
-	
 	private String u_name ;
+	private String u_address ;
 	private String u_email;
 	private String u_phone ;
 	private String u_activeCode;
@@ -37,6 +37,12 @@ public class User {
 	}
 	public void setU_name(String u_name) {
 		this.u_name = u_name;
+	}
+	public String getU_address() {
+		return u_address;
+	}
+	public void setU_address(String u_address) {
+		this.u_address = u_address;
 	}
 	public String getU_email() {
 		return u_email;
@@ -72,10 +78,10 @@ public class User {
 	public String toString() {
 		return "User [u_id=" + u_id + ", u_username=" + u_username
 				+ ", u_password=" + u_password + ", u_name=" + u_name
-				+ ", u_email=" + u_email + ", u_phone=" + u_phone
-				+ ", u_activeCode=" + u_activeCode + ", u_status=" + u_status
-				+ ", u_createTime=" + u_createTime + "]";
+				+ ", u_address=" + u_address + ", u_email=" + u_email
+				+ ", u_phone=" + u_phone + ", u_activeCode=" + u_activeCode
+				+ ", u_status=" + u_status + ", u_createTime=" + u_createTime
+				+ "]";
 	}
-	
 	
 }

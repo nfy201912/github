@@ -23,28 +23,29 @@
 	</update>
 	
 <insert id="register" parameterType="user">
-<if test="u_username !=null and u_password!=null and u_name!=null and u_email!=null and u_phone!=null">
-	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime,u_status)
-	 values(#{u_username},#{u_password},#{u_name},#{u_email},#{u_phone},#{u_activeCode},#{u_createTime},#{u_status})
+
+	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime,u_status,u_address)
+	 values(#{u_username},#{u_password},#{u_name},#{u_email},#{u_phone},#{u_activeCode},#{u_createTime},#{u_status},#{u_address})
 	
-</if>
 </insert>
 <update id="update" parameterType="user">
-	update user set u_name = #{u_name},u_password = #{u_password},u_email = #{u_email},u_phone = #{u_phone},u_status = #{u_status}
+	update user set u_name = #{u_name},u_password = #{u_password},u_email = #{u_email},
+	u_phone = #{u_phone},u_status = #{u_status},u_address = #{u_address}
 	where u_id = #{u_id}
 </update>
 
 <insert id="add" parameterType="user">
-	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime,u_status)
-	 values(#{u_username},#{u_password},#{u_name},#{u_email},#{u_phone},#{u_activeCode},#{u_createTime},#{u_status})
+	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime,u_status,u_address)
+	 values(#{u_username},#{u_password},#{u_name},#{u_email},#{u_phone},#{u_activeCode},#{u_createTime},#{u_status},#{u_address})
 	
 </insert>
 
 <insert id="addUsers" parameterType="user">
-	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime,u_status)
+	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime,u_status,u_address)
 	 values
 	 <foreach collection="users" item="user" separator=",">
-	 	(#{user.u_username},#{user.u_password},#{user.u_name},#{user.u_email},#{user.u_phone},#{user.u_activeCode},#{user.u_createTime},#{user.u_status})
+	 	(#{user.u_username},#{user.u_password},#{user.u_name},#{user.u_email},#{user.u_phone},
+	 	#{user.u_activeCode},#{user.u_createTime},#{user.u_status},#{u_address})
 	 </foreach>	
 </insert>
 

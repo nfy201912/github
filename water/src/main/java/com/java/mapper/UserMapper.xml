@@ -43,7 +43,7 @@
 <insert id="addUsers" parameterType="user">
 	insert into user(u_username,u_password,u_name,u_email,u_phone,u_activeCode,u_createTime,u_status,u_address)
 	 values
-	 <foreach collection="users" item="user" separator=",">
+	 <foreach collection="list" item="user" separator=",">
 	 	(#{user.u_username},#{user.u_password},#{user.u_name},#{user.u_email},#{user.u_phone},
 	 	#{user.u_activeCode},#{user.u_createTime},#{user.u_status},#{u_address})
 	 </foreach>	

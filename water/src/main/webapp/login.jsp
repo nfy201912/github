@@ -34,7 +34,7 @@
               	<td width="55">&nbsp;</td>
                 <td>
                 	<span class="fl" style="font-size:24px;">用户登录</span>
-                    <span class="fr">还没有账号，<a href="Register.jsp" style="color:#ff4e00;">立即注册</a></span>
+                    <span class="fr">还没有账号，<a href="${path}/Register.jsp" style="color:#ff4e00;">立即注册</a></span>
                 </td>
               </tr>
               <tr height="70">

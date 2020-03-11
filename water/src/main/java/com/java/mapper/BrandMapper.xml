@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java.mapper.BrandMapper">
+
+<!-- <resultMap type="brand" id="BrandAndGoods">
+	<id property="b_id" column="b_id"/>
+	<result property="b_name" column="b_name"/>
+	<collection property="goods" ofType="goods" >
+		<id property="g_id" column="g_id"/>
+		<result property="g_name" column="g_name"/>
+		<result property="g_price" column="g_price"/>
+	</collection>
+</resultMap> -->
+<select id="findAll" resultType="brand" >
+	select * from brand
+</select>
+<select id="load" parameterType="int" resultType="brand">
+	select * from brand where b_id = #{b_id}
+</select>
+<select id="findByName" parameterType="brand" resultType="brand">
+	select * from brand  where b_name = #{b_name}
+	<if test="b_id">
+		and b_id != #{b_id}
+	</if> 
+</select>
+<insert id="add" parameterType="brand">
+	insert into brand values(b_id,#{b_name})
+</insert>
+
+<delete id="delete" parameterType="int">
+	delete from brand where b_id in (
+	<foreach collection="array" item="b_id" index="0" separator=",">
+		#{b_id}
+	</foreach> )
+</delete>
+<update id="edit" parameterType="brand">
+	update brand set b_name = #{b_name} where b_id = #{b_id}
+</update>
+</mapper>

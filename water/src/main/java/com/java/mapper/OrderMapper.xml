@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java.mapper.OrderMapper">
+
+ <resultMap type="order" id="orderAndGoods">
+
+	<id property="o_id" column="o_id"/>
+	<result property="o_totalPrice" column="o_totalPrice"/>
+	<result property="o_freight" column="o_freight"/>
+	<result property="o_number" column="o_number"/>
+	<result property="o_paymentMethod" column="o_paymentMethod"/>
+	<result property="o_address" column="o_address"/>
+	<result property="o_consignee" column="o_consignee"/>
+	<result property="o_dealTime" column="o_dealTime"/>
+	<result property="o_createTime" column="o_createTime"/>
+	<result property="o_payTime" column="o_payTime"/>
+	<result property="o_status" column="o_status"/>
+	<result property="o_cellphone" column="o_cellphone"/> 
+	<result property="o_amount" column="o_amount"/>
+	<association property="user" javaType="user">
+		<id property="u_id" column="u_id"/>
+		<result property="u_username" column="u_username"/>
+		<result property="u_password" column="u_password"/>
+		<result property="u_name" column="u_name"/>
+		<result property="u_address" column="u_address"/>
+		<result property="u_email" column="u_email"/>
+		<result property="u_phone" column="u_phone"/>
+		<result property="u_activeCode" column="u_activeCode"/>
+		<result property="u_status" column="u_status"/>
+		<result property="u_createTime" column="u_createTime"/>
+	</association>
+	<association property="goods" javaType="goods">
+		<id property="g_id" column="g_id"/>
+		<result property="g_name" column="g_name"/>
+		<result property="g_price" column="g_price"/>
+		<result property="g_imgUrl" column="g_imgUrl"/>
+	</association>
+</resultMap> 
+<select id="findAll" parameterType="order" resultMap="orderAndGoods" >
+	select * from orders o,goods g,user u where o.u_id = u.u_id and o.g_id = g.g_id
+	<if test="user.u_id != null">
+	and o.u_id = #{user.u_id}
+	</if> 
+</select>
+<select id="load" parameterType="order" resultMap="orderAndGoods">
+	select * from orders o,goods g,user u where o.g_id = g.g_id and o.u_id = u.u_id and o.o_id = #{o_id}
+</select>
+<select id="findByName" parameterType="order" resultType="order">
+	select * from order  where b_name = #{b_name}
+	<if test="b_id">
+		and b_id != #{b_id}
+	</if> 
+</select>
+
+<insert id="add" parameterType="order">
+	insert into orders(o_number,o_totalPrice,o_freight,o_paymentMethod,o_address,o_consignee,o_createTime,o_dealTime,o_payTime,o_status,o_cellphone,o_amount,u_id,g_id) 
+	values
+	<foreach collection="list"  index="index" item="order" separator=",">
+	(#{order.o_number},#{order.o_totalPrice},#{order.o_freight},#{order.o_paymentMethod},#{order.o_address},#{order.o_consignee},date_format(#{order.o_createTime},'%Y-%m-%d %H:%i:%s'),#{order.o_dealTime},#{order.o_payTime},#{order.o_status},#{order.o_cellphone},#{order.o_amount},#{order.user.u_id},#{order.goods.g_id})
+	</foreach>
+</insert>
+
+<delete id="delete" parameterType="int">
+	delete from orders where o_id in (
+	<foreach collection="array" item="o_id" index="0" separator=",">
+		#{o_id}
+	</foreach> )
+</delete>
+<update id="update" parameterType="order">
+	update orders set o_status = #{o_status} where o_id = #{o_id}
+</update>
+</mapper>

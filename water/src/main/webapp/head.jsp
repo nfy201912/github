@@ -24,7 +24,7 @@
 
 			</div>
 		</div>
-		<form id="mdForm" action="${path}/order/findAll" method="post">
+		<form id="mdForm" action="${path}/order/findAllByUser" method="post">
 			<input type="hidden" id="u" name="u_id"/>
 		</form>
 		<script type="text/javascript">

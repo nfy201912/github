@@ -82,5 +82,11 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.findByNumber(order);
 	}
 
+	@Override
+	public void updateOne(Order order) throws Exception {
+		orderMapper.updateOne(order);
+		
+	}
+
 	
 }

@@ -118,7 +118,7 @@
            <div style="position: absolute;bottom: 0px;width: 100%;">
            	<%@include file="../foot.jsp" %><!-- 静态包含 -->
            </div>
-	<form id="payForm" action="${path}/order/update" method="post"> 
+	<form id="payForm" action="${path}/order/updatePay" method="post"> 
 		<input type="hidden" name="o_status" value="已支付"/>
 		<input type="hidden" id="ary" name="array[]"/>
 		

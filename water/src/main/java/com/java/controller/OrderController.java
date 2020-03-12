@@ -2,7 +2,9 @@ package com.java.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,15 @@ public class OrderController {
 	private static final String YEZF = "YEZF";
 	private static final String HDFK = "HDFK"; 
 	@RequestMapping("/findAll")
+	@ResponseBody
+	public Object findAll(Order order) throws Exception{
+		Map<String,Object> jsonMap = new HashMap<String,Object>();
+		List<Order> orders = orderService.findAll(order);
+		jsonMap.put("rows",orders);
+		jsonMap.put("total",orders.size());
+		return jsonMap;
+	}
+	@RequestMapping("/findAllByUser")
 	public ModelAndView findAll(User user,ModelAndView mv){
 		Order order = new Order();
 		order.setUser(user);
@@ -65,7 +76,7 @@ public class OrderController {
 		mv.setViewName("normal/Pay");
 		return mv;
 	}
-	@RequestMapping("/update")
+	@RequestMapping("/updatePay")
 	public ModelAndView update(@RequestParam("o_status")String status,@RequestParam("array[]")int[] array,ModelAndView mv){
 		try {
 			orderService.updatePay(status,array);
@@ -75,6 +86,17 @@ public class OrderController {
 			mv.setViewName("error");
 		}
 		return mv;
+	}
+	@RequestMapping("/updateOne")
+	@ResponseBody
+	public String updateOne(Order order){
+		try {
+			orderService.updateOne(order);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "success";
 	}
 	@RequestMapping("/delete")
 	@ResponseBody

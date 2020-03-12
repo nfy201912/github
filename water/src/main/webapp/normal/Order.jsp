@@ -82,7 +82,8 @@
                 <td>￥${order.o_totalPrice}</td>
                 <td id="${order.o_id}">${order.o_status}<c:if test="${order.o_status =='未付款'}"><br/>(<a name="pay"><b>立即支付</b></a>)</c:if></td>
                 <td><c:if test="${order.o_status=='交易关闭'}" ><a id="sc${order.o_id}" onclick="del('${order.o_id}',this)" >删除订单</a></c:if>
-                <c:if test="${order.o_status!='交易关闭'}"><a id="qx${order.o_id}" onclick="cancel('${order.o_id}'),ShowDiv('MyDiv','fade')" >取消订单</a></c:if>
+                <c:if test="${order.o_status!='交易关闭'&&order.o_status!='已支付'}"><a id="qx${order.o_id}" onclick="cancel('${order.o_id}'),ShowDiv('MyDiv','fade')" >取消订单</a></c:if>
+                <c:if test="${order.o_status=='已支付'}"><a>申请退换</a></c:if>
                 <a id="sc${order.o_id}" onclick="del('${order.o_id}',this)" style="display: none">删除订单</a>
                 &nbsp;|&nbsp;<a href="${path}/order/load?o_id=${order.o_id}">订单详情</a></td>
                 
@@ -139,7 +140,7 @@
 		oid = o_id;
 	}
 	 function sure(){
-		$.post("${path}/order/update",{"o_id":oid,"o_status":"交易关闭"},function(data){
+		$.post("${path}/order/updateOne",{"o_id":oid,"o_status":"交易关闭"},function(data){
 			if("success"==data){
 				var id = "#"+oid;
 				var qx = "#qx"+oid;

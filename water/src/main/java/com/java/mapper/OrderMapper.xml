@@ -38,7 +38,7 @@
 </resultMap> 
 <select id="findAll" parameterType="order" resultMap="orderAndGoods" >
 	select * from orders o,goods g,user u where o.u_id = u.u_id and o.g_id = g.g_id
-	<if test="user.u_id != null">
+	<if test="user!=null and user.u_id != null">
 	and o.u_id = #{user.u_id}
 	</if> 
 </select>
@@ -81,5 +81,8 @@
 		#{o_id}
 	</foreach>
 	)
+</update>
+<update id="updateOne" parameterType="order">
+	update orders set o_status = #{o_status} where o_id = #{o_id}
 </update>
 </mapper>

@@ -13,6 +13,8 @@ public interface OrderService {
 	public void delete(int[] array)throws Exception;
 	//修改订单
 	public void updatePay(String status,int[] array)throws Exception;
+	//修改订单状态
+	public void updateOne(Order order)throws Exception;
 	//加载订单
 	public Order load(Order order)throws Exception;
 	//编号查询

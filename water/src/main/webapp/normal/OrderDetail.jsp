@@ -88,11 +88,18 @@
             	订单状态：
                 <b>${order.o_status}</b>
             </div>
-           
+           <c:if test="${order.o_status!='交易关闭' }">
             <div class="des_join">
             	
                 <span class="fl"><a id="pay"><img src="${path}/images/pay.jpg" /></a></span>
-            </div>            
+            </div>
+           </c:if>
+           <c:if test="${order.o_status=='交易关闭' }">
+            <div class="des_price">
+            	您可选择：
+                <a id="buyAgain"><b>再次购买</b></a>
+            </div>
+           </c:if>            
         </div>    
         
       
@@ -129,6 +136,12 @@
           	<form id="payForm" action="${path}/order/pay" method="post">
           		<input type="hidden" id="order" name="o_id" value="${order.o_id}"/>
           	</form>
+          	<form id="buyAgForm" action="${path}/goods/findGoods" method="post">
+          		<input type="hidden"  name="g_name" value="${order.goods.g_name}" />
+          		<input type="hidden"  name="b_name" value="" />
+          		<input type="hidden"  name="startPage" value="1" />
+          		<input type="hidden"  name="pageSize" value="12" />
+          	</form>
 	<%@include file="../foot.jsp" %><!-- 静态包含 -->
 </body>
 
@@ -136,14 +149,11 @@
 <script type="text/javascript">
 	$(function(){
 		$("#pay").click(function(){
-			/* var goods = {"g_id":'${order.goods.g_id}',"g_name":'${order.goods.g_name}',"g_price":'${order.goods.g_price}'};
-			var order = {"o_id":'${order.o_id}',"o_number":'${order.o_number}',"o_totalPrice":'${order.o_totalPrice}',"o_createTime":'${order.o_createTime}',"goods":goods};
-			var data = [];
-			data.push(order);
-			$('#order').val(JSON.stringify(data)); */
-			//console.log(JSON.stringify(order))
 			 $('#payForm').submit();
-		})
+		});
+		$('#buyAgain').click(function(){
+			$('#buyAgForm').submit();
+		});
 	})	
 </script>
 </html>

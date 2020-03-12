@@ -80,7 +80,7 @@
                 <td><font color="#ff4e00">${order.o_number}</font></td>
                 <td><fmt:formatDate value="${order.o_createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 <td>￥${order.o_totalPrice}</td>
-                <td id="${order.o_id}">${order.o_status}</td>
+                <td id="${order.o_id}">${order.o_status}<c:if test="${order.o_status =='未付款'}"><br/>(<a name="pay"><b>立即支付</b></a>)</c:if></td>
                 <td><c:if test="${order.o_status=='交易关闭'}" ><a id="sc${order.o_id}" onclick="del('${order.o_id}',this)" >删除订单</a></c:if>
                 <c:if test="${order.o_status!='交易关闭'}"><a id="qx${order.o_id}" onclick="cancel('${order.o_id}'),ShowDiv('MyDiv','fade')" >取消订单</a></c:if>
                 <a id="sc${order.o_id}" onclick="del('${order.o_id}',this)" style="display: none">删除订单</a>
@@ -126,6 +126,9 @@
     <div class="btmbg">
 		   	<%@include file="../foot.jsp" %><!-- 静态包含 -->
     </div>
+    <form id="payForm" action="${path}/order/pay" method="post" >
+    	<input type="hidden" name="o_id" id="oid"/>
+    </form>
     <!--End Footer End -->    
 </div>
 
@@ -161,5 +164,13 @@
 			}
 		})
 	}
+	$(function(){
+		$('a[name="pay"]').click(function(){
+			var id =$(this).parent().attr("id");
+			$('#oid').val(id);
+			$('#payForm').submit();
+		});
+	})
+	
 </script>
 </html>

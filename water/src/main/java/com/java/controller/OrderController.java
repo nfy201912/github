@@ -49,7 +49,7 @@ public class OrderController {
 	    //使用jackson将json转为List<Order>  
 	    JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, Order.class);	     
 	    List<Order> orders =  (List<Order>)mapper.readValue(list, jt);
-	    orderService.add(orders,u_id);
+	    orders = orderService.add(orders,u_id);
 	    mv.addObject("orders",orders);
 	    mv.addObject("totalPrice",totalPrice);
 		mv.setViewName("normal/Pay");
@@ -57,7 +57,6 @@ public class OrderController {
 	}
 	@RequestMapping("/pay")
 	public Object pay(Order order,ModelAndView mv) throws Exception{
-		
 		order = orderService.load(order);
 		List<Order> list = new ArrayList<Order>();
 		list.add(order);
@@ -67,16 +66,15 @@ public class OrderController {
 		return mv;
 	}
 	@RequestMapping("/update")
-	@ResponseBody
-	public String update(Order order){
+	public ModelAndView update(@RequestParam("o_status")String status,@RequestParam("array[]")int[] array,ModelAndView mv){
 		try {
-			orderService.update(order);
-			return "success";
+			orderService.updatePay(status,array);
+			mv.setViewName("normal/BuyCar_Three");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "error";
+			mv.setViewName("error");
 		}
-		
+		return mv;
 	}
 	@RequestMapping("/delete")
 	@ResponseBody

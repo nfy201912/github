@@ -1,6 +1,7 @@
 package com.java.service.impl;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -28,13 +29,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void add(List<Order> order,int u_id) throws Exception {
+	public List<Order> add(List<Order> order,int u_id) throws Exception {
 		String date;
 		String uuid;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");//年月日格式
 	    int hashCodeV;
 	    int i=0;
 	    int[] g_id = new int[order.size()];
+	    List<String> list = new ArrayList<String>();
 		for(Order o: order ){
 			if(i<g_id.length){
 				g_id[i] = o.getGoods().getG_id();
@@ -49,9 +51,11 @@ public class OrderServiceImpl implements OrderService {
 			o.setO_createTime(new Timestamp(new Date().getTime()));
 			o.setO_status(WFK);
 			o.setO_number(date);
+			list.add(date);
 		}
 		orderMapper.add(order);
 		buyCarMapper.del(g_id, u_id);
+		return orderMapper.findOrders(list);
 	}
 
 	@Override
@@ -61,8 +65,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void update(Order order) throws Exception {
-		orderMapper.update(order);
+	public void updatePay(String status,int[] array) throws Exception {
+		orderMapper.updatePay(status,array);
 		
 	}
 

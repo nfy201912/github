@@ -42,6 +42,15 @@
 	and o.u_id = #{user.u_id}
 	</if> 
 </select>
+<select id="findOrders" parameterType="String" resultMap="orderAndGoods" >
+	select * from orders o,goods g,user u where o.u_id = u.u_id and o.g_id = g.g_id
+	and o.o_number in(
+		<foreach collection="list" item="o_number" index="index" separator=",">
+			#{o_number}
+		</foreach>
+	) 
+</select>
+
 <select id="load" parameterType="order" resultMap="orderAndGoods">
 	select * from orders o,goods g,user u where o.g_id = g.g_id and o.u_id = u.u_id and o.o_id = #{o_id}
 </select>
@@ -66,7 +75,11 @@
 		#{o_id}
 	</foreach> )
 </delete>
-<update id="update" parameterType="order">
-	update orders set o_status = #{o_status} where o_id = #{o_id}
+<update id="updatePay">
+	update orders set o_status = #{o_status} where o_id in (
+	<foreach collection="array" item="o_id" index="0" separator=",">
+		#{o_id}
+	</foreach>
+	)
 </update>
 </mapper>

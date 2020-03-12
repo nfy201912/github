@@ -8,11 +8,11 @@ public interface OrderService {
 	//查询所有订单
 	public List<Order> findAll(Order order) throws Exception;
 	//添加订单
-	public void add(List<Order> Order,int u_id)throws Exception;
+	public List<Order> add(List<Order> Order,int u_id)throws Exception;
 	//删除订单
 	public void delete(int[] array)throws Exception;
 	//修改订单
-	public void update(Order Order)throws Exception;
+	public void updatePay(String status,int[] array)throws Exception;
 	//加载订单
 	public Order load(Order order)throws Exception;
 	//编号查询

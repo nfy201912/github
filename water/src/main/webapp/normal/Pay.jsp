@@ -84,7 +84,7 @@
             					<tr><td>购买时间:</td><td><fmt:formatDate value="${order.o_createTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td><tr/>
             					<tr><td>订单编号:</td><td>${order.o_number}</td><tr/>
             					<input type="hidden" name="yf" value="${order.o_freight}"/>
-            					
+            					<input type="hidden" name="oid" value="${order.o_id}"/>
             				</c:forEach>
             			</c:when>
             			<c:otherwise>
@@ -110,7 +110,7 @@
             		<input type="password" name="pwd" id="pwd"/>&nbsp;&nbsp;&nbsp;<a href="https://auth.alipay.com/login/index.htm"><b style="color: #00AAEE">忘记密码？</b></a><br/>
             		<b style="color: #B2B2B2">请输入6位数字密码</b>
             	</div>
-                <span class="fl"><a id="add"><img src="${path}/images/paysure.jpg" /></a></span>
+                <span class="fl"><a id="pay"><img src="${path}/images/paysure.jpg" /></a></span>
             </div> 
        
            </div>
@@ -118,7 +118,11 @@
            <div style="position: absolute;bottom: 0px;width: 100%;">
            	<%@include file="../foot.jsp" %><!-- 静态包含 -->
            </div>
-
+	<form id="payForm" action="${path}/order/update" method="post"> 
+		<input type="hidden" name="o_status" value="已支付"/>
+		<input type="hidden" id="ary" name="array[]"/>
+		
+	</form>
 </body>
 
 <script src="js/ShopShow.js"></script>
@@ -128,7 +132,15 @@
 		$('input[name="yf"]').each(function(){
 			yf+=parseFloat($(this).val());
 		})
-		$('#yf').html(yf);		
+		$('#yf').html(yf);
+		$('#pay').click(function(){
+		var array = [];
+		$('input[name="oid"]').each(function(){
+			array.push($(this).val());
+		});
+		$('#ary').val(array);
+		$('#payForm').submit();
+		});
 	})
 </script>
 </html>

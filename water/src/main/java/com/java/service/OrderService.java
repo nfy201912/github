@@ -1,12 +1,15 @@
 package com.java.service;
 
+import java.util.Date;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.java.po.Order;
 
 public interface OrderService {
 	//查询所有订单
-	public List<Order> findAll(Order order) throws Exception;
+	public List<Order> findAll(Order order,Date startTime,Date endTime ) throws Exception;
 	//添加订单
 	public List<Order> add(List<Order> Order,int u_id)throws Exception;
 	//删除订单

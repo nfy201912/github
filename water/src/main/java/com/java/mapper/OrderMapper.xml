@@ -36,11 +36,23 @@
 		<result property="g_imgUrl" column="g_imgUrl"/>
 	</association>
 </resultMap> 
-<select id="findAll" parameterType="order" resultMap="orderAndGoods" >
+<select id="findAll"  resultMap="orderAndGoods" >
 	select * from orders o,goods g,user u where o.u_id = u.u_id and o.g_id = g.g_id
-	<if test="user!=null and user.u_id != null">
-	and o.u_id = #{user.u_id}
+	<if test="order!=null and order.user!=null and order.user.u_id != null">
+	and o.u_id = #{order.user.u_id}
+	</if>
+	<if test=" order!=null and order.o_number!=null">
+		and o_number = #{order.o_number}
+	</if>
+	<if test=" order!=null and order.o_status!=null">
+	and o_status = #{order.o_status}
 	</if> 
+	<if test="startTime!=null">
+	and o_createTime <![CDATA[>= #{startTime}]]>
+	</if>
+	<if test="endTime!=null">
+	and o_createTime <![CDATA[ <= #{endTime} ]]>
+	</if>
 </select>
 <select id="findOrders" parameterType="String" resultMap="orderAndGoods" >
 	select * from orders o,goods g,user u where o.u_id = u.u_id and o.g_id = g.g_id

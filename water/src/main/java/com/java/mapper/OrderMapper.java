@@ -1,5 +1,6 @@
 package com.java.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -9,7 +10,7 @@ import com.java.po.Order;
 
 public interface OrderMapper {
 	//查询所有订单
-	public List<Order> findAll(Order order) throws Exception;
+	public List<Order> findAll(@Param("order")Order order,@Param("startTime")Date startTime,@Param("endTime")Date endTime ) throws Exception;
 	//添加订单
 	public void add(List<Order> orders)throws Exception;
 	//删除订单

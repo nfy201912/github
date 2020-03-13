@@ -1,7 +1,10 @@
 package com.java.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,9 +35,24 @@ public class OrderController {
 	private static final String HDFK = "HDFK"; 
 	@RequestMapping("/findAll")
 	@ResponseBody
-	public Object findAll(Order order) throws Exception{
+	public Object findAll(Order order,@RequestParam("startTime")String startTime,@RequestParam("endTime")String endTime) throws Exception{
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
-		List<Order> orders = orderService.findAll(order);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date st = null;
+		Date et = null;
+		if(!"".equals(startTime)){
+			 st = sdf.parse(startTime);
+		}
+		if(!"".equals(endTime)){
+			et = sdf.parse(endTime);
+		}
+		if("".equals(order.getO_number())){
+			order.setO_number(null);
+		}
+		if("".equals(order.getO_status())){
+			order.setO_status(null);
+		}
+		List<Order> orders = orderService.findAll(order,st,et);
 		jsonMap.put("rows",orders);
 		jsonMap.put("total",orders.size());
 		return jsonMap;
@@ -44,7 +62,7 @@ public class OrderController {
 		Order order = new Order();
 		order.setUser(user);
 		try {
-			mv.addObject("orders",orderService.findAll(order));
+			mv.addObject("orders",orderService.findAll(order,null,null));
 			mv.setViewName("normal/Order");
 			
 		} catch (Exception e) {

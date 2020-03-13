@@ -23,9 +23,9 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private BuyCarMapper buyCarMapper;
 	@Override
-	public List<Order> findAll(Order order) throws Exception {
+	public List<Order> findAll(Order order,Date startTime,Date endTime) throws Exception {
 		
-		return orderMapper.findAll(order);
+		return orderMapper.findAll(order,startTime,endTime);
 	}
 
 	@Override

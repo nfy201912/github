@@ -69,25 +69,25 @@
 </div>
 
 <form id="sform">
-	&nbsp;&nbsp;&nbsp;&nbsp;名称：&nbsp;
-<input id="ns" class="easyui-textbox" style="width: 175px;" />
-&nbsp;&nbsp;&nbsp;&nbsp;种类：&nbsp;
-<input class="easyui-combobox" id="cs" name="category" 
+<table style="padding: 10px;">
+<tr>
+	<td>名称:&nbsp;<input id="ns" class="easyui-textbox" style="width: 175px;" /></td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;种类:&nbsp;<input class="easyui-combobox" id="cs" name="category" 
 	style="width: 175px;">
-&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#" onclick="sou($('#ns').val(),$('#cs').val())"
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td><a href="#" onclick="sou($('#ns').val(),$('#cs').val())"
 	class="easyui-linkbutton" data-options="iconCls:'icon-search'"
-	style="width: 80px">搜 索</a>&nbsp;&nbsp;
-	<a id="cz" href="#" 
+	style="width: 80px">搜 索</a>&nbsp;&nbsp;</td>
+	<td><a id="cz" href="#" 
 	class="easyui-linkbutton" 
-	style="width: 80px">重 置</a>
+	style="width: 80px">重 置</a></td>
+	</tr>
+	</table>
 </form>
 
 <table id="goodsGrid" style=" width: 100%"></table>
 <script type="text/javascript" charset="utf-8">
-	$('#cz').click(function(){
-		$('#sform').form('reset')
-	});
+	
 	
 	function sou(n, c) {
 		if(""==c){
@@ -101,6 +101,9 @@
 	}
 	var goodsGrid;
 	$(function() {
+		$('#cz').click(function(){
+			$('#sform').form('reset')
+		});
 		$('#goodsGrid')
 				.datagrid(
 						{

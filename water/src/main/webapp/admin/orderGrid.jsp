@@ -6,6 +6,7 @@
 	$(function(){
 		$('#orderDataGrid').datagrid({
 			url:'${path}/order/findAll',
+			queryParams:{"startTime":null,"endTime":null},
 			pagination:true,
 			pageSize:20,
 			pageList:[20,40,80],
@@ -157,9 +158,6 @@
 							buttons:[{
 								text:'保存',
 								handler:function(){
-									/* console.log($('#ename').val());
-									console.log($('#epwd').val());
-									console.log(isFitCheck($('#ename').val(),$('#epwd').val())) */
 									 if(isFitCheck($('#ename').val(),$('#epwd').val())){
 										$('#formEdit').form('submit',{
 											url:'${path}/admin/edit',
@@ -200,6 +198,18 @@
 				}
 			}]
 		});
+		
+		$('#ocz').click(function(){
+			$('#searchForm').form('reset')
+		});
+		$('#osearch').click(function(){	
+			$('#orderDataGrid').datagrid('load',{
+				'o_number':$('#num').val(),
+				'o_status':$("#st option:selected").val(),
+				'startTime':$('#startT').val(),
+				'endTime':$('#endT').val()
+			});
+		});
 	});
 	
 	//分页实现
@@ -238,45 +248,8 @@
 	    data.rows = (data.originalRows.slice(start, end));  
 	    return data;  
 	}    
-	$('#ss').searchbox({
-	    searcher:function(value){
-	   //console.log(value)
-	      if(value==''){
-	    	$('#datagrid').datagrid('load',{
-	    		"adm_name":""
-	    	});
-	    }else{
-
-	    		$('#datagrid').datagrid('load',{
-		    		"adm_name":value
-		    	});
-
-	    }  
-	    },
-	    prompt:'Please Input Value'
-	});
 	
 </script>
-<input type="hidden" id="admin" value="${admin.adm_id }"/>
-<div align="center" id="add" class="easyui-dialog" title="管理员新增" style="width:500px;height:220px;"
-    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
-   <div id="add_h" style="display: none">
-   	 <form id="formAdd" action="${path}/admin/add" method="post">
-    	<table style="margin-top: 20px">
-    <tr height="30" >
-    	<td>账号：</td><td><input id="name" name="adm_name" class="easyui-textbox"   data-options="required:true,iconCls:'icon-man'" /></td>
-    </tr>
-    <tr height="50">
-    	<td>密码：</td><td><input id="pwd"  name="adm_password" class="easyui-passwordbox"  data-options="required:true" /></td>
-    </tr>
- 	<tr height="50">
-    	 <td><input type="radio" name="adm_status" value="1"  checked="checked"/>启用</td><td><input type="radio" name="adm_status" value="0" />禁用 </td> 
-    </tr>
-  	
-    </table>
-    </form>
-   </div>
-</div>
 <div align="center" id="edit" class="easyui-dialog" title="管理员编辑" style="width:500px;height:220px;"
     data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true" >
     <div id="edit_h" style="display: none">
@@ -297,9 +270,24 @@
     </form>
     </div>
 </div>
-<div id="win"></div>
-		
-			&nbsp;&nbsp;&nbsp;&nbsp;账号：&nbsp;<input id="ss" class="easyui-searchbox" style="width:290px;"/><br/>
+			<form id="searchForm" action="${path}/order/findAll" method="post">
+			<table style="padding: 10px;">
+				<tr>
+					<td>订单编号:</td><td><input type="text" class="easyui-textbox" id="num" name="o_number" value=""/>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>订单状态:</td><td>
+					<select class="easyui-combobox" editable="false" id="st" name="o_status" style="width:120px;">
+   					 <option value=""></option>		
+   					 <option value="未付款">未付款</option>
+   					 <option value="已支付">已支付</option>
+   					 <option value="交易关闭">交易关闭</option>
+					</select>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>订单时间段:&nbsp;从</td><td><input type="text" style="width: 120px;" class="easyui-datebox" editable="false" id="startT" name="startT" value=""/></td>
+					<td>&nbsp;到</td><td><input type="text" style="width: 120px;" class="easyui-datebox" editable="false" id="endT" name="endT" value=""/></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="osearch" class="easyui-linkbutton" data-options="iconCls:'icon-search'"style="width: 80px">搜 索</a>&nbsp;&nbsp;
+					<a id="ocz" class="easyui-linkbutton" style="width: 80px">重 置</a></td>
+				</tr>
+			</table>
+			</form>
 		<table id="orderDataGrid" style="width:1566px;"></table>
 		
 	

@@ -116,6 +116,17 @@ public class OrderController {
 		}
 		return "success";
 	}
+	@RequestMapping("/deliver")
+	@ResponseBody
+	public String deliver(){//一键发货
+		try {
+			orderService.updateDl();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "success";
+	}
 	@RequestMapping("/delete")
 	@ResponseBody
 	public String delete(@RequestParam("array[]")int[] oid){

@@ -18,6 +18,8 @@ public class OrderServiceImpl implements OrderService {
 	private static final String JYGB = "交易关闭";
 	private static final String YZF = "已支付";
 	private static final String WFK = "未付款";
+	private static final String ZZPS = "正在派送";
+	private static final String HDFK = "HDFK";
 	@Autowired
 	private OrderMapper orderMapper;
 	@Autowired
@@ -85,6 +87,12 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void updateOne(Order order) throws Exception {
 		orderMapper.updateOne(order);
+		
+	}
+
+	@Override
+	public void updateDl() throws Exception {
+		orderMapper.updateDl(ZZPS, YZF, HDFK);
 		
 	}
 

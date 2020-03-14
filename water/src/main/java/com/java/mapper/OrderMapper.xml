@@ -94,6 +94,9 @@
 	</foreach>
 	)
 </update>
+<update id="updateDl">
+	update orders set o_status = #{deliver} where o_status = #{paid} or o_paymentMethod = #{POD}  
+</update>
 <update id="updateOne" parameterType="order">
 	update orders set o_status = #{o_status} where o_id = #{o_id}
 </update>

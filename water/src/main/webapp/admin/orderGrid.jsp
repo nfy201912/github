@@ -210,6 +210,22 @@
 				'endTime':$('#endT').val()
 			});
 		});
+		$('#fh').click(function(){
+			$.post("${path}/order/deliver",null,function(data){
+				if("success"==data){
+					$.messager.show({
+	    				title:'提示',
+	    				msg:'发货成功!',
+	    				timeout:1000,
+	    				showType:'slide'
+	    			});
+					$('#searchForm').form('reset');
+					$('#orderDataGrid').datagrid('reload');
+				}else{
+					$.messager.alert("提示","发货失败");
+				}
+			});
+		});
 	});
 	
 	//分页实现
@@ -279,12 +295,14 @@
    					 <option value=""></option>		
    					 <option value="未付款">未付款</option>
    					 <option value="已支付">已支付</option>
+   					 <option value="正在派送">正在派送</option>
    					 <option value="交易关闭">交易关闭</option>
 					</select>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>订单时间段:&nbsp;从</td><td><input type="text" style="width: 120px;" class="easyui-datebox" editable="false" id="startT" name="startT" value=""/></td>
 					<td>&nbsp;到</td><td><input type="text" style="width: 120px;" class="easyui-datebox" editable="false" id="endT" name="endT" value=""/></td>
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="osearch" class="easyui-linkbutton" data-options="iconCls:'icon-search'"style="width: 80px">搜 索</a>&nbsp;&nbsp;
 					<a id="ocz" class="easyui-linkbutton" style="width: 80px">重 置</a></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="fh" class="easyui-linkbutton" style="width: 90px">一 键 发 货</a></td>
 				</tr>
 			</table>
 			</form>

@@ -71,7 +71,7 @@ public class OrderController {
 		}
 		return mv;
 	}
-	@RequestMapping("/orderSure")
+	@RequestMapping("/orderSure")//下单支付
 	public Object add(@RequestParam("list")String list,@RequestParam("totalPrice")double totalPrice,
 			@RequestParam("u_id")int u_id,ModelAndView mv) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
@@ -84,7 +84,7 @@ public class OrderController {
 		mv.setViewName("normal/Pay");
 		return mv;
 	}
-	@RequestMapping("/pay")
+	@RequestMapping("/pay")//点击立即支付
 	public Object pay(Order order,ModelAndView mv) throws Exception{
 		order = orderService.load(order);
 		List<Order> list = new ArrayList<Order>();
@@ -94,10 +94,10 @@ public class OrderController {
 		mv.setViewName("normal/Pay");
 		return mv;
 	}
-	@RequestMapping("/updatePay")
+	@RequestMapping("/updatePay")//确认付款
 	public ModelAndView update(@RequestParam("o_status")String status,@RequestParam("array[]")int[] array,ModelAndView mv){
 		try {
-			orderService.updatePay(status,array);
+			mv.addObject("orders",orderService.updatePay(status,array));
 			mv.setViewName("normal/BuyCar_Three");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -105,7 +105,7 @@ public class OrderController {
 		}
 		return mv;
 	}
-	@RequestMapping("/updateOne")
+	@RequestMapping("/updateOne")//用户操作订单状态
 	@ResponseBody
 	public String updateOne(Order order){
 		try {
@@ -139,6 +139,17 @@ public class OrderController {
 		}
 		
 	}
+	@RequestMapping("/edit")
+	@ResponseBody
+	public String edit(Order order){
+		try {
+			orderService.edit(order);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "修改失败";
+		}
+		return "success";
+	}
 	@RequestMapping("/load")
 	public ModelAndView load(Order order,ModelAndView mv){
 		try {
@@ -150,4 +161,11 @@ public class OrderController {
 		}
 		return mv;
 	}
+	@RequestMapping("/loadById")
+	@ResponseBody
+	public Order loadById(Order order) throws Exception{
+		
+		return orderService.load(order);
+	}
+	
 }

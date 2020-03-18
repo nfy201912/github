@@ -67,9 +67,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void updatePay(String status,int[] array) throws Exception {
+	public List<Order>  updatePay(String status,int[] array) throws Exception {
 		orderMapper.updatePay(status,array);
-		
+		return orderMapper.loadByIds(array);
 	}
 
 	@Override
@@ -94,6 +94,11 @@ public class OrderServiceImpl implements OrderService {
 	public void updateDl() throws Exception {
 		orderMapper.updateDl(ZZPS, YZF, HDFK);
 		
+	}
+
+	@Override
+	public void edit(Order order) throws Exception {
+		orderMapper.edit(order);
 	}
 
 	

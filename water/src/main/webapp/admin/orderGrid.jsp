@@ -103,28 +103,39 @@
 				text:'删除',
 				iconCls:'icon-remove',
 				handler:function(){
-					var arr = $('#datagrid').datagrid('getSelections');
+					var arr = $('#orderDataGrid').datagrid('getSelections');
 					if(arr.length==0){
 						$.messager.alert('提示','请选择要删除的数据');
 					}else{
 						$.messager.confirm("删除确认","你确定要删除选中的数据吗？",function(f){
 							if(f){
+								var gb = "交易关闭";
+								var wc = "交易完成";
 								var arry = new Array();
 								for(i=0;i<arr.length;i++){
-									var adm = arr[i];
-							
-									arry.push(adm.adm_id);
+									var order = arr[i];
+									if(order.o_status!=gb&&order.o_status!=wc){
+										$.messager.alert('提示','所选数据交易进行中，不能删除');
+										return;
+									}
+									arry.push(order.o_id);
 									
 								}
 								
-								$.post("${path}/admin/delete",{"array[]":arry,"id":$('#admin').val()},function(data){
+								$.post("${path}/order/delete",{"array[]":arry},function(data){
 									//console.log(data)
 									if("success"==data){
-										$("#datagrid").datagrid('clearSelections');
-										$('#datagrid').datagrid('reload');
+										$.messager.show({
+						    				title:'提示',
+						    				msg:'删除成功!',
+						    				timeout:1000,
+						    				showType:'slide'
+						    			});
+										$("#orderDataGrid").datagrid('clearSelections');
+										$('#orderDataGrid').datagrid('reload');
 									}else{
 										$.messager.alert('提示',data);
-										$("#datagrid").datagrid('clearSelections');
+										$("#orderDataGrid").datagrid('clearSelections');
 									}
 									
 								});
@@ -142,56 +153,55 @@
 				text:'修改',
 				iconCls:'icon-edit',
 				handler:function(){
-					var arr = $('#datagrid').datagrid('getSelections');
+					var arr = $('#orderDataGrid').datagrid('getSelections');
 					if(arr.length==0){
 						$.messager.alert('提示','请选择要编辑的数据');
 					}else if(arr.length>1){
 						$.messager.alert('提示','编辑不能多选');
 					}else{
-						$('#edit_h').show();
-						var adm_id =arr[0].adm_id;
+						$('#edito_h').show();
+						var o_id =arr[0].o_id;
 						//console.info(arr[0].adm_id);
-						 $('#edit').dialog({
-							width:400,
+						 $('#edito').dialog({
+							width:600,
 							height:260,
 							closed:false,
 							buttons:[{
 								text:'保存',
 								handler:function(){
-									 if(isFitCheck($('#ename').val(),$('#epwd').val())){
-										$('#formEdit').form('submit',{
-											url:'${path}/admin/edit',
+									 
+										$('#formEdito').form('submit',{
+											url:'${path}/order/edit',
 											success:function(data){
 												
 												if("success"==data){
-													$('#edit').dialog('close');
-													$('#datagrid').datagrid('reload');
-													$("#datagrid").datagrid('clearChecked');
+													$('#edito').dialog('close');
+													$('#orderDataGrid').datagrid('reload');
+													$("#orderDataGrid").datagrid('clearChecked');
 													$.messager.show({
 									    				title:'提示',
 									    				msg:'修改成功!',
 									    				timeout:1000,
 									    				showType:'slide'
 									    			});
+												}else{
+													$.messager.alert('提示',data);
 												}
 												
 											}
 										});
-									}else{
-										$.messager.alert("提示","账号或密码不能有特殊字符");
-									} 
 									
 								}
 							},{
 								text:'退出',
 								handler:function(){
-									$("#datagrid").datagrid('clearChecked');
-									$('#edit').dialog('close');
-									$('#edit_h').hide();
+									$("#orderDataGrid").datagrid('clearChecked');
+									$('#edito').dialog('close');
+									$('#edito_h').hide();
 								}
 							}]
 						}); 
-						 $('#formEdit').form('load','${path}/admin/load?adm_id='+adm_id);//加载选中数据
+						 $('#formEdito').form('load','${path}/order/loadById?o_id='+o_id);//加载选中数据
 						 
 						 
 					}
@@ -266,20 +276,25 @@
 	}    
 	
 </script>
-<div align="center" id="edit" class="easyui-dialog" title="管理员编辑" style="width:500px;height:220px;"
+<div align="center" id="edito" class="easyui-dialog" title="订单编辑" style="width:500px;height:220px;"
     data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true" >
-    <div id="edit_h" style="display: none">
-    	   <form id="formEdit" action="" method="post">
+    <div id="edito_h" style="display: none">
+    	   <form id="formEdito"  method="post">
     	<table style="margin-top: 20px">
-    	<input type="hidden" name="adm_id" />
-    <tr height="30" >
-    	<td>账号：</td><td><input id="ename" name="adm_name" class="easyui-textbox"   data-options="required:true,iconCls:'icon-man'" /></td>
+    	<input type="hidden" name="o_id" />
+    <tr height="50" >
+    	<td align="right">收货人：</td><td><input id="ep" name="o_consignee" class="easyui-textbox" style="width: 80px;text-align: center"   data-options="required:true" />&nbsp;&nbsp;&nbsp;&nbsp;联系方式： <input id="ephone" name="o_cellphone" class="easyui-textbox" style="width: 100px;"   data-options="required:true" />&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    	<td align="right">订单状态：</td><td><select id="esta"  name="o_status" class="easyui-combobox" editable="false" style="width: 120px;" data-options="required:true">	
+   			<option value="未付款">未付款</option>
+   			<option value="已支付">已支付</option>
+   			<option value="正在派送">正在派送</option>
+   			<option value="交易关闭">交易关闭</option>
+   			<option value="交易完成">交易完成</option>
+    	</select></td>
     </tr>
     <tr height="50">
-    	<td>密码：</td><td><input id="epwd"  name="adm_password" class="easyui-passwordbox"  data-options="required:true" /></td>
-    </tr>
- 	<tr height="50">
-    	 <td><input type="radio" name="adm_status" value="1" id="raA"/>启用</td><td><input type="radio" name="adm_status" value="0" id="raB"/>禁用 </td>
+    	<td align="right">收货地址：</td><td><input id="eadr"  name="o_address" style="width: 260px;" class="easyui-textbox"  data-options="required:true" /></td>
+    	
     </tr>
   	
     </table>
@@ -297,6 +312,7 @@
    					 <option value="已支付">已支付</option>
    					 <option value="正在派送">正在派送</option>
    					 <option value="交易关闭">交易关闭</option>
+   					 <option value="交易完成">交易完成</option>
 					</select>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>订单时间段:&nbsp;从</td><td><input type="text" style="width: 120px;" class="easyui-datebox" editable="false" id="startT" name="startT" value=""/></td>
 					<td>&nbsp;到</td><td><input type="text" style="width: 120px;" class="easyui-datebox" editable="false" id="endT" name="endT" value=""/></td>

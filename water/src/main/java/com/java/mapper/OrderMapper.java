@@ -26,4 +26,8 @@ public interface OrderMapper {
 	public Order findByNumber(Order order) throws Exception;
 	//通过订单号查询
 	public List<Order> findOrders(List<String> list)throws Exception;
+	//通过id加载
+	List<Order> loadByIds(int[] array) throws Exception;
+	//修改订单
+	public void edit(Order order) throws Exception;
 }

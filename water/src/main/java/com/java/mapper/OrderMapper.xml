@@ -63,6 +63,15 @@
 	) 
 </select>
 
+<select id="loadByIds" parameterType="int" resultMap="orderAndGoods" >
+	select * from orders o,goods g,user u where o.u_id = u.u_id and o.g_id = g.g_id
+	and o.o_id in(
+		<foreach collection="array" item="o_id" index="index" separator=",">
+			#{o_id}
+		</foreach>
+	) 
+</select>
+
 <select id="load" parameterType="order" resultMap="orderAndGoods">
 	select * from orders o,goods g,user u where o.g_id = g.g_id and o.u_id = u.u_id and o.o_id = #{o_id}
 </select>
@@ -80,11 +89,14 @@
 	(#{order.o_number},#{order.o_totalPrice},#{order.o_freight},#{order.o_paymentMethod},#{order.o_address},#{order.o_consignee},date_format(#{order.o_createTime},'%Y-%m-%d %H:%i:%s'),#{order.o_dealTime},#{order.o_payTime},#{order.o_status},#{order.o_cellphone},#{order.o_amount},#{order.user.u_id},#{order.goods.g_id})
 	</foreach>
 </insert>
-
+<update id="edit" parameterType="order">
+	update orders set o_consignee = #{o_consignee},o_address = #{o_address},o_status = #{o_status},o_cellphone = #{o_cellphone}
+		where o_id = #{o_id} 
+</update>
 <delete id="delete" parameterType="int">
 	delete from orders where o_id in (
 	<foreach collection="array" item="o_id" index="0" separator=",">
-		#{o_id}
+		#{o_id}	
 	</foreach> )
 </delete>
 <update id="updatePay">

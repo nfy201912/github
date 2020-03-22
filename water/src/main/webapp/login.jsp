@@ -91,8 +91,8 @@
         </div>
         <!-- 忘记密码 -->
         <div id="d1" class="log_c" style="background-color: #FFF;">
-        	<form>
-        	<a style="font-size:16px;padding: 10px;" onclick="ul()">返回</a>
+        	<form id="formEt">
+        	<a style="font-size:16px;padding: 10px;" onclick="ul(),rs()">返回</a>
             <table border="0" style="width:390px; font-size:14px; margin-top:30px;text-align: center;" cellspacing="0" cellpadding="0">
               <tr height="50" valign="top">
               	
@@ -103,16 +103,17 @@
               </tr>
               <tr height="70">
                
-                <td><input type="text" id="em" name="u_email" class="l_email" placeholder="邮箱"  required="required"  /></td>
+                <td><input type="text" id="em" name="u_email" onblur="vdl()" class="l_email" placeholder="邮箱"  required="required"  /><br/><span id="hem" style="color:red;position:absolute; left:980px;"></span></td>
+             
               </tr>
               <tr height="70">
                
-                <td><input type="text" name="validate" id="vd"  class="l_user" placeholder="验证码" required="required" /><a id="rc" onclick="receive()"  style="position:absolute; right:280px;padding-top: 8px;">获取验证码</a></td>
+                <td><input type="text" name="validate" id="vd"  class="l_user" placeholder="验证码" required="required" /><a id="rc" onclick="receive()"  style="position:absolute; right:280px;padding-top: 8px;">获取验证码</a><br/><span id="hvd" style="color:red;position:absolute; left:980px;"></span></td>
               </tr>
               <tr height="70">
               
                 <td >
-                	<input type="password" name="u_password" id="npwd" class="l_pwd" placeholder="设置新密码" required="required" />
+                	<input type="password" name="u_password" id="npwd" class="l_pwd" placeholder="设置新密码" required="required" /><br/><span id="hpwd" style="color:red;position:absolute; left:980px;"></span>
                 </td>
               </tr>
               <tr height="70">
@@ -232,73 +233,101 @@ function login(){
 /* 忘记密码 */
 var uid;
 var flag = false;
-$('#em').blur(function(){//邮箱验证
-	var email = $(this).val();
+function vdl(){
+	$('#rc').removeAttr("onclick");
+	var email = $("#em").val();
 	if(email!=""){
 		$.post("${path}/user/load",{"u_email":email},function(data){
 			if(data==null ||data==""){
-				alert("账号不存在");
-				uid = "";
+				$('#hem').html("邮箱不存在");
+				flag = false;
+				$('#rc').attr("onclick","receive();");
 			}else{
+				$('#hem').html("");
+				$('#rc').attr("onclick","receive();");
 				uid = JSON.parse(data)["u_id"];
 				flag = true;
 			}
 		});
+	}else{
+		$('#rc').attr("onclick","receive();");
+		$('#hem').html("邮箱不能为空");
 	}
 	
-})
+}
+var interval;
+function rs(){//返回时重置form
+	$('#formEt')[0].reset();
+	$('#hem').html("");
+	$('#hvd').html("");
+	$('#hpwd').html("");
+	clearInterval(interval);//停止
+	$('#rc').html("获取验证码");
+}
+function timeOut(time){
+	interval = setInterval(function(){
+		$('#rc').html(time+"s后重新获取");
+		$('#rc').removeAttr("onclick");
+		if(time<0){
+			$('#rc').attr("onclick","receive();");
+			$('#rc').html("重新获取");
+			clearInterval(interval);//停止
+		}
+		time--;
+	},1000);
+}
 
 function receive(){//获取验证码
 	if(flag){
 		$.post("${path}/user/sendCode",{"u_id":uid,"u_email":$('#em').val()},function(data){
-			var time = 60;
-			var interval= setInterval(function(){
-				$('#rc').html(time);
-				$('#rc').removeAttr("onclick");
-				if(time<0){
-					$('#rc').attr("onclick","receive();");
-					$('#rc').html("重新发送");
-					clearInterval(interval);
-				}
-				time--;
-			},1000);
+			if("success"==data){
+				$('#hvd').html("验证码已成功发送,请注意查收").css("color","#3A8BFF");
+				timeOut(60);
+			}else{
+				$('#hvd').html(data);
+			}	
 		})
 	}else{
-		alert("邮箱错误")
+		vdl();
 	}
 	 
 }
 
 function sure(){//设置新密码
-	if($('#em').val()==""){
-		alert("邮箱不能为空")
+	if($('#em').val()==""&&$('#hem').html()==""){
+		$('#hem').html("邮箱不能为空");
 		return;
 	}
-	if($('#vd').val()==""){
-		alert("验证码不能为空")
+	if($('#vd').val()==""&&$('#hvd').html()==""){
+		$('#hvd').html("验证码不能为空").css("color","#ff0000")
 		return;
 	}
-	if($('#npwd').val()==""){
-		alert("密码不能为空")
+	if($('#npwd').val()==""&&$('#hpwd').html()==""){
+		$('#hpwd').html("密码不能为空")
 		return;
 	}
 	if(flag){
 		$.post("${path}/user/vdCode",{"u_id":uid,"u_validate":$('#vd').val()},function(data){
 			if(data!=""){
+				if("error"==data){
+					$('#hvd').html("验证码已过期,请重新获取").css("color","#ff0000");
+					return;
+				}
 				$.post("${path}/user/updatePWD",{"u_id":uid,"u_password":$('#npwd').val()},function(data){
 					if("success"==data){
 						alert("新密码设置成功！");
 						ul();
+						rs();//重置
 					}
 				});
 				
 				
 			}else{
-				alert("验证码错误")
+				$('#hvd').html("验证码错误").css("color","#ff0000");
 			}
 		})
 	}else{
-		alert("邮箱错误")
+		vdl();
 	}
 	
 }

@@ -69,7 +69,7 @@
 		) 
 </delete>
 <update id="updateValidateCode" parameterType="user">
-	update user set u_validate = #{u_validate} where u_id = #{u_id}
+	update user set u_validate = #{u_validate},u_sendTime = #{u_sendTime} where u_id = #{u_id}
 </update>
 <select id="validateEmail" parameterType="user" resultType="user">
 	select * from user where u_id = #{u_id} and u_validate = #{u_validate}

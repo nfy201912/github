@@ -2,6 +2,7 @@ package com.java.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -299,7 +300,7 @@ public class UserController {
 			e.printStackTrace();
 			return "验证码发送异常";
 		}
-		return "验证码已发送至您的邮箱";
+		return "success";
 	}
 	@RequestMapping("/vdCode")
 	@ResponseBody
@@ -308,7 +309,14 @@ public class UserController {
 		user = userService.loadByID(user);
 		user.setU_validate(code);
 		user = userService.validateEmail(user);
+		
 		if(user!=null){
+			SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			Date t1 = user.getU_sendTime();
+			Date t2 = new Date(new Date().getTime()-10000);
+			if(t1.before(t2)){//过期
+				return "error";
+			}
 			return user;
 		}
 		return null;

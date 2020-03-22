@@ -1,6 +1,7 @@
 package com.java.service.impl;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -137,6 +138,7 @@ public class UserServiceImpl implements UserService{
 		String code = String.format("%04d",new Random().nextInt(9999));//四位验证码
 		String emailMsg = "这是您的验证码:"+code+"，请注意查收(有效时长为60s)。";
 		SendJMail.sendMail(user.getU_email(),emailMsg);
+		user.setU_sendTime(new Timestamp(new Date().getTime()));
 		user.setU_validate(code);
 		userMapper.updateValidateCode(user);
 		

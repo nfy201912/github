@@ -20,11 +20,8 @@
 <!--End Header End--> 
 <!--Begin Login Begin-->
 <div class="log_bg">	
-    <div class="top" style="height: 140px;">
-        <div class="logo"><a href="${path }/index.jsp"><img src="${path}/images/logo.png" /></a></div>
-    </div>
-	<div class="regist">
-    	<div class="log_img" style="float: left;"><img src="${path}/images/l_img.png" width="611" height="425" /></div>
+	<div class="regist" style="margin-top:100px;">
+    	<div class="log_img" style="float: left;"><img src="${path}/img/logo1.png" width="611" height="425" /></div>
 		<div class="reg_c">
         	<form id="regform">
             <table border="0" style="width:420px; font-size:14px; margin-top:20px;" cellspacing="0" cellpadding="0">
@@ -74,7 +71,7 @@
                 <td>
                    <input type="text" name="u_validateCode"  id="validateCode" value="" class="l_ipt" /> 
                      <a><img id="code" src="${path }/user/doValidateCode" alt="验证码图片" style="vertical-align:middle;"></a>
-                </td><span class="redFont">&nbsp;&nbsp;&nbsp;&nbsp;${validateCodeMessage }</span>
+                </td><%-- <span class="redFont">&nbsp;&nbsp;&nbsp;&nbsp;${validateCodeMessage }</span> --%>
               </tr>
               <tr>
               	<td>&nbsp;</td>

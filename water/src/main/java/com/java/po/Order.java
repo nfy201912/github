@@ -15,7 +15,7 @@ public class Order {
 	private String o_paymentMethod ;//支付方式
 	private String o_address ;//收货地址
 	private String o_consignee;//收货人名称
-	private Timestamp o_dealTime ;//成交时间
+	private Timestamp o_dealTime ;//完成时间
 	private Timestamp o_createTime;//创建时间
 	private Timestamp o_payTime;//支付时间
 	private String o_status;//状态

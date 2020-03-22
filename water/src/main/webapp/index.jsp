@@ -21,6 +21,9 @@
 		<script type="text/javascript">
 			new WOW().init();
 		</script>
+		<style> 
+a{ text-decoration:none;} 
+</style> 
 </head>
 <body >
 
@@ -49,9 +52,12 @@
 									<li><a href="${path}/goods/findGoods?g_name&b_name&startPage=1&pageSize=12">商 品</a></li>
 									<li><a href="">联 系 我 们</a></li>
 								</ul>
-								<form class="navbar-form navbar-right" role="search" style="margin-right:-90px;">
+								<form id="serForm" action="${path}/goods/findGoods" method="post" class="navbar-form navbar-right" role="search" style="margin-right:-90px;">
 	<div class="col-sm-4 col-xs-4" style="margin-right:75px;padding:0;">
-    <input id="st" type="text" style="width: 280px;" class="form-control" placeholder="Search">
+    <input id="st" type="text" name="g_name" style="width: 280px;" class="form-control" placeholder="Search">
+					<input type="hidden" id="sp" name="startPage" value="1"/>
+					<input type="hidden" id="ps" name="pageSize" value="12"/>
+					<input type="hidden" id="bn" name="b_name" value=""/>
 </div>
  <button id="ser" type="button" class="btn btn-default">搜 索</button>
 
@@ -154,9 +160,7 @@
 			 
 			$(function(){
 				$("#ser").click(function(){
-					//$(location).attr('href', "${path}/goods/findGoods?g_name="+$("#st").val());startPage=0&pageSize=12
-					var url = "${path}/goods/findGoods?g_name="+$("#st").val()+"&startPage="+1+"&pageSize="+12+"&b_name";
-					location.href=url;
+					$('#serForm').submit();
 				});
 				 
 			})

@@ -210,7 +210,6 @@ public class UserController {
 	@RequestMapping("/load")
 	@ResponseBody
 	public User load(User user) throws Exception{
-	
 		return userService.loadByID(user);
 	}
 	//检查用户是否存在
@@ -219,7 +218,8 @@ public class UserController {
 	public String checkName(User user) throws Exception{
 		
 		User u = new User();
-		u=userService.find(user);
+		u.setU_username(user.getU_username());
+		u=userService.find(u);
 		if(user.getU_username().equals(u.getU_username())){
 			return "error";
 		}
@@ -286,5 +286,42 @@ public class UserController {
 		}
 		
 		
+	}
+	/*
+	 * 忘记密码
+	 * */
+	@RequestMapping(value={"/sendCode"},produces="text/html;charset=utf-8")
+	@ResponseBody
+	public Object sendCode(User user){
+		try {
+			userService.updateValidateCode(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "验证码发送异常";
+		}
+		return "验证码已发送至您的邮箱";
+	}
+	@RequestMapping("/vdCode")
+	@ResponseBody
+	public Object vdCode(User user) throws Exception{//验证（修改密码）
+		String code = user.getU_validate();
+		user = userService.loadByID(user);
+		user.setU_validate(code);
+		user = userService.validateEmail(user);
+		if(user!=null){
+			return user;
+		}
+		return null;
+	}
+	@RequestMapping("/updatePWD")
+	@ResponseBody
+	public Object updatePWD(User user){//修改密码
+		try {
+			userService.updatePWD(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "success";
 	}
 }

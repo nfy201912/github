@@ -78,9 +78,13 @@
 			
 				
 								
-								<form class="navbar-form navbar-right" role="search" style="margin-right:-90px;">
+								<form id="serForm" action="${path}/goods/findGoods" method="post" class="navbar-form navbar-right" role="search" style="margin-right:-90px;">
 	<div class="col-sm-4 col-xs-4" style="margin-right:75px;padding:0;">
-    <input id="serch" type="text" style="width: 280px;" class="form-control" placeholder="Search">
+    <input id="serch" type="text" name="g_name" style="width: 280px;" class="form-control" placeholder="Search">
+   				    <!-- <input type="hidden" id="gn" name="g_name" value=""/> -->
+					<input type="hidden" id="sp" name="startPage" value="1"/>
+					<input type="hidden" id="ps" name="pageSize" value="12"/>
+					<input type="hidden" id="bn" name="b_name" value=""/>
 </div>
  <button id="ser" type="button"  class="btn btn-default">搜 索</button>
 </form>
@@ -122,7 +126,7 @@
 					
 				
 			</div>
-						
+						<!-- g_name="+$('#serch').val()+"&startPage="+1+"&pageSize="+12+"&b_name= -->
 						
 				
 				</div>
@@ -131,10 +135,6 @@
 		
 	</body>
 	<script type="text/javascript">
-	/* function sh(){//搜索
-		alert($('#serch').val());
-		
-	} */
 	$(function(){
 		var c = '${count}';//总记录数
 		var num =parseInt('${startPage}');//当前页码
@@ -177,16 +177,21 @@
 		});
 		
 			$('#sel').val(brand);	
-		
+			
 		
 		$("#sel").change(function(){//品牌选择
 			var s = $("#sel option:selected");//获取选中项   s.val()选中项 值+s.text()文本
-			location.href="${path}/goods/findGoods?g_name="+$('#serch').val()+"&startPage="+1+"&pageSize="+12+"&b_name="+s.val();
-		});
-		$('#ser').click(function(){//搜索
-			//alert($('#serch').val())
-			location.href="${path}/goods/findGoods?g_name="+$('#serch').val()+"&startPage="+1+"&pageSize="+12+"&b_name="+$('#sel').val();
+			//location.href="${path}/goods/findGoods?g_name="+$('#serch').val()+"&startPage="+1+"&pageSize="+12+"&b_name="+s.val();
 			
+			$('#bn').val(s.val());
+			$('#serForm').submit();
+		});
+		
+		$('#ser').click(function(){//搜索
+			var s = $("#sel option:selected");
+			//location.href="${path}/goods/findGoods?g_name="+$('#serch').val()+"&startPage="+1+"&pageSize="+12+"&b_name="+$("#sel option:selected").val();
+			$('#bn').val(s.val());
+			$('#serForm').submit();
 		});
 		
 		

@@ -11,11 +11,12 @@
 </head>
 <body>
 <div id="foot" align="center">
+友 情 链 接
 			<div id="foot1"  style="background: #c9e9f9;" >
-				<div style="float:left;width: 25%;">1313</div>
-				<div style="float:left;width: 25%;">1313</div>
-				<div style="float:left;width: 25%;">1313</div>
-				<div style="float:left;width: 25%;">1313</div>
+				<div style="float:left;width: 25%;"><a href="https://www.wahaha.com.cn/">娃 哈 哈</a></div>
+				<div style="float:left;width: 25%;"><a href="http://www.nongfuspring.com/index">农 夫 山 泉</a></div>
+				<div style="float:left;width: 25%;"><a href="https://www.crbeverage.com/">怡 宝</a></div>
+				<div style="float:left;width: 25%;"><a href="http://www.robust.com.cn/html/index.php">乐 百 氏</a></div>
 			</div>
 			<div  id="foot2" >
 				<div >版 权</div>

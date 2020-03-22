@@ -79,7 +79,7 @@
 				width:160,
 				align:'center'
 			},{
-				title:'成交时间',
+				title:'完成时间',
 				field:'o_dealTime',
 				width:160,
 				align:'center'

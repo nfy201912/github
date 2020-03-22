@@ -20,12 +20,10 @@
 </div>
 <!--End Header End--> 
 <!--Begin Login Begin-->
-<div class="log_bg" style="background-color: #fff4ef">	
-    <div class="top" style="height:140px;">
-        <div class="logo"><a href="${path }/index.jsp"><img src="${path }/images/logo.png" /></a></div>
-    </div>
-	<div  class="login">
-    	<div class="log_img" style="float: left;"><img src="${path }/images/l_img.png" width="611" height="425" /></div>
+<div class="log_bg" style="background-color: #fff4ef;height: 700px;">	
+
+	<div  class="login" style="margin-top: 100px;">
+    	<div class="log_img" style="float: left;"><img src="${path}/img/logo1.png" width="611" height="425" /></div>
 		<div id="d3" class="log_c" style="background-color: #FFF;">
         	<form>
         	<a style="font-size:16px;padding: 10px;" onclick="al()">切换管理员</a>
@@ -52,7 +50,7 @@
                     	<input type="checkbox" id="autoLogin" name="autoLogin" ${empty cookie.autoLogin ? "": "checked"} ><span>自动登入</span> 
                 	<input type="checkbox" id="rembPwd"  name="rembPwd" ${empty cookie.rembPwd ? "": "checked"}><span>记住密码</span>
                     </span>
-                    <span class="fr"><a href="#" style="color:#ff4e00;">忘记密码</a></span>
+                    <span class="fr"><a onclick="wj()" style="color:#ff4e00;">忘记密码</a></span>
                 </td>
               </tr>
               <tr height="60">
@@ -91,17 +89,52 @@
             </table>
             </form>
         </div>
+        <!-- 忘记密码 -->
+        <div id="d1" class="log_c" style="background-color: #FFF;">
+        	<form>
+        	<a style="font-size:16px;padding: 10px;" onclick="ul()">返回</a>
+            <table border="0" style="width:390px; font-size:14px; margin-top:30px;text-align: center;" cellspacing="0" cellpadding="0">
+              <tr height="50" valign="top">
+              	
+                <td style="padding-left: 32px;">
+                	<span class="fl" style="font-size:24px;">忘记密码</span>
+                </td>
+               
+              </tr>
+              <tr height="70">
+               
+                <td><input type="text" id="em" name="u_email" class="l_email" placeholder="邮箱"  required="required"  /></td>
+              </tr>
+              <tr height="70">
+               
+                <td><input type="text" name="validate" id="vd"  class="l_user" placeholder="验证码" required="required" /><a id="rc" onclick="receive()"  style="position:absolute; right:280px;padding-top: 8px;">获取验证码</a></td>
+              </tr>
+              <tr height="70">
+              
+                <td >
+                	<input type="password" name="u_password" id="npwd" class="l_pwd" placeholder="设置新密码" required="required" />
+                </td>
+              </tr>
+              <tr height="70">
+              	
+                <td><input type="button" value="确定" class="log_btn" onclick="sure()" /></td>
+              </tr>
+            </table>
+            </form>
+        </div>
     </div>
 </div>
 <!--End Login End--> 
 <!--Begin Footer Begin-->
 
 <!--End Footer End -->    
-
+<div class="btmbg">
+    <%@include file="../foot.jsp" %><!-- 静态包含 -->	
+</div>
 </body>
 
 <script type="text/javascript">
-
+	$("#d1").hide();
 	$("#d2").hide();
 	$("#d3").show();
 	if(!$("#d3").is(':hidden')){//用户
@@ -111,7 +144,7 @@
 	location.href="${path}/index.jsp";//退回首页
 } */
 function ul(){
-		
+		$("#d1").hide();
 		$("#d2").hide();
 		$("#d3").show();
 		
@@ -151,11 +184,16 @@ function commit(){
 	}); 
 }
 function al(){
-	
+	$("#d1").hide();
 	$("#d3").hide();
 	$("#d2").show();
 }
-
+function wj(){
+	$("#d2").hide();
+	$("#d3").hide();
+	$("#d1").show();
+	
+}
 document.onkeydown=keyListener;
 function keyListener(e){
     // 当按下回车键，执行我们的代码
@@ -166,7 +204,9 @@ function keyListener(e){
     	if(!$("#d3").is(':hidden')){//用户
     		commit();
     	}
-    	
+    	if(!$("#d1").is(':hidden')){//忘记密码
+    		sure();
+    	}
         
     }
 }
@@ -189,6 +229,79 @@ function login(){
 	});
 }
 
+/* 忘记密码 */
+var uid;
+var flag = false;
+$('#em').blur(function(){//邮箱验证
+	var email = $(this).val();
+	if(email!=""){
+		$.post("${path}/user/load",{"u_email":email},function(data){
+			if(data==null ||data==""){
+				alert("账号不存在");
+				uid = "";
+			}else{
+				uid = JSON.parse(data)["u_id"];
+				flag = true;
+			}
+		});
+	}
+	
+})
+
+function receive(){//获取验证码
+	if(flag){
+		$.post("${path}/user/sendCode",{"u_id":uid,"u_email":$('#em').val()},function(data){
+			var time = 60;
+			var interval= setInterval(function(){
+				$('#rc').html(time);
+				$('#rc').removeAttr("onclick");
+				if(time<0){
+					$('#rc').attr("onclick","receive();");
+					$('#rc').html("重新发送");
+					clearInterval(interval);
+				}
+				time--;
+			},1000);
+		})
+	}else{
+		alert("邮箱错误")
+	}
+	 
+}
+
+function sure(){//设置新密码
+	if($('#em').val()==""){
+		alert("邮箱不能为空")
+		return;
+	}
+	if($('#vd').val()==""){
+		alert("验证码不能为空")
+		return;
+	}
+	if($('#npwd').val()==""){
+		alert("密码不能为空")
+		return;
+	}
+	if(flag){
+		$.post("${path}/user/vdCode",{"u_id":uid,"u_validate":$('#vd').val()},function(data){
+			if(data!=""){
+				$.post("${path}/user/updatePWD",{"u_id":uid,"u_password":$('#npwd').val()},function(data){
+					if("success"==data){
+						alert("新密码设置成功！");
+						ul();
+					}
+				});
+				
+				
+			}else{
+				alert("验证码错误")
+			}
+		})
+	}else{
+		alert("邮箱错误")
+	}
+	
+}
 </script>
 
 <!--[if IE 6]>

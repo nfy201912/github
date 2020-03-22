@@ -100,7 +100,7 @@
 	</foreach> )
 </delete>
 <update id="updatePay">
-	update orders set o_status = #{o_status} where o_id in (
+	update orders set o_status = #{o_status},o_payTime = NOW() where o_id in (
 	<foreach collection="array" item="o_id" index="0" separator=",">
 		#{o_id}
 	</foreach>
@@ -110,6 +110,6 @@
 	update orders set o_status = #{deliver} where o_status = #{paid} or o_paymentMethod = #{POD}  
 </update>
 <update id="updateOne" parameterType="order">
-	update orders set o_status = #{o_status} where o_id = #{o_id}
+	update orders set o_status = #{o_status},o_dealTime = NOW() where o_id = #{o_id}
 </update>
 </mapper>

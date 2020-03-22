@@ -21,7 +21,7 @@
 </div>
 <div class="m_top_bg">
     <div class="top">
-        <div class="m_logo"><a href="Index.html"><img src="images/logo1.png" /></a></div>
+        
         <div class="m_search">
             <form>
                 <input type="text" value="" class="m_ipt" />
@@ -81,10 +81,10 @@
                 <td><fmt:formatDate value="${order.o_createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 <td>￥${order.o_totalPrice}</td>
                 <td id="${order.o_id}">${order.o_status}<c:if test="${order.o_status =='未付款'}"><br/>(<a name="pay"><b>立即支付</b></a>)</c:if></td>
-                <td><c:if test="${order.o_status=='交易关闭'}" ><a id="sc${order.o_id}" onclick="del('${order.o_id}',this)" >删除订单</a></c:if>
-                <c:if test="${order.o_status!='交易关闭'&&order.o_status!='已支付'&&order.o_status!='正在派送'}"><a id="qx${order.o_id}" onclick="cancel('${order.o_id}'),ShowDiv('MyDiv','fade')" >取消订单</a></c:if>
+                <td><c:if test="${order.o_status=='交易关闭' or order.o_status=='交易完成'}" ><a id="sc${order.o_id}" onclick="del('${order.o_id}',this)" >删除订单</a></c:if>
+                <c:if test="${order.o_status!='交易关闭'&&order.o_status!='已支付'&&order.o_status!='正在派送'&&order.o_status!='交易完成'}"><a id="qx${order.o_id}" onclick="cancel('${order.o_id}'),ShowDiv('MyDiv','fade')" >取消订单</a></c:if>
                 <c:if test="${order.o_status=='已支付'}"><a>申请退换</a></c:if>
-                 <c:if test="${order.o_status=='正在派送'}"><a>确认收货</a></c:if>
+                 <c:if test="${order.o_status=='正在派送'}"><a id="sh${order.o_id}" onclick="sure('${order.o_id}')">确认收货</a></c:if>
                 <a id="sc${order.o_id}" onclick="del('${order.o_id}',this)" style="display: none">删除订单</a>
                 &nbsp;|&nbsp;<a href="${path}/order/load?o_id=${order.o_id}">订单详情</a></td>
                 
@@ -117,7 +117,7 @@
                     <td align="center">您确定要取消该订单吗？</td>
                   </tr>
                   <tr height="50" valign="bottom">
-                    <td><a id="sure" class="b_sure" onclick="sure(),CloseDiv('MyDiv','fade')">确定</a><a class="b_buy" onclick="CloseDiv('MyDiv','fade')">取消</a></td>
+                    <td><a id="sure" class="b_sure" onclick="sure(''),CloseDiv('MyDiv','fade')">确定</a><a class="b_buy" onclick="CloseDiv('MyDiv','fade')">取消</a></td>
                   </tr>
                 </table>
                     
@@ -140,17 +140,28 @@
 	function cancel(o_id){
 		oid = o_id;
 	}
-	 function sure(){
-		$.post("${path}/order/updateOne",{"o_id":oid,"o_status":"交易关闭"},function(data){
+	 function sure(id){
+		 var status;
+		 var o_id;
+		 if(id!=""){
+			 status = "交易完成";
+			 o_id = id;
+		 }else{
+			 status = "交易关闭";
+			 o_id = oid;
+		 }
+		$.post("${path}/order/updateOne",{"o_id":o_id,"o_status":status},function(data){
 			if("success"==data){
-				var id = "#"+oid;
-				var qx = "#qx"+oid;
-				var sc = "#sc"+oid;
-				$(id).html("交易关闭");
+				var id = "#"+o_id;
+				var qx = "#qx"+o_id;
+				var sc = "#sc"+o_id;
+				var sh = "#sh"+o_id;
+				$(id).html(status);
 				$(qx).hide();
+				$(sh).hide();
 				$(sc).show();
 			}else{
-				alert("取消失败")
+				alert("操作失败")
 			}
 		})
 	} 
@@ -166,6 +177,7 @@
 			}
 		})
 	}
+	
 	$(function(){
 		$('a[name="pay"]').click(function(){
 			var id =$(this).parent().attr("id");

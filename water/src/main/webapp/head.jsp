@@ -8,13 +8,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Insert title here</title>
+		<style> 
+a{ text-decoration:none;} 
+</style> 
 </head>
 <body>
-<div  style="float: right;margin-bottom:50px; padding-left:160px;padding-right:50px;height:50px;line-height:50px;width: 100%;background-color:#f6f6f6" >
-			<div style="float: left;height:30px;line-height: 30px;">
-				
+<div  style="margin-bottom:50px;height:50px;line-height:50px;width: 100%;background-color:#f6f6f6" >
+			<div style="float: left;position: relative;left: 180px;">
+				<a href="${path}/index.jsp">首页</a>
 			</div>
-			<div  align="right">
+			<div  style="float:right;position: relative;right: 60px;">
 			<c:if test="${u==null}">
 				<a  href="${path }/login.jsp">登入</a>|<a  href="${path }/Register.jsp">注册</a>
 			</c:if>

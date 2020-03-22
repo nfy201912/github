@@ -14,6 +14,7 @@ public class User {
 	private String u_activeCode;
 	private boolean u_status;
 	private Timestamp u_createTime;
+	private String u_validate;
 	public Integer getU_id() {
 		return u_id;
 	}
@@ -74,6 +75,12 @@ public class User {
 	public void setU_createTime(Timestamp u_createTime) {
 		this.u_createTime = u_createTime;
 	}
+	public String getU_validate() {
+		return u_validate;
+	}
+	public void setU_validate(String u_validate) {
+		this.u_validate = u_validate;
+	}
 	@Override
 	public String toString() {
 		return "User [u_id=" + u_id + ", u_username=" + u_username
@@ -81,7 +88,7 @@ public class User {
 				+ ", u_address=" + u_address + ", u_email=" + u_email
 				+ ", u_phone=" + u_phone + ", u_activeCode=" + u_activeCode
 				+ ", u_status=" + u_status + ", u_createTime=" + u_createTime
-				+ "]";
+				+ ", u_validate=" + u_validate + "]";
 	}
 	
 }

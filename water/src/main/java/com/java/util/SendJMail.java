@@ -36,7 +36,7 @@ public class SendJMail {
 			// 设置发件人的地址
 			message.setFrom(new InternetAddress(from));
 			// 设置主题
-			message.setSubject("用户激活");
+			message.setSubject("校园水站");
 			// 设置邮件的文本内容
 			// message.setText("Welcome to JavaMail World!");
 			message.setContent(emailMsg, "text/html;charset=utf-8");// 注册成功，请<a

@@ -28,4 +28,11 @@ public interface UserMapper {
 	public void update(User user) throws Exception;
 	//用户查询
 	public User loadByID(User user) throws Exception;
+	//验证(修改密码)
+	public User validateEmail(User user) throws Exception;
+	//更新验证码(修改密码)
+	public void updateValidateCode(User user) throws Exception;
+	//修改密码
+	public void updatePWD(User user) throws Exception;
+	
 }

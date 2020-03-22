@@ -86,15 +86,17 @@
             </div>
             <div class="des_price">
             	订单状态：
-                <b>${order.o_status}</b>
+                <b>${order.o_status}&nbsp;&nbsp;</b>
+                <c:if test="${order.o_status=='已支付'}">(<fmt:formatDate value="${order.o_payTime}" pattern="YYYY-mm-dd HH:mm:ss"/>)</c:if>
+                <c:if test="${order.o_status=='交易完成' or order.o_status=='交易关闭'}">(<fmt:formatDate value="${order.o_dealTime}" pattern="YYYY-mm-dd HH:mm:ss"/>)</c:if>
             </div>
-           <c:if test="${order.o_status!='交易关闭' and order.o_status!='已支付' and order.o_status!='正在派送' }">
+           <c:if test="${order.o_status!='交易关闭' and order.o_status!='已支付' and order.o_status!='正在派送' and order.o_status!='交易完成' }">
             <div class="des_join">
             	
                 <span class="fl"><a id="pay"><img src="${path}/images/pay.jpg" /></a></span>
             </div>
            </c:if>
-           <c:if test="${order.o_status=='交易关闭' or order.o_status=='已支付' or order.o_status=='正在派送'}">
+           <c:if test="${order.o_status=='交易关闭' or order.o_status=='已支付' or order.o_status=='正在派送' or order.o_status=='交易完成'}">
             <div class="des_price">
             	您可选择：
                 <a id="buyAgain"><b>再次购买</b></a>

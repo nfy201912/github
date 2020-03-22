@@ -1,8 +1,8 @@
 package com.java.service.impl;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,22 +17,17 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserMapper userMapper;
 	
-	public User find(User user) throws Exception {
+	public User find(User user) throws Exception {//用户登入,注册、添加(用户名是否重复)
 		User u = new User();
-		//加密
-		
-	if(user.getU_password()!=null){
-		user.setU_password(MD5Util.md5Password(user.getU_password()));
-		
-	}
 		u.setU_username(user.getU_username());
 		
-		if(userMapper.find(u)==null){
+		if(userMapper.find(u)==null){//登入时检验
 			
 			u.setU_username("账号错误");
 			return u;
 		}
-		if(user.getU_id()!=null){
+		if(user.getU_password()!=null){//登入
+			user.setU_password(MD5Util.md5Password(user.getU_password()));
 			u.setU_password(user.getU_password());
 			if(userMapper.find(u)==null){
 				u.setU_username("密码错误");
@@ -130,6 +125,28 @@ public class UserServiceImpl implements UserService{
 	public User loadByID(User user) throws Exception {
 		
 		return userMapper.loadByID(user);
+	}
+
+	@Override
+	public User validateEmail(User user) throws Exception {
+		return userMapper.validateEmail(user);
+	}
+
+	@Override
+	public void updateValidateCode(User user) throws Exception {
+		String code = String.format("%04d",new Random().nextInt(9999));//四位验证码
+		String emailMsg = "这是您的验证码:"+code+"，请注意查收(有效时长为60s)。";
+		SendJMail.sendMail(user.getU_email(),emailMsg);
+		user.setU_validate(code);
+		userMapper.updateValidateCode(user);
+		
+	}
+
+	@Override
+	public void updatePWD(User user) throws Exception {
+		user.setU_password(MD5Util.md5Password(user.getU_password()));//加密
+		userMapper.updatePWD(user);
+		
 	}
 
 	

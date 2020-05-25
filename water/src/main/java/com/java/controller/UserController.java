@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,12 +24,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import cn.dsna.util.images.ValidateCode;
 
 import com.alibaba.fastjson.JSONObject;
-import com.java.po.Admin;
 import com.java.po.User;
 import com.java.service.UserService;
 
@@ -98,7 +97,7 @@ public class UserController {
 	
 	@RequestMapping(value={"/userLogin"},produces="text/html;charset=utf-8")
 	@ResponseBody
-	public String userLogin(User u,Model m,@RequestParam("rembPwd") String isR,@RequestParam("autoLogin") String autoLogin,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public Object userLogin(User u,Model m,@RequestParam("rembPwd") String isR,@RequestParam("autoLogin") String autoLogin,HttpServletRequest request,HttpServletResponse response,HttpSession session) throws Exception{
 		if(u==null){
 			return "请输入账号密码";
 		}
@@ -147,7 +146,7 @@ public class UserController {
 				//String autoLogin = request.getParameter("autoLogin");
 				
 				if (autoLogin!=null&&autoLogin.equalsIgnoreCase("true") ) {
-					Cookie loginAuto = new Cookie("autoLogin", "autoLogin"); // Cookie的名字是username
+					Cookie loginAuto = new Cookie("autoLogin", "autoLogin"); // Cookie的名字是autoLogin
 					loginAuto.setMaxAge(60 * 60 * 24 * 7); // 记住用户名为一个星期(cookie的存活时长为一个星期)
 					loginAuto.setPath("/"); // 放到当前浏览目录下
 					response.addCookie(loginAuto); // 把cookie写回到客户端
@@ -183,7 +182,27 @@ public class UserController {
 						}
 					}
 				}
+				Map<String,String> userSessionMap = null;
+				ServletContext application = session.getServletContext();
+				userSessionMap = (Map)application.getAttribute("userSessionMap");
+				String uid = user.getU_id().toString();
 				m.addAttribute("u",user);
+				if(null==userSessionMap){
+					userSessionMap = new HashMap<String,String>();
+					userSessionMap.put(uid,session.getId());
+					application.setAttribute("userSessionMap", userSessionMap);
+					
+				}
+				String sessionId = userSessionMap.get(uid);
+				if(null==sessionId){//用户是否登入
+					userSessionMap.put(uid,session.getId());
+					return "SUCCESS";//成功
+				}
+				
+				if(!sessionId.equals(session.getId())){//是否同一终端
+					return "账号已在别处登录";
+				}
+				
 				return "SUCCESS";//成功
 			}else{
 				return "用户未激活";
@@ -220,7 +239,7 @@ public class UserController {
 		
 		User u = new User();
 		u.setU_username(user.getU_username());
-		u=userService.find(u);
+		u=userService.find(user);
 		if(user.getU_username().equals(u.getU_username())){
 			return "error";
 		}
@@ -247,9 +266,16 @@ public class UserController {
 		return "error";
 	}
 	
-	@RequestMapping(value={"/exit"})
-	public String exit(HttpSession session,SessionStatus sessionStatus){
-		
+	@RequestMapping(value={"/exit"})//退出
+	public String exit(@RequestParam("uid")String uid,HttpSession session,SessionStatus sessionStatus){
+		ServletContext application = session.getServletContext();
+		Map<String,String> userSessionMap = (Map)application.getAttribute("userSessionMap");
+		if(null!=userSessionMap){
+			String sessionId = userSessionMap.get(uid);
+			if(null!=sessionId){
+				userSessionMap.remove(uid);
+			}
+		}
 		 session.removeAttribute("u");//我这里是先取出httpsession中的user属性
 	     //session.invalidate();  //然后是让httpsession失效   删除所有
 	     sessionStatus.setComplete();//最后是调用sessionStatus方法
@@ -313,7 +339,7 @@ public class UserController {
 		if(user!=null){
 			SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			Date t1 = user.getU_sendTime();
-			Date t2 = new Date(new Date().getTime()-10000);
+			Date t2 = new Date(System.currentTimeMillis()-50000);
 			if(t1.before(t2)){//过期
 				return "error";
 			}

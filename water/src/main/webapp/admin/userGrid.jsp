@@ -63,7 +63,15 @@
 			},{
 				title:'状态',
 				field:'u_status',
-				width:100
+				width:100,
+				formatter : function(value, row, index) {
+					if (row.u_status != null&&row.u_status==true) {
+						value = "启用";
+					}else{
+						value = "禁用";
+					}
+					return value;
+				}
 			},{
 				title:'创建时间',
 				field:'u_createTime',
@@ -362,8 +370,10 @@
     </div>
 </div>
 <div id="win"></div>
-		
-			&nbsp;&nbsp;&nbsp;&nbsp;账号：&nbsp;<input id="uss" class="easyui-searchbox" style="width:300px;"/><br/>
+		<form style="padding: 10px;">
+		账号：&nbsp;<input id="uss" class="easyui-searchbox" style="width:300px;"/><br/>
+		</form>
+			
 		<table id="userGrid" style="width: 100%"></table>
 		
 	

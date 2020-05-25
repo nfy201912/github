@@ -102,7 +102,7 @@
       
         
     </div>
-    <div class="content mar_20">
+    <!-- <div class="content mar_20">
     	
        
             <div class="des_border">
@@ -138,7 +138,7 @@
                                             
                         
                 </div>
-          	</div>  
+          	</div>   -->
 	<%@include file="foot.jsp" %><!-- 静态包含 -->
 </body>
 

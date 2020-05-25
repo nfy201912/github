@@ -15,16 +15,17 @@
 <body>  
 <!--Begin Header Begin-->
 <div class="soubg" style="height: 50px;overflow: hidden;">
+
 	<jsp:include page="${path}/head.jsp"  flush="true"/><!--动态包含  -->
 	
 </div>
 <!--End Header End--> 
 <!--Begin Login Begin-->
-<div class="log_bg" style="background-color: #fff4ef;height: 700px;">	
+<div class="log_bg" style="height: 700px;background-image: url('${path}/img/bg.jpg');">	
 
 	<div  class="login" style="margin-top: 100px;">
     	<div class="log_img" style="float: left;"><img src="${path}/img/logo1.png" width="611" height="425" /></div>
-		<div id="d3" class="log_c" style="background-color: #FFF;">
+		<div id="d3" class="log_c" style="background: rgba(255,255,255,0.5);">
         	<form>
         	<a style="font-size:16px;padding: 10px;" onclick="al()">切换管理员</a>
             <table border="0" style="width:370px; font-size:14px; margin-top:30px;" cellspacing="0" cellpadding="0">
@@ -62,7 +63,7 @@
         </div>
         
         <!-- 管理员登录 -->
-        <div id="d2" class="log_c" style="background-color: #FFF;">
+        <div id="d2" class="log_c" style="background: rgba(255,255,255,0.5);">
         	<form>
         	<a style="font-size:16px;padding: 10px;" onclick="ul()">切换用户</a>
             <table border="0" style="width:370px; font-size:14px; margin-top:30px;" cellspacing="0" cellpadding="0">
@@ -90,7 +91,7 @@
             </form>
         </div>
         <!-- 忘记密码 -->
-        <div id="d1" class="log_c" style="background-color: #FFF;">
+        <div id="d1" class="log_c" style="background: rgba(255,255,255,0.5);">
         	<form id="formEt">
         	<a style="font-size:16px;padding: 10px;" onclick="ul(),rs()">返回</a>
             <table border="0" style="width:390px; font-size:14px; margin-top:30px;text-align: center;" cellspacing="0" cellpadding="0">
@@ -279,13 +280,12 @@ function timeOut(time){
 
 function receive(){//获取验证码
 	if(flag){
+		timeOut(60);
+		$('#hvd').html("验证码已成功发送,请注意查收").css("color","#3A8BFF");
 		$.post("${path}/user/sendCode",{"u_id":uid,"u_email":$('#em').val()},function(data){
-			if("success"==data){
-				$('#hvd').html("验证码已成功发送,请注意查收").css("color","#3A8BFF");
-				timeOut(60);
-			}else{
-				$('#hvd').html(data);
-			}	
+			if("success"!=data){
+				alert(data);
+			}
 		})
 	}else{
 		vdl();

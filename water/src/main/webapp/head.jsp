@@ -18,11 +18,13 @@ a{ text-decoration:none;}
 				<a href="${path}/index.jsp">首页</a>
 			</div>
 			<div  style="float:right;position: relative;right: 60px;">
+			
 			<c:if test="${u==null}">
 				<a  href="${path }/login.jsp">登入</a>|<a  href="${path }/Register.jsp">注册</a>
 			</c:if>
+			
 			<c:if test="${u!=null}">
-				欢 迎 您 ！[${u.u_username}]&nbsp;|&nbsp;<a  href="${path }/goods/findAllc?u_id=${u.u_id}">我的购物车</a>&nbsp;|&nbsp;<a href="#" onclick="myOrder()">我的订单</a>&nbsp;|&nbsp;<a  href="${path }/login.jsp">切换账号</a>&nbsp;|&nbsp;<a  href="${path }/Register.jsp">注册</a>&nbsp;|&nbsp;<a href="${path}/user/exit">退出</a>
+				欢 迎 您 ！[${u.u_username}]&nbsp;|&nbsp;<a  href="${path }/goods/findAllc?u_id=${u.u_id}">我的购物车</a>&nbsp;|&nbsp;<a href="#" onclick="myOrder()">我的订单</a>&nbsp;|&nbsp;<a  href="${path }/login.jsp">切换账号</a>&nbsp;|&nbsp;<a  href="${path }/Register.jsp">注册</a>&nbsp;|&nbsp;<a id="et" href="${path}/user/exit?uid=${u.u_id}">退出</a>
 			</c:if>
 
 			</div>
@@ -30,12 +32,20 @@ a{ text-decoration:none;}
 		<form id="mdForm" action="${path}/order/findAllByUser" method="post">
 			<input type="hidden" id="u" name="u_id"/>
 		</form>
+		<form id="et" action="${path}/user/exit" method="post">
+		<input type="hidden" name = "" id=""/>
+		</form>
 		<script type="text/javascript">
 			
 			function myOrder(){
 				$('#u').val('${u.u_id}');
 				$('#mdForm').submit();
 			}
+			$(function(){
+				$('#et').click(function(){
+					
+				});
+			})
 		</script>
 </body>
 </html>

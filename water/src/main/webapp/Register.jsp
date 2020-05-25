@@ -19,10 +19,10 @@
 </div>
 <!--End Header End--> 
 <!--Begin Login Begin-->
-<div class="log_bg">	
-	<div class="regist" style="margin-top:100px;">
-    	<div class="log_img" style="float: left;"><img src="${path}/img/logo1.png" width="611" height="425" /></div>
-		<div class="reg_c">
+<div class="log_bg" style="height:700px; background-image: url('${path}/img/bg.jpg');">	
+	<div class="regist" style="margin-top:50px;">
+    	<div class="log_img" style="float: left;margin-top: 90px;"><img src="${path}/img/logo1.png" width="611" height="425" /></div>
+		<div class="reg_c" style="background: rgba(255,255,255,0.5);">
         	<form id="regform">
             <table border="0" style="width:420px; font-size:14px; margin-top:20px;" cellspacing="0" cellpadding="0">
               <tr height="50" valign="top">
@@ -130,8 +130,12 @@
 			if($(this).val()==""){
 				data = "密码不能为空";
 			}
+			
 			if(rp.test($(this).val())){
 				data="密码只能输入字母、数字"
+			}
+			if($(this).val().length<6){
+				data="密码长度不能小于6位"
 			}
 			$("#sp_password").html(data).css("color","#ff0000");
 		});

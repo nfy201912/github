@@ -193,7 +193,7 @@
 													.dialog(
 															{
 																width : 600,
-																height : 200,
+																height : 260,
 																closed : false,
 																buttons : [
 																		{

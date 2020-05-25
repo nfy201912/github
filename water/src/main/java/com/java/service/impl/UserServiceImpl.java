@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.mail.Message;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +25,10 @@ public class UserServiceImpl implements UserService{
 		User u = new User();
 		u.setU_username(user.getU_username());
 		
-		if(userMapper.find(u)==null){//登入时检验
-			
+		if(userMapper.find(u)==null){//登入、添加、注册时检验
+			if(user.getU_password()!=null){
+				user.setU_password(MD5Util.md5Password(user.getU_password()));
+			}
 			u.setU_username("账号错误");
 			return u;
 		}
@@ -136,9 +141,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void updateValidateCode(User user) throws Exception {
 		String code = String.format("%04d",new Random().nextInt(9999));//四位验证码
-		String emailMsg = "这是您的验证码:"+code+"，请注意查收(有效时长为60s)。";
+		
+		String emailMsg = "这是您的验证码:"+code+"，请注意查收(有效时长为5分钟)。";
 		SendJMail.sendMail(user.getU_email(),emailMsg);
-		user.setU_sendTime(new Timestamp(new Date().getTime()));
+		user.setU_sendTime(new Timestamp(System.currentTimeMillis()));
 		user.setU_validate(code);
 		userMapper.updateValidateCode(user);
 		

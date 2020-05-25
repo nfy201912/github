@@ -42,7 +42,15 @@
 			},{
 				title:'状态',
 				field:'adm_status',
-				width:100
+				width:100,
+				formatter : function(value, row, index) {
+					if (row.adm_status != null&&row.adm_status==true) {
+						value = "启用";
+					}else{
+						value = "禁用";
+					}
+					return value;
+				}
 			}]],
 			toolbar:[{
 				text:'增加',

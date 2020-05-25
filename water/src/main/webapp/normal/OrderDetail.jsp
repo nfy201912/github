@@ -87,8 +87,8 @@
             <div class="des_price">
             	订单状态：
                 <b>${order.o_status}&nbsp;&nbsp;</b>
-                <c:if test="${order.o_status=='已支付'}">(<fmt:formatDate value="${order.o_payTime}" pattern="YYYY-mm-dd HH:mm:ss"/>)</c:if>
-                <c:if test="${order.o_status=='交易完成' or order.o_status=='交易关闭'}">(<fmt:formatDate value="${order.o_dealTime}" pattern="YYYY-mm-dd HH:mm:ss"/>)</c:if>
+                <c:if test="${order.o_status=='已支付'}">(<fmt:formatDate value="${order.o_payTime}" pattern="YYYY-MM-dd HH:mm:ss"/>)</c:if>
+                <c:if test="${order.o_status=='交易完成' or order.o_status=='交易关闭'}">(<fmt:formatDate value="${order.o_dealTime}" pattern="YYYY-MM-dd HH:mm:ss"/>)</c:if>
             </div>
            <c:if test="${order.o_status!='交易关闭' and order.o_status!='已支付' and order.o_status!='正在派送' and order.o_status!='交易完成' }">
             <div class="des_join">

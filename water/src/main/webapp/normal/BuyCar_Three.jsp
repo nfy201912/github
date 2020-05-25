@@ -89,7 +89,7 @@
               </tr>
               <tr>
                 <td>
-                	<a href="${path}/index.jsp">首页</a> &nbsp; &nbsp; <a href="#">用户中心</a>
+                	<a href="${path}/index.jsp">首页</a> &nbsp; &nbsp; <!-- <a href="#">用户中心</a> -->
                 </td>
               </tr>
             </table>        	
